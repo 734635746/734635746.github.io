@@ -1160,7 +1160,7 @@ pre .javascript .function {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #69ffff;
+  background: #ffffd1;
   border-radius: 50%;
   content: ' ';
   display: inline-block;
@@ -2558,12 +2558,50 @@ ul.breadcrumb li + li:last-child {
 .post-toc ol {
   font-size: 13px;
 }
-.post {
-  margin-top: 60px;
-  margin-bottom: 60px;
-  padding: 25px;
-  -webkit-box-shadow: 0 0 5px rgba(202,203,203,0.5);
-  -moz-box-shadow: 0 0 5px rgba(202,203,204,0.5);
+article {
+  margin-bottom: 20px;
+  padding: 20px;
+  box-shadow: 0 0 14px #cacbcb;
+  background: rgba(255,255,255,0.3);
+  border-radius: 10px;
+}
+.post-title {
+  text-align: left;
+}
+.posts-expand .post-title-link {
+  line-height: 1.5;
+}
+.posts-expand .post-title {
+  font-size: 21px;
+  border-left: #649ab6 2px solid;
+  font-weight: 700;
+  padding-left: 10px;
+}
+.posts-expand .post-title-link {
+  display: inline-block;
+  position: relative;
+  color: #555;
+  border-bottom: none;
+  line-height: 1.2;
+  vertical-align: top;
+}
+.post-button {
+  text-align: right;
+}
+.post-button {
+  margin-top: 40px;
+}
+btn {
+  padding: 3px 15px;
+  color: #000;
+  background: #fff;
+  border: 0;
+  border-radius: 15px;
+  transition: all 0.1s;
+}
+.post-eof {
+  margin-top: 0;
+  margin-bottom: 15px;
 }
 body {
   background: url("https://images.unsplash.com/photo-1578539046812-74308e093283?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&h=900&ixlib=rb-1.2.1&q=80&w=1800");
@@ -2572,10 +2610,10 @@ body {
   background-position: 50% 50%;
 }
 .content-wrap {
-  opacity: 0.95;
+  opacity: 0.9;
 }
 .sidebar {
-  opacity: 0.95;
+  opacity: 0.9;
 }
 code {
   color: #ff7600;
