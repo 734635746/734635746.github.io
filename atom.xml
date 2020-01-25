@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://liuyoubin.top/"/>
-  <updated>2020-01-25T12:21:46.388Z</updated>
+  <updated>2020-01-25T12:30:06.412Z</updated>
   <id>http://liuyoubin.top/</id>
   
   <author>
@@ -15,6 +15,34 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Tomcat学习笔记</title>
+    <link href="http://liuyoubin.top/2020/01/25/Tomcat%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    <id>http://liuyoubin.top/2020/01/25/Tomcat%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</id>
+    <published>2020-01-25T12:29:08.000Z</published>
+    <updated>2020-01-25T12:30:06.412Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="Tomcat目录"><a href="#Tomcat目录" class="headerlink" title="Tomcat目录"></a>Tomcat目录</h2><ul><li><p>bin</p><p>bin目录主要是用来存放tomcat的命令，主要有两大类，一类是以.sh结尾的（linux命令），另一类是以.bat结尾的（windows命令）。</p></li><li><p>conf</p><p>conf目录主要是用来存放tomcat的一些配置文件。</p><p>server.xml可以设置端口号、设置域名或IP、默认加载的项目、请求编码<br>web.xml可以设置tomcat支持的文件类型<br>context.xml可以用来配置数据源之类的<br>tomcat-users.xml用来配置管理tomcat的用户与权限<br>在Catalina目录下可以设置默认加载的项目</p></li><li><p>lib</p><p>lib目录主要用来存放tomcat运行需要加载的jar包。</p></li><li><p>logs</p><p>logs目录用来存放tomcat在运行过程中产生的日志文件。</p><p>在windows环境中，控制台的输出日志在catalina.xxxx-xx-xx.log文件中</p><p>在linux环境中，控制台的输出日志在catalina.out文件中</p></li><li><p>temp</p><p>temp目录用户存放tomcat在运行过程中产生的临时文件。</p></li><li><p>webapps</p><p>webapps目录用来存放应用程序，当tomcat启动时会去加载webapps目录下的应用程序。可以以文件夹、war包、jar包的形式发布应用。<br>当然，你也可以把应用程序放置在磁盘的任意位置，在配置文件中映射好就行。</p></li><li><p>work</p><p>work目录用来存放tomcat在运行时的编译后文件，例如JSP编译后的文件。</p></li></ul><h2 id="Tomcat结构"><a href="#Tomcat结构" class="headerlink" title="Tomcat结构"></a>Tomcat结构</h2><h3 id="Tomcat顶层架构"><a href="#Tomcat顶层架构" class="headerlink" title="Tomcat顶层架构"></a>Tomcat顶层架构</h3><p><img src="https://s2.ax1x.com/2020/01/07/l6vjQP.png" alt="l6vjQP.png"></p><p>Tomcat最顶层的容器是<strong>Server</strong>代表整个服务器,一个<strong>Server</strong>至少可以包含一个<strong>Service</strong>，用于提供具体服务</p><p><strong>Service</strong>主要包含两个部分：<strong>Connection</strong>和<strong>Container</strong></p><blockquote><p><code>Connector</code>: 连接器用于处理连接相关的事情，并提供<code>Socket</code>与<code>Request</code>和<code>Response</code>相关的转换；<code>Container</code>: 容器用于封装和管理<code>Servlet</code>，以及具体处理<code>Request</code>请求；</p></blockquote><h3 id="Connection和Container的关系"><a href="#Connection和Container的关系" class="headerlink" title="Connection和Container的关系"></a>Connection和Container的关系</h3><p>一个请求发送到<code>Tomcat</code>后，交给<code>Service</code>，<code>Service</code>会将请求交给<code>Connector</code>,<code>Connector</code>用于接收请求并将请求封装成<code>Request</code>对象交给<code>Container</code>处理，处理完后<code>Container</code>将<code>Response</code>交给<code>Connection</code>,<code>Connection</code>将结构通过Socket返回给客户端。</p><h3 id="Container架构"><a href="#Container架构" class="headerlink" title="Container架构"></a>Container架构</h3><p><img src="https://s2.ax1x.com/2020/01/07/lcCnPg.png" alt="lcCnPg.png"></p><blockquote><p>Engine：引擎，用来管理多站点，一个Service最多只有能有一个Engine;<br>Host：代表一个站点，也可以叫做虚拟主机，通过配置Host就可以添加站点；<br>Context：代表一个应用程序，对应着平时开发的一套程序，或者一个WEB-INF目录以及下面的web.xml文件；<br>Wrapper：每一个wrapper封装着一个Servlet;</p></blockquote><h2 id="Tomcat四种部署方式"><a href="#Tomcat四种部署方式" class="headerlink" title="Tomcat四种部署方式"></a>Tomcat四种部署方式</h2><ul><li>将应用文件夹部署到webapps下</li><li>将war包部署到webapps下</li><li>通过server.xml中的Context节点配置</li><li>通过描述符部署（\conf\Catalina)</li></ul>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;Tomcat目录&quot;&gt;&lt;a href=&quot;#Tomcat目录&quot; class=&quot;headerlink&quot; title=&quot;Tomcat目录&quot;&gt;&lt;/a&gt;Tomcat目录&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;bin&lt;/p&gt;
+&lt;p&gt;bin目录主要是用来存放tomcat的命令，主要有两
+      
+    
+    </summary>
+    
+    
+      <category term="笔记" scheme="http://liuyoubin.top/categories/%E7%AC%94%E8%AE%B0/"/>
+    
+    
+      <category term="Tomcat" scheme="http://liuyoubin.top/tags/Tomcat/"/>
+    
+  </entry>
   
   <entry>
     <title>SpringBoot学习笔记</title>
