@@ -3,7 +3,13 @@
   <entry>
     <title>Tomcat学习笔记</title>
     <url>/2020/01/25/Tomcat%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</url>
-    <content><![CDATA[<h2 id="Tomcat目录"><a href="#Tomcat目录" class="headerlink" title="Tomcat目录"></a>Tomcat目录</h2><ul>
+    <content><![CDATA[<div class="note info">
+            <p>Tomcat相关知识笔记 </p>
+          </div>
+
+<a id="more"></a>
+
+<h2 id="Tomcat目录"><a href="#Tomcat目录" class="headerlink" title="Tomcat目录"></a>Tomcat目录</h2><ul>
 <li><p>bin</p>
 <p>bin目录主要是用来存放tomcat的命令，主要有两大类，一类是以.sh结尾的（linux命令），另一类是以.bat结尾的（windows命令）。</p>
 </li>
