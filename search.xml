@@ -14,7 +14,7 @@
   </entry>
   <entry>
     <title>浅谈Java中的值传递与引用传递</title>
-    <url>/2020/01/25/%E6%B5%85%E8%B0%88Java%E4%B8%AD%E7%9A%84%E5%80%BC%E4%BC%A0%E9%80%92%E4%B8%8E%E5%BC%95%E7%94%A8%E4%BC%A0%E9%80%92/</url>
+    <url>/2020/01/25/backEnd/java/%E6%B5%85%E8%B0%88Java%E4%B8%AD%E7%9A%84%E5%80%BC%E4%BC%A0%E9%80%92%E4%B8%8E%E5%BC%95%E7%94%A8%E4%BC%A0%E9%80%92/</url>
     <content><![CDATA[<div class="note info">
             <p>在Java中到底是值传递还是引用传递还是两者都有? </p>
           </div>
@@ -90,7 +90,7 @@
   </entry>
   <entry>
     <title>排序算法整理</title>
-    <url>/2020/01/25/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%E6%95%B4%E7%90%86/</url>
+    <url>/2020/01/25/algorithm/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%E6%95%B4%E7%90%86/</url>
     <content><![CDATA[<div class="note info">
             <p>常见排序算法整理 </p>
           </div>
@@ -158,7 +158,7 @@
   </entry>
   <entry>
     <title>Tomcat学习笔记</title>
-    <url>/2020/01/25/Tomcat%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</url>
+    <url>/2020/01/25/backEnd/framework/Tomcat%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</url>
     <content><![CDATA[<div class="note info">
             <p>Tomcat相关知识笔记 </p>
           </div>
@@ -220,7 +220,7 @@
   </entry>
   <entry>
     <title>SpringBoot学习笔记</title>
-    <url>/2020/01/25/SpringBoot%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</url>
+    <url>/2020/01/25/backEnd/framework/SpringBoot%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</url>
     <content><![CDATA[<div class="note info">
             <p>SpringBoot学习笔记的整理 </p>
           </div>
@@ -600,7 +600,7 @@ errors：JSR303数据校验的错误都在这里
   </entry>
   <entry>
     <title>Spring注解开发</title>
-    <url>/2020/01/25/Spring%E6%B3%A8%E8%A7%A3%E5%BC%80%E5%8F%91/</url>
+    <url>/2020/01/25/backEnd/framework/Spring%E6%B3%A8%E8%A7%A3%E5%BC%80%E5%8F%91/</url>
     <content><![CDATA[<div class="note info">
             <p>Spring学习笔记的整理补充(基于注解方面的) </p>
           </div>
@@ -855,7 +855,7 @@ errors：JSR303数据校验的错误都在这里
   </entry>
   <entry>
     <title>SSM整合配置参考</title>
-    <url>/2020/01/25/SSM%E6%95%B4%E5%90%88%E9%85%8D%E7%BD%AE%E5%8F%82%E8%80%83/</url>
+    <url>/2020/01/25/backEnd/framework/SSM%E6%95%B4%E5%90%88%E9%85%8D%E7%BD%AE%E5%8F%82%E8%80%83/</url>
     <content><![CDATA[<div class="note info">
             <p>整理了一下SSM整合的基本配置文件 (并不是基于注解写法) </p>
           </div>
@@ -880,7 +880,7 @@ errors：JSR303数据校验的错误都在这里
   </entry>
   <entry>
     <title>Shrio学习笔记</title>
-    <url>/2020/01/25/Shrio%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</url>
+    <url>/2020/01/25/backEnd/framework/Shrio%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</url>
     <content><![CDATA[<div class="note info">
             <p>Shrio学习笔记的整理 </p>
           </div>
@@ -998,7 +998,7 @@ errors：JSR303数据校验的错误都在这里
   </entry>
   <entry>
     <title>struts2学习笔记</title>
-    <url>/2020/01/24/Struts2%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</url>
+    <url>/2020/01/24/backEnd/framework/Struts2%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</url>
     <content><![CDATA[<div class="note info">
             <p>虽然 Struts2已经不流行了 ┌(;￣◇￣)┘，但还是整理了以前学习Struts2的笔记  </p>
           </div>
@@ -1394,7 +1394,7 @@ errors：JSR303数据校验的错误都在这里
   </entry>
   <entry>
     <title>MyBatis学习笔记</title>
-    <url>/2020/01/24/MyBatis%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</url>
+    <url>/2020/01/24/backEnd/framework/MyBatis%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</url>
     <content><![CDATA[<div class="note info">
             <p>MyBatis学习笔记的整理 </p>
           </div>
@@ -1601,7 +1601,7 @@ errors：JSR303数据校验的错误都在这里
   </entry>
   <entry>
     <title>SpringMvc学习笔记</title>
-    <url>/2020/01/23/SpringMvc%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</url>
+    <url>/2020/01/23/backEnd/framework/SpringMvc%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</url>
     <content><![CDATA[<div class="note info">
             <p>SpringMvc学习笔记的整理 </p>
           </div>
@@ -2100,7 +2100,7 @@ springMvc会去src下找[i18n+对应的语言缩写.porperties]文件<figure cla
   </entry>
   <entry>
     <title>Spring学习笔记</title>
-    <url>/2020/01/23/Spring%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</url>
+    <url>/2020/01/23/backEnd/framework/Spring%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</url>
     <content><![CDATA[<div class="note info">
             <p>Spring学习笔记的整理 </p>
           </div>
