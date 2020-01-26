@@ -1161,7 +1161,7 @@ pre .javascript .function {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #ffcfff;
+  background: #ffdbdf;
   border-radius: 50%;
   content: ' ';
   display: inline-block;
@@ -2722,9 +2722,10 @@ article {
 }
 .post-button {
   text-align: right;
-}
-.post-button {
   margin-top: 40px;
+}
+.post-button .btn {
+  border-radius: 25px;
 }
 btn {
   padding: 3px 15px;
