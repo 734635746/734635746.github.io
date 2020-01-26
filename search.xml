@@ -3,7 +3,17 @@
   <entry>
     <title>HTTP协议笔记</title>
     <url>/2020/01/26/netWork/HTTP%E5%8D%8F%E8%AE%AE%E7%AC%94%E8%AE%B0/</url>
-    <content><![CDATA[]]></content>
+    <content><![CDATA[<div class="note info">
+            <p>HTTP相关知识 </p>
+          </div>
+
+<a id="more"></a>
+
+<h1 id="认识URL"><a href="#认识URL" class="headerlink" title="认识URL"></a>认识URL</h1><p><img src="https://s2.ax1x.com/2020/01/26/1nikMq.png" alt="image"></p>
+<h1 id="Http协议简介"><a href="#Http协议简介" class="headerlink" title="Http协议简介"></a>Http协议简介</h1><p>​    http（Hyper Text Transfer Protocol）&lt;超文本传输协议&gt;</p>
+<h1 id="Http报文"><a href="#Http报文" class="headerlink" title="Http报文"></a>Http报文</h1><h2 id="请求报文"><a href="#请求报文" class="headerlink" title="请求报文"></a>请求报文</h2><h3 id="请求格式"><a href="#请求格式" class="headerlink" title="请求格式"></a>请求格式</h3><figure class="highlight gcode"><table><tr><td class="code"><pre><span class="line">请求行 【请求方式】【请求地址<span class="comment">(url)</span>】【http协议版本】<span class="comment">(回车符 空格符)</span></span><br><span class="line"></span><br><span class="line">请求头 【消息报头（一般用来说明客户端要使用的一些附加信息）】<span class="comment">(回车符 空格符)</span></span><br><span class="line"></span><br><span class="line">	  【空行】<span class="comment">(请求行和请求实体之间必须空行)</span></span><br><span class="line"></span><br><span class="line">请求实体</span><br></pre></td></tr></table></figure>
+
+<h3 id="请求方式"><a href="#请求方式" class="headerlink" title="请求方式"></a>请求方式</h3>]]></content>
       <categories>
         <category>笔记</category>
         <category>计算机网络</category>
