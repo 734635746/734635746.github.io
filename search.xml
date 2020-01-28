@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>Spring中initializingBean、init-method、@PostConstruct执行顺序</title>
+    <title>Spring中initializingBean、init-method、@PostConstruct执行顺序(源码分析)</title>
     <url>/2020/01/28/backEnd/framework/Spring%E4%B8%ADinitializingBean%E3%80%81init-method%E3%80%81-PostConstruct%E6%89%A7%E8%A1%8C%E9%A1%BA%E5%BA%8F/</url>
     <content><![CDATA[<div class="note info">
             <p>探究initializingBean、init-method、@PostConstruct的执行顺序 </p>
@@ -9,13 +9,13 @@
 
 <a id="more"></a>
 
-<p>​        在Spring容器中，Bean有着完整生命周期的java对象。Spring除了自定义了Bean实例化、初始化、销毁过程，还允许我们在Bean的初始化之后，销毁之前执行特定的操作来改变bean。常见的方式有三种</p>
+<p>​        在Spring容器中，Bean是有着完整的生命周期。Spring除了自定义了Bean实例化、初始化、销毁过程，还允许我们在Bean的初始化之后，销毁之前执行特定的操作来改变bean。常见的方式有三种</p>
 <ul>
 <li><p>实现<code>InitializingBean/DisposableBean</code> 的<code>afterPropertiesSet()/destroy()方法</code>来定制</p>
 </li>
-<li><p>通过在指定方法上添加<code>@PostConstruct</code>来实现实现</p>
+<li><p>通过在指定方法上添加<code>@PostConstruct</code>来实现</p>
 </li>
-<li><p>通过<code>init-method/de&#39;stroy-method属性</code>来指定方法来定制</p>
+<li><p>通过<code>init-method/destroy-method属性</code>来指定方法来定制</p>
 <p>那么这三种方式定制的方法执行顺序是怎么样的呢？我们通过代码来验证。</p>
 </li>
 </ul>
@@ -26,11 +26,11 @@
 
 <p>​        通过上面的结果就可以知道这三种方式定制的方法都是在<code>bean实例化之后</code>执行的,构造方法和属性设置已经完成了。顺序也就知道了：</p>
 <p>Constructor &gt; <code>@PostConstruct &gt; InitialzingBean &gt; init-method</code> &gt; DisposableBean &gt; destroyMethod</p>
-<p>​        那为什么是这个执行顺序呢?首先构造方法和属性注入先被执行是可以理解的。应为这三种方法都是在bean实例化执行用来修改定制bean的，所以构造方法和属性注入会被先执行完毕。</p>
+<p>​        那为什么是这个执行顺序呢?首先构造方法和属性注入先被执行是可以理解的。因为这三种方法都是在bean实例化执行用来修改定制bean的，所以构造方法和属性注入会被先执行完毕。</p>
 <p>​        </p>
 <p>​        @PostConstruct注解的方法为什么会先于InitalzingBean和init-method先执行呢，我们通过源码看看。</p>
 <p>​        我们知道在Spring中产生一个bean要经过配置bean—&gt;生成bean元数据—&gt;生成bean这个过程。而bean的生成是通过BeanFactory中getBean()方法产生的。我们先通过BeanFactory找到其继承类AbstractAutowireCapableBeanFactory，并查看其中的getBean()方法。</p>
-<p>​        通过getBean跟进到createBean()在根进到doCreateBean()</p>
+<p>​        通过getBean跟进到createBean()再跟进到doCreateBean()</p>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">protected</span> Object <span class="title">doCreateBean</span><span class="params">(String beanName, RootBeanDefinition mbd, @Nullable Object[] args)</span> <span class="keyword">throws</span> BeanCreationException </span>&#123;</span><br><span class="line">        BeanWrapper instanceWrapper = <span class="keyword">null</span>;</span><br><span class="line">       </span><br><span class="line">    		.....</span><br><span class="line">    </span><br><span class="line">    	<span class="comment">//创建bean的实例对象</span></span><br><span class="line">        <span class="keyword">if</span> (instanceWrapper == <span class="keyword">null</span>) &#123;</span><br><span class="line">            instanceWrapper = <span class="keyword">this</span>.createBeanInstance(beanName, mbd, args);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        	.......</span><br><span class="line">		</span><br><span class="line">        <span class="comment">//初始化一个bean</span></span><br><span class="line">        Object exposedObject = bean;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="comment">//处理bean的注入</span></span><br><span class="line">            <span class="keyword">this</span>.populateBean(beanName, mbd, instanceWrapper);</span><br><span class="line">            <span class="comment">//处理bean的初始化操作</span></span><br><span class="line">            exposedObject = <span class="keyword">this</span>.initializeBean(beanName, exposedObject, mbd);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Throwable var18) &#123;</span><br><span class="line">            .....</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">       			.........</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
 
 <p>​        从这个方法可以看出doCreateBean()的三个核心逻辑：</p>
