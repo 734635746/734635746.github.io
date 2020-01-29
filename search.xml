@@ -5,6 +5,8 @@
     <url>/2020/01/29/backEnd/framework/Spring%E6%89%A9%E5%B1%951-%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/</url>
     <content><![CDATA[<p>​        在传统的java应用中，对象的生命周期是比较简单的，程序员通过new关键字就可以实例化一个对象进行使用了，当对象不再需要使用的时候，由JVM垃圾回收器进行回收就可以了。</p>
 <p>​        相比之下，Spring容器管理之下的bean生命周期就复杂很多了。</p>
+<a id="more"></a>
+
 <p>​        先来看一副Bean生命周期图：</p>
 <p><img src="https://s2.ax1x.com/2020/01/29/1QuVu8.png" alt="image"></p>
 <p>​        上面就是SpringBean生命周期的基本流程，下面对每一个流程进行简单描述：</p>
