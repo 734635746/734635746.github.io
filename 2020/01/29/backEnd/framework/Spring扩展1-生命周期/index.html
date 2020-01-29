@@ -48,17 +48,22 @@
   };
 </script>
 
-  <meta property="og:type" content="website">
-<meta property="og:title" content="tags">
-<meta property="og:url" content="http://liuyoubin.top/tags/index.html">
+  <meta name="description" content="​        在传统的java应用中，对象的生命周期是比较简单的，程序员通过new关键字就可以实例化一个对象进行使用了，当对象不再需要使用的时候，由JVM垃圾回收器进行回收就可以了。 ​        相比之下，Spring容器管理之下的bean生命周期就复杂很多了。 ​        先来看一副Bean生命周期图：  ​        上面就是SpringBean生命周期的基本流程，下面对每">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spring扩展1----生命周期">
+<meta property="og:url" content="http://liuyoubin.top/2020/01/29/backEnd/framework/Spring%E6%89%A9%E5%B1%951-%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/index.html">
 <meta property="og:site_name" content="何处似樽前">
+<meta property="og:description" content="​        在传统的java应用中，对象的生命周期是比较简单的，程序员通过new关键字就可以实例化一个对象进行使用了，当对象不再需要使用的时候，由JVM垃圾回收器进行回收就可以了。 ​        相比之下，Spring容器管理之下的bean生命周期就复杂很多了。 ​        先来看一副Bean生命周期图：  ​        上面就是SpringBean生命周期的基本流程，下面对每">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2020-01-23T04:17:12.000Z">
-<meta property="article:modified_time" content="2020-01-23T08:16:46.343Z">
+<meta property="og:image" content="https://s2.ax1x.com/2020/01/29/1QuVu8.png">
+<meta property="article:published_time" content="2020-01-29T07:47:29.000Z">
+<meta property="article:modified_time" content="2020-01-29T09:19:08.071Z">
 <meta property="article:author" content="刘友滨">
+<meta property="article:tag" content="Spring">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s2.ax1x.com/2020/01/29/1QuVu8.png">
 
-<link rel="canonical" href="http://liuyoubin.top/tags/">
+<link rel="canonical" href="http://liuyoubin.top/2020/01/29/backEnd/framework/Spring%E6%89%A9%E5%B1%951-%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/">
 
 
 <script id="page-configurations">
@@ -66,12 +71,11 @@
   CONFIG.page = {
     sidebar: "",
     isHome: false,
-    isPost: false
+    isPost: true
   };
 </script>
 
-  <title>tags | 何处似樽前
-  </title>
+  <title>Spring扩展1----生命周期 | 何处似樽前</title>
   
 
 
@@ -221,52 +225,186 @@
       <div class="main-inner">
         <div class="content-wrap">
           
-  
-  
 
           <div class="content">
             
 
   <div class="posts-expand">
-    
-    
-    
-    <div class="post-block" lang="zh-CN">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://liuyoubin.top/2020/01/29/backEnd/framework/Spring%E6%89%A9%E5%B1%951-%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/cxm.jpg">
+      <meta itemprop="name" content="刘友滨">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="何处似樽前">
+    </span>
       <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Spring扩展1----生命周期
+        </h1>
 
-<h1 class="post-title" itemprop="name headline">tags
-</h1>
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
 
-<div class="post-meta">
+              <time title="创建时间：2020-01-29 15:47:29 / 修改时间：17:19:08" itemprop="dateCreated datePublished" datetime="2020-01-29T15:47:29+08:00">2020-01-29</time>
+            </span>
+			
+			<span class="post-meta-divider">|</span>
+			<span title="post.wordcount"><span class="post-meta-item-icon"><i class="fa fa-file-word-o"></i></span>字数： 389</span>
+			
+			<span class="post-meta-divider">|</span>
+			<span title="post.min2read"><span class="post-meta-item-icon"><i class="fa fa-clock-o"></i></span>阅读时长≈ 1min</span>
+			
+			<span class="post-meta-divider">|</span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index">
+                    <span itemprop="name">笔记</span>
+                  </a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AC%94%E8%AE%B0/%E5%90%8E%E7%AB%AF/" itemprop="url" rel="index">
+                    <span itemprop="name">后端</span>
+                  </a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AC%94%E8%AE%B0/%E5%90%8E%E7%AB%AF/%E6%A1%86%E6%9E%B6/" itemprop="url" rel="index">
+                    <span itemprop="name">框架</span>
+                  </a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>​        在传统的java应用中，对象的生命周期是比较简单的，程序员通过new关键字就可以实例化一个对象进行使用了，当对象不再需要使用的时候，由JVM垃圾回收器进行回收就可以了。</p>
+<p>​        相比之下，Spring容器管理之下的bean生命周期就复杂很多了。</p>
+<p>​        先来看一副Bean生命周期图：</p>
+<p><img src="https://s2.ax1x.com/2020/01/29/1QuVu8.png" alt="image"></p>
+<p>​        上面就是SpringBean生命周期的基本流程，下面对每一个流程进行简单描述：</p>
+<ol>
+<li>在所有beanDenifition加载完成后，bean实例化之前执行这个方法。如果在beanFactory加载完所有bean后想修改某个bean或者对beanFactory做一些配置可以用这个方法。</li>
+<li>通过beanDenifition实例化一个bean</li>
+<li>按照Spring上下文对实例化的bean进行配置，处理自动注入</li>
+<li>如果bean实现了BeanNameAware接口，则调用setBeanName()方法，设置bean的id</li>
+<li>如果bean实现了BeanFactoryAware接口，则调用setBeanFactory()方法，设置Spring工厂自身</li>
+<li>如果bean实现了ApplicationContextAware接口，则调用setApplicationAware()方法，设置Spring上下文</li>
+<li>如果这个bean关联了BeanPostProcessor接口，则调用postProcessBeforeInitialization(Object bean, String beanName)方法</li>
+<li>如果bean实现了InitializingBean接口,，则调用afterPropertiesSet()方法</li>
+<li>如果配置文件或者@Bean中配置了init-method，则调用指定的初始化方法</li>
+<li>如果这个bean关联了BeanPostProcessor接口，则调用postProcessAfterInitialization(Object bean, String beanName)方法</li>
+<li>如果bean实现了DisposableBean接口,，则调用destroy()方法</li>
+<li>如果配置文件或者@Bean中配置了destroy-method，则调用指定的销毁方法</li>
+</ol>
+
+    </div>
+
+    
+    
+    
+	
+	<div>
+      
+        
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+  
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <p><span>本文标题:</span><a href="/2020/01/29/backEnd/framework/Spring%E6%89%A9%E5%B1%951-%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/">Spring扩展1----生命周期</a></p>
+  <p><span>文章作者:</span><a href="/" title="访问 刘友滨 的个人博客">刘友滨</a></p>
+  <p><span>发布时间:</span>2020年01月29日 - 15:47</p>
+  <p><span>最后更新:</span>2020年01月29日 - 17:19</p>
+  <p><span>原始链接:</span><a href="/2020/01/29/backEnd/framework/Spring%E6%89%A9%E5%B1%951-%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/" title="Spring扩展1----生命周期">http://liuyoubin.top/2020/01/29/backEnd/framework/Spring%E6%89%A9%E5%B1%951-%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/</a>
+    <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://liuyoubin.top/2020/01/29/backEnd/framework/Spring%E6%89%A9%E5%B1%951-%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/"  aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
+</div>
+<script> 
+    var clipboard = new Clipboard('.fa-clipboard');
+    $(".fa-clipboard").click(function(){
+      clipboard.on('success', function(){
+        swal({   
+          title: "",   
+          text: '复制成功',
+          icon: "success", 
+          showConfirmButton: true
+          });
+    });
+    });  
+</script>
+
+      
+	</div>
+	  
+	  <div>
+		
+			<div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+		
+	  </div>
+	  
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Spring/" rel="tag"><i class="fa fa-tag"></i> Spring</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/01/28/backEnd/framework/Spring%E4%B8%ADinitializingBean%E3%80%81init-method%E3%80%81-PostConstruct%E6%89%A7%E8%A1%8C%E9%A1%BA%E5%BA%8F/" rel="prev" title="Spring中initializingBean、init-method、@PostConstruct执行顺序(源码分析)">
+      <i class="fa fa-chevron-left"></i> Spring中initializingBean、init-method、@PostConstruct执行顺序(源码分析)
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
   
 
-</div>
-
-</header>
-
-      
-      
-      
-      <div class="post-body">
-          <div class="tag-cloud">
-            <div class="tag-cloud-title">
-              目前共计 11 个标签
-            </div>
-            <div class="tag-cloud-tags">
-              <a href="/tags/Java/" style="font-size: 12px; color: #ccc">Java</a> <a href="/tags/MyBatis/" style="font-size: 21px; color: #6f6f6f">MyBatis</a> <a href="/tags/Shrio/" style="font-size: 12px; color: #ccc">Shrio</a> <a href="/tags/Spring/" style="font-size: 30px; color: #111">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 12px; color: #ccc">SpringBoot</a> <a href="/tags/SpringMvc/" style="font-size: 21px; color: #6f6f6f">SpringMvc</a> <a href="/tags/Struts2/" style="font-size: 12px; color: #ccc">Struts2</a> <a href="/tags/Tomcat/" style="font-size: 12px; color: #ccc">Tomcat</a> <a href="/tags/http/" style="font-size: 12px; color: #ccc">http</a> <a href="/tags/%E6%8E%92%E5%BA%8F/" style="font-size: 12px; color: #ccc">排序</a> <a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 12px; color: #ccc">算法</a>
-            </div>
-          </div>
-        
-      </div>
-      
-      
-      
-    </div>
-    
-
-    
-    
-    
   </div>
 
 

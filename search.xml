@@ -1,6 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Spring扩展1----生命周期</title>
+    <url>/2020/01/29/backEnd/framework/Spring%E6%89%A9%E5%B1%951-%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/</url>
+    <content><![CDATA[<p>​        在传统的java应用中，对象的生命周期是比较简单的，程序员通过new关键字就可以实例化一个对象进行使用了，当对象不再需要使用的时候，由JVM垃圾回收器进行回收就可以了。</p>
+<p>​        相比之下，Spring容器管理之下的bean生命周期就复杂很多了。</p>
+<p>​        先来看一副Bean生命周期图：</p>
+<p><img src="https://s2.ax1x.com/2020/01/29/1QuVu8.png" alt="image"></p>
+<p>​        上面就是SpringBean生命周期的基本流程，下面对每一个流程进行简单描述：</p>
+<ol>
+<li>在所有beanDenifition加载完成后，bean实例化之前执行这个方法。如果在beanFactory加载完所有bean后想修改某个bean或者对beanFactory做一些配置可以用这个方法。</li>
+<li>通过beanDenifition实例化一个bean</li>
+<li>按照Spring上下文对实例化的bean进行配置，处理自动注入</li>
+<li>如果bean实现了BeanNameAware接口，则调用setBeanName()方法，设置bean的id</li>
+<li>如果bean实现了BeanFactoryAware接口，则调用setBeanFactory()方法，设置Spring工厂自身</li>
+<li>如果bean实现了ApplicationContextAware接口，则调用setApplicationAware()方法，设置Spring上下文</li>
+<li>如果这个bean关联了BeanPostProcessor接口，则调用postProcessBeforeInitialization(Object bean, String beanName)方法</li>
+<li>如果bean实现了InitializingBean接口,，则调用afterPropertiesSet()方法</li>
+<li>如果配置文件或者@Bean中配置了init-method，则调用指定的初始化方法</li>
+<li>如果这个bean关联了BeanPostProcessor接口，则调用postProcessAfterInitialization(Object bean, String beanName)方法</li>
+<li>如果bean实现了DisposableBean接口,，则调用destroy()方法</li>
+<li>如果配置文件或者@Bean中配置了destroy-method，则调用指定的销毁方法</li>
+</ol>
+]]></content>
+      <categories>
+        <category>笔记</category>
+        <category>后端</category>
+        <category>框架</category>
+      </categories>
+      <tags>
+        <tag>Spring</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Spring中initializingBean、init-method、@PostConstruct执行顺序(源码分析)</title>
     <url>/2020/01/28/backEnd/framework/Spring%E4%B8%ADinitializingBean%E3%80%81init-method%E3%80%81-PostConstruct%E6%89%A7%E8%A1%8C%E9%A1%BA%E5%BA%8F/</url>
     <content><![CDATA[<div class="note info">
