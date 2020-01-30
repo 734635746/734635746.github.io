@@ -2,6 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://liuyoubin.top/2020/01/29/backEnd/Nginx%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</loc>
+    
+    <lastmod>2020-01-30T17:16:36.412Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://liuyoubin.top/2020/01/25/backEnd/Tomcat%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</loc>
+    
+    <lastmod>2020-01-29T15:38:06.906Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://liuyoubin.top/2020/01/29/backEnd/framework/Spring%E6%89%A9%E5%B1%951-%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/</loc>
     
     <lastmod>2020-01-29T09:23:21.370Z</lastmod>
@@ -33,13 +47,6 @@
     <loc>http://liuyoubin.top/2020/01/25/backEnd/java/%E6%B5%85%E8%B0%88Java%E4%B8%AD%E7%9A%84%E5%80%BC%E4%BC%A0%E9%80%92%E4%B8%8E%E5%BC%95%E7%94%A8%E4%BC%A0%E9%80%92/</loc>
     
     <lastmod>2020-01-25T16:45:27.179Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://liuyoubin.top/2020/01/25/backEnd/framework/Tomcat%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</loc>
-    
-    <lastmod>2020-01-25T13:21:27.442Z</lastmod>
     
   </url>
   
