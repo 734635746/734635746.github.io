@@ -427,6 +427,18 @@
 <figure class="highlight perl"><table><tr><td class="code"><pre><span class="line">docker <span class="keyword">exec</span> -it 容器ID redis-cli</span><br><span class="line"></span><br><span class="line">	操作测试</span><br><span class="line">	</span><br><span class="line"><span class="keyword">shutdown</span></span><br></pre></td></tr></table></figure>
 
 <p>​        <strong>检查/root/redis_docker/data/appendonly.aof是否持久化成功</strong></p>
+<h1 id="推送镜像到阿里云"><a href="#推送镜像到阿里云" class="headerlink" title="推送镜像到阿里云"></a>推送镜像到阿里云</h1><ol>
+<li><p>准备好要推送的镜像，这里这接用上面案例制作的镜像</p>
+</li>
+<li><p>准备阿里云开发者平台 <a href="http://dev.aliyun.com/search.html" target="_blank" rel="noopener">http://dev.aliyun.com/search.html</a></p>
+</li>
+<li><p>建立镜像仓库(选择本地仓库)</p>
+</li>
+<li><p>将镜像推送到阿里云</p>
+</li>
+</ol>
+<figure class="highlight vim"><table><tr><td class="code"><pre><span class="line">$ sudo docker login --username=***(具体查看操作说明)***** registry.<span class="keyword">cn</span>-qingdao.aliyuncs.<span class="keyword">com</span></span><br><span class="line">$ sudo docker <span class="keyword">tag</span> [ImageId] registry.<span class="keyword">cn</span>-qingdao.aliyuncs.<span class="keyword">com</span>/lybhub/mycento<span class="variable">s:</span>[镜像版本号]</span><br><span class="line">$ sudo docker push registry.<span class="keyword">cn</span>-qingdao.aliyuncs.<span class="keyword">com</span>/lybhub/mycento<span class="variable">s:</span>[镜像版本号]</span><br></pre></td></tr></table></figure>
+
 ]]></content>
       <categories>
         <category>笔记</category>
