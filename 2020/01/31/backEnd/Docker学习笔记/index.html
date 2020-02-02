@@ -56,8 +56,10 @@
 <meta property="og:description" content="Docker为什么会出现​    以前在服务器上部署一个应用，除了应用本身还要安装各种相应的软件、依赖，进行各种相应的配置。这种方式不仅费时费力还不能跨平台，不利于应用的集群部署。 ​        Docker的出现提供了一个解决方案，打破了程序及应用的传统观念。通过镜像（images）将作业系统核心除外，运作应用所需的系统环境，由下而上进行打包，达到应用程序跨平台无缝部署运行。">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://s2.ax1x.com/2020/01/31/13cruR.png">
+<meta property="og:image" content="https://s2.ax1x.com/2020/02/01/1G0FoD.png">
+<meta property="og:image" content="https://s2.ax1x.com/2020/02/02/1Ydin0.png">
 <meta property="article:published_time" content="2020-01-31T03:01:40.000Z">
-<meta property="article:modified_time" content="2020-01-31T16:42:40.473Z">
+<meta property="article:modified_time" content="2020-02-02T14:11:03.105Z">
 <meta property="article:author" content="刘友滨">
 <meta property="article:tag" content="Docker">
 <meta name="twitter:card" content="summary">
@@ -264,14 +266,14 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-02-01 00:42:40" itemprop="dateModified" datetime="2020-02-01T00:42:40+08:00">2020-02-01</time>
+                <time title="修改时间：2020-02-02 22:11:03" itemprop="dateModified" datetime="2020-02-02T22:11:03+08:00">2020-02-02</time>
               </span>
 			
 			<span class="post-meta-divider">|</span>
-			<span title="post.wordcount"><span class="post-meta-item-icon"><i class="fa fa-file-word-o"></i></span>字数： 1.5k</span>
+			<span title="post.wordcount"><span class="post-meta-item-icon"><i class="fa fa-file-word-o"></i></span>字数： 4k</span>
 			
 			<span class="post-meta-divider">|</span>
-			<span title="post.min2read"><span class="post-meta-item-icon"><i class="fa fa-clock-o"></i></span>阅读时长≈ 5min</span>
+			<span title="post.min2read"><span class="post-meta-item-icon"><i class="fa fa-clock-o"></i></span>阅读时长≈ 15min</span>
 			
 			<span class="post-meta-divider">|</span>
             <span class="post-meta-item">
@@ -495,13 +497,9 @@
 </li>
 <li><p>容器不停止退出</p>
 <figure class="highlight tp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ctrl+<span class="keyword">P</span>+Q</span><br></pre></td></tr></table></figure>
-
-
 </li>
 </ul>
 </li>
-</ul>
-<ul>
 <li><p>启动容器</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker <span class="keyword">start</span> 容器<span class="keyword">ID</span>/容器名</span><br></pre></td></tr></table></figure>
 </li>
@@ -539,9 +537,205 @@
 </li>
 <li><p>查看容器内部细节</p>
 <figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker <span class="keyword">inspect</span> 容器ID</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>进入正在运行的容器并以命令行交互</p>
+<ul>
+<li><p>在容器中打开新的终端，并且可以启动新的进程</p>
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker exec -<span class="keyword">it</span> 容器ID bashShell</span><br></pre></td></tr></table></figure>
+
+<p>​    当bashShell=/bin/bash时，直接进入到容器终端</p>
+</li>
+<li><p>直接进入容器启动命令的终端，不会启动新的进程</p>
+<figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker <span class="built_in">attach</span> 容器ID</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>将容器内的文件拷贝到主机上</p>
+<figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">docker</span> <span class="meta">cp</span> 容器ID:容器内路径  目的主机的路径</span><br></pre></td></tr></table></figure>
 
 </li>
 </ul>
+<h1 id="Docker镜像详解"><a href="#Docker镜像详解" class="headerlink" title="Docker镜像详解"></a>Docker镜像详解</h1><h2 id="联合文件系统（UnionFS）"><a href="#联合文件系统（UnionFS）" class="headerlink" title="联合文件系统（UnionFS）"></a><strong>联合文件系统（UnionFS）</strong></h2><p>​        Union文件系统是一种分层、轻量级并且高性能的文件系统，它支持对文件系统的修改作为一次提交来一层层提交，同时可以将不同目录挂载到同一个虚拟文件系统下。Union文件系统是Docker镜像的基础，镜像可以通过分层来继承，基于基础镜像，可以制作各种具体的应用镜像。</p>
+<p>​        特性：一次同时加载多个文件系统，但从外面看起来，只能看到一个文件系统，联合加载会把各层文件系统叠加起来，这样最终包含所有底层的文件和目录。</p>
+<h2 id="Docker镜像加载原理"><a href="#Docker镜像加载原理" class="headerlink" title="Docker镜像加载原理"></a><strong>Docker镜像加载原理</strong></h2><p>​        docker的镜像实际上由一层一层的文件系统组成，也就是UnionFS。</p>
+<p>​        bootfs(boot file system)主要包含bootloader和kernel，bootloader主要是引导加载kernel，Linux刚启动会加载bootfs文件系统。<code>Docker镜像的最底层是bootfs。</code>这一层与我们的Linux/Unix系统是一样的，包含boot加载器和内核。当boot加载完成后整个内核就都在内存中了，此时内存的使用权已由bootfs转交给内核，此时系统也会卸载bootfs。</p>
+<p>​        rootfs(root file system),在bootfs之上。包含的就是典型Linux系统中的/dev,/proc,/bin,/etc等标准目录和文件。</p>
+<p><img src="https://s2.ax1x.com/2020/02/01/1G0FoD.png" alt="image"></p>
+<h2 id="Docker为什么要采用分层结构"><a href="#Docker为什么要采用分层结构" class="headerlink" title="Docker为什么要采用分层结构"></a><strong>Docker为什么要采用分层结构</strong></h2><p>​    共享资源：比如有多个镜像都从相同的base镜像构建而来，那么宿主机只需要在磁盘上保存一份base镜像，同时在内存中加载一份base镜像，就可以为所有容器服务了。</p>
+<h2 id="镜像制作命令"><a href="#镜像制作命令" class="headerlink" title="镜像制作命令"></a><strong>镜像制作命令</strong></h2><p>​        我们可以通过镜像创建容器，也可以将自己定制的容器创建成一个新的镜像。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker <span class="keyword">commit</span> -m <span class="string">"提交的描述信息"</span> -a <span class="string">"作者"</span> 容器<span class="keyword">ID</span> 要创建的目标镜像名:[标签名]</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="Docker容器数据卷"><a href="#Docker容器数据卷" class="headerlink" title="Docker容器数据卷"></a>Docker容器数据卷</h1><p><strong>什么是容器数据卷</strong></p>
+<p>​        这要从docker的理念开始讲起 。docker是将应用和运行的环境打包成容器运行，有时在容器运行时产生的文件是我们需要的，但是随着容器的关闭这些文件会消失。我们将文件持久化。还有另外的一种需求，我们希望容器之间可以共享数据 。为了数据能够保存，我们使用容器数据卷来完成。</p>
+<p><strong>容器数据卷的作用</strong></p>
+<p>​        卷就是目录或者文件，存在于一个或多个容器中，但不属于联合文件系统。</p>
+<p>​        卷的设计目的就是数据持久化，完全独立于容器的生命周期，因此删除容器不会删除其挂载的数据卷。</p>
+<p>​        特点:</p>
+<pre><code>1. 数据卷可在容器之间共享和重用数据
+  2. 卷中的更改可以直接生效
+    3. 数据卷中的更改不会包含在镜像的更新中
+      4. 数据卷的生命周期一直持续到没有容器使用它为止</code></pre><p><strong>容器数据卷的添加</strong></p>
+<ul>
+<li><p>直接命令添加</p>
+<p>命令:</p>
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker <span class="built_in">run</span> -<span class="keyword">it</span> -v /宿主机绝对路径目录 : /容器内目录   镜像名</span><br></pre></td></tr></table></figure>
+
+<p>命令(带权限): 容器只能读取数据卷的数据，不能进行增加和修改</p>
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker <span class="built_in">run</span> -<span class="keyword">it</span> -v /宿主机绝对路径目录 : /容器内目录 :ro  镜像名</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+<ul>
+<li><p>Dockerfile  添加</p>
+<ul>
+<li><p>在宿主机根目录下新建myDocker文件夹进入</p>
+</li>
+<li><p>新建Dockerfile ，并使用VOLUME指令来给镜像添加一个或多个数据卷</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># volume test</span></span><br><span class="line"><span class="keyword">FROM</span> centos</span><br><span class="line"><span class="keyword">VOLUME</span><span class="bash"> [<span class="string">"/dataVolumeContainer1"</span>,<span class="string">"/dataVolumeContainer2"</span>]</span></span><br><span class="line"><span class="keyword">CMD</span><span class="bash"> <span class="built_in">echo</span> <span class="string">"finished,------success"</span></span></span><br><span class="line"><span class="keyword">CMD</span><span class="bash"> /bin/bash</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>通过Dockerfile 使用build命令构建一个新的镜像</p>
+<figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">docker</span> <span class="keyword">build </span>-f /myDocker/Dockerfile  -t lyb/centos .</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>-f : 指明Dockerfile 的路径</li>
+<li>-t : 镜像名字</li>
+</ul>
+</li>
+<li><p>run新建的镜像，会发现容器的根目录下已经有 dataVolumeContainer1 和dataVolumeContainer2 两个目录</p>
+</li>
+<li><p>考虑到移植性的问题，通过Dockerfile 方式添加数据卷是无法指定数据卷挂载到宿主机的哪个目录。但是docker会帮我们默认指定，通过<code>docker inspect</code>命令查看</p>
+</li>
+</ul>
+</li>
+</ul>
+<p><strong>数据卷容器</strong></p>
+<p>​        命名的容器挂载数据卷，其它容器通过挂载这个（父容器）实现数据共享，挂载数据卷的容器，称之为数据卷容器。</p>
+<p>​        <strong>例子：</strong></p>
+<p>​                用上面新建的镜像创建一个容器</p>
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker <span class="built_in">run</span> -<span class="keyword">it</span>  <span class="comment">--name dc01 lyb/centos</span></span><br></pre></td></tr></table></figure>
+
+<p>​                再建立两个容器都以dc01为父容器</p>
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker <span class="built_in">run</span> -<span class="keyword">it</span> <span class="comment">--name dc02 --volumes-from dc01 lyb/centos</span></span><br><span class="line">docker <span class="built_in">run</span> -<span class="keyword">it</span> <span class="comment">--name dc03 --volumes-from dc01 lyb/centos</span></span><br></pre></td></tr></table></figure>
+
+<p>​                实现的效果：dc01、dc02、dc03三个容器的数据卷会实现传递共享，三个容器之间的数据可以共享，即使某一个容器删除其余两个容器依旧可以实现共享。</p>
+<p>​            </p>
+<h1 id="Dockerfile"><a href="#Dockerfile" class="headerlink" title="Dockerfile"></a>Dockerfile</h1><h2 id="Dockerfile-基础"><a href="#Dockerfile-基础" class="headerlink" title="Dockerfile 基础"></a><strong>Dockerfile 基础</strong></h2><p><strong>Dockerfile 是什么：</strong></p>
+<p>​    Dockerfile 是用来构建Docker镜像的Docker文件，是由一系列命令和参数构成的脚本。</p>
+<p><strong>构建三步骤：</strong></p>
+<ul>
+<li>编写Dockerfile 文件</li>
+<li>docker build </li>
+<li>docker run</li>
+</ul>
+<p><strong>Dockerfile 内容基础知识</strong></p>
+<ul>
+<li>每条保留字指令都必须为大写字母且后面至少一个参数</li>
+<li>指令按照从上到下，顺序执行</li>
+<li>‘#’ 表示注释</li>
+<li>每条指令都会创建一个新的镜像层，并对镜像进行提交</li>
+</ul>
+<p><strong>Docker执行Dockerfile 的大致流程</strong></p>
+<ol>
+<li>docker从基础镜像运行一个容器</li>
+<li>执行一条指令并对容器作出修改</li>
+<li>执行类似docker commit的操作提交一个新的镜像层</li>
+<li>docker再基于刚才提交的镜像运行一个新的容器</li>
+<li>执行Dockerfile 中下一条指令直到所有指令都执行完成</li>
+</ol>
+<hr>
+<h2 id="Dockerfile-保留字指令"><a href="#Dockerfile-保留字指令" class="headerlink" title="Dockerfile 保留字指令"></a><strong>Dockerfile 保留字指令</strong></h2><ul>
+<li>FROM    基础镜像，当前新镜像是基于哪个镜像</li>
+<li>MAINTAINER     镜像维护者的姓名和邮箱地址</li>
+<li>RUN  容器构建时需要运行的命令</li>
+<li>EXPOSE   当前容器对外暴露的端口号</li>
+<li>WORKDIR    指定在创建容器后，终端默认登陆的进来工作目录</li>
+<li>ENV    用来在构建镜像过程中设置环境变量</li>
+<li>ADD    将宿主机目录下的文件拷贝进镜像且ADD命令会自动除了URL和解压tar压缩包</li>
+<li>COPY   类似ADD ，拷贝文件和目录到镜像中。将从构建上下文目录中&lt;源路径&gt;的文件/目录 复制到新一层的镜像内的&lt;目标路径&gt;位置</li>
+<li>VOLUME   容器数据卷，用于数据保存和持久化</li>
+<li>CMD   指定一个容器启动时要运行的命令，<code>Dockerfile 可以有多个CMD指令但只有最后一个生效，CMD会被docker run 之后的参数替换</code><ul>
+<li>CMD指令两种格式<ul>
+<li>CMD &lt;命令&gt;</li>
+<li>CMD [“可执行文件”，“参数1”，”参数2“，……]</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>ENTRYPOINT   指定一个容器启动时要运行的命令，<code>和CMD不同的是ENTRYPOINT 只能有一个，但是docker run之后的参数会当作参数追加到ENTRYPOINT 命令</code>。</li>
+<li>ONBUILD 当构建一个被继承的Dockerfile 运行命令，父镜像在被子继承后，父镜像的onbuild被触发</li>
+</ul>
+<h2 id="DocderFile案例"><a href="#DocderFile案例" class="headerlink" title="DocderFile案例"></a><strong>DocderFile案例</strong></h2><p><strong>Base镜像</strong></p>
+<p>​        Docker Hub中99%的镜像都是通过base镜像中安装和配置需要的软件构建出来的。</p>
+<hr>
+<p><strong>定制自定义Centos镜像</strong></p>
+<p>​        <strong>定制前 :</strong> 精简的Centos镜像的默认终端目录是根目录，且不支持ifconfig和vim</p>
+<p>​        *<em>定制要求 : *</em> 终端默认目录在/usr/local,支持ifconfig和vim</p>
+<p>​        <strong>定制过程：</strong>        </p>
+<p>​                <strong>1.编写Dockerfile 文件</strong>        </p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">FROM</span> centos</span><br><span class="line"><span class="keyword">MAINTAINER</span>  lyb&lt;<span class="number">734635746</span>@qq.com&gt;</span><br><span class="line"></span><br><span class="line"><span class="keyword">ENV</span>  MYPATH  /usr/local</span><br><span class="line"><span class="keyword">WORKDIR</span><span class="bash"> <span class="variable">$MYPATH</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">RUN</span><span class="bash">  yum -y install vim</span></span><br><span class="line"><span class="keyword">RUN</span><span class="bash">  yum -y install net-tools</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">EXPOSE</span> <span class="number">80</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">CMD</span><span class="bash"> /bin/bash</span></span><br></pre></td></tr></table></figure>
+
+<p>​                <strong>2.制作镜像</strong>        </p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker build -f Dockerfile  -t lyb/mycentcs:<span class="number">1.3</span> .</span><br></pre></td></tr></table></figure>
+
+<p>​                <strong>3.根据镜像制作容器进行验证</strong></p>
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker <span class="built_in">run</span> -<span class="keyword">it</span> lyb/mycentcs:<span class="number">1.3</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<p><strong>构建Tomcat9镜像</strong></p>
+<p>​        <strong>构建前准备：</strong></p>
+<ol>
+<li><p>建立一个目录用于构建  /root/myTomcat</p>
+</li>
+<li><p>在上述目录下</p>
+<p>新建</p>
+<p>​    a.txt </p>
+<p>​    Dockerfile </p>
+<p>存放</p>
+<p>​    apache-tomcat-9.0.8.tar.gz</p>
+<p>​    jdk-8u241-linux-x64.tar.gz</p>
+<p><strong>构建：</strong></p>
+</li>
+</ol>
+<ol>
+<li><p>编写Dockerfile </p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">FROM</span> centos</span><br><span class="line"><span class="keyword">MAINTAINER</span>  lyb&lt;<span class="number">734635746</span>@qq.com&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment">#把宿主机当前上下文的a.txt拷贝到容器/usr/loacal/路径下</span></span><br><span class="line"><span class="keyword">COPY</span><span class="bash"> c.txt  /usr/<span class="built_in">local</span>/container.txt</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#把java与tomcat添加并解压到容器中</span></span><br><span class="line"><span class="keyword">ADD</span><span class="bash"> jdk-8u241-linux-x64.tar.gz  /usr/<span class="built_in">local</span></span></span><br><span class="line"><span class="keyword">ADD</span><span class="bash"> apache-tomcat-9.0.8.tar.gz  /usr/<span class="built_in">local</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">#安装vim编译器</span></span><br><span class="line">RUM yum -y install vim</span><br><span class="line"></span><br><span class="line"><span class="comment">#设置终端登陆目录</span></span><br><span class="line"><span class="keyword">ENV</span> MYPATH /usr/local</span><br><span class="line"><span class="keyword">WORKDIR</span><span class="bash"> <span class="variable">$MYPATH</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">#设置java与tomcat环境变量</span></span><br><span class="line"><span class="keyword">ENV</span> JAVA_HOME /usr/local/jdk1.<span class="number">8.0</span>_241</span><br><span class="line"><span class="keyword">ENV</span> CLASSPATH $JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar</span><br><span class="line"><span class="keyword">ENV</span> CATALINA_HOME /usr/local/apache-tomcat-<span class="number">9.0</span>.<span class="number">8</span></span><br><span class="line"><span class="keyword">eNV</span> CATALINA_BASE /usr/local/apache-tomcat-<span class="number">9.0</span>.<span class="number">8</span></span><br><span class="line"><span class="keyword">ENV</span> PATH $PATH:$JAVA_HOME/bin:$CAYALINA_HOME/lib:$CATALINA_HOME/bin</span><br><span class="line"></span><br><span class="line">$容器运行时监听的端口</span><br><span class="line"><span class="keyword">EXPOSE</span> <span class="number">8080</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#运行时启动tomcat</span></span><br><span class="line"><span class="keyword">CMD</span><span class="bash"> /usr/<span class="built_in">local</span>/apache-tomcat-9.0.8/bin/startup.sh &amp;&amp; tail -F /usr/<span class="built_in">local</span>/apache-tomcat-9.0.8/bin/logs/catalina.out</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>制作镜像</p>
+<figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">docker</span> <span class="keyword">build </span>Dockerfile  lyb/mytomcat9 .</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ol>
+<h1 id="Docker小结"><a href="#Docker小结" class="headerlink" title="Docker小结"></a>Docker小结</h1><p><img src="https://s2.ax1x.com/2020/02/02/1Ydin0.png" alt="image"></p>
+<h1 id="Docker常用安装"><a href="#Docker常用安装" class="headerlink" title="Docker常用安装"></a>Docker常用安装</h1><h2 id="安装MySQL"><a href="#安装MySQL" class="headerlink" title="安装MySQL"></a>安装MySQL</h2><p>​        <strong>拉取镜像</strong></p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull mysql:<span class="number">5.7</span></span><br></pre></td></tr></table></figure>
+
+<p>​        <strong>新建并启动容器</strong></p>
+<figure class="highlight crystal"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">docker run -p <span class="number">3306</span>:<span class="number">3306</span> --name mysql \</span><br><span class="line">-v /root/mysql_docker/<span class="symbol">conf:</span>/etc/mysql/conf.d \</span><br><span class="line">-v /root/mysql_docker/<span class="symbol">logs:</span>/logs \</span><br><span class="line">-v /root/mysql_docker/<span class="symbol">data:</span>/var/<span class="class"><span class="keyword">lib</span>/<span class="title">mysql</span> \</span></span><br><span class="line">-e MYSQL_ROOT_PASSWORD=<span class="number">123456</span> \</span><br><span class="line">-d <span class="symbol">mysql:</span><span class="number">5.7</span></span><br></pre></td></tr></table></figure>
+
+<p>​        <strong>进入容器就可以操作mysql了</strong></p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker exec -it <span class="string">mysql:</span><span class="number">5.7</span> <span class="regexp">/bin/</span>bash</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="安装Redis"><a href="#安装Redis" class="headerlink" title="安装Redis"></a>安装Redis</h2><p>​        <strong>拉取镜像</strong></p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker puul <span class="keyword">redi</span><span class="variable">s:3</span>.<span class="number">2</span></span><br></pre></td></tr></table></figure>
+
+<p>​        <strong>新建并启动容器</strong></p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">docker run -p <span class="number">6379</span>:<span class="number">6379</span> \</span><br><span class="line">-v <span class="regexp">/root/</span>redis_docker<span class="regexp">/data:/</span>data \</span><br><span class="line">-v <span class="regexp">/root/</span>redis_docker<span class="regexp">/conf/</span>redis.<span class="string">conf:</span><span class="regexp">/usr/</span>local<span class="regexp">/etc/</span>redis/redis.conf \</span><br><span class="line">-d <span class="string">redis:</span><span class="number">3.2</span> \</span><br><span class="line">redis-server <span class="regexp">/usr/</span>local<span class="regexp">/etc/</span>redis/redis.conf \</span><br><span class="line">--appendonly yes</span><br></pre></td></tr></table></figure>
+
+<p>​        <strong>在宿主机建立redis.conf挂载到redis中</strong></p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">cd</span> /root/redis_docker/<span class="keyword">conf</span>/redis.<span class="keyword">conf</span></span><br><span class="line">touch redis.<span class="keyword">conf</span></span><br><span class="line"><span class="keyword">vim</span> redis.<span class="keyword">conf</span> (自行添加redis配置文件)</span><br></pre></td></tr></table></figure>
+
+<p>​        <strong>测试redis-cli连接</strong></p>
+<figure class="highlight perl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">docker <span class="keyword">exec</span> -it 容器ID redis-cli</span><br><span class="line"></span><br><span class="line">	操作测试</span><br><span class="line">	</span><br><span class="line"><span class="keyword">shutdown</span></span><br></pre></td></tr></table></figure>
+
+<p>​        <strong>检查/root/redis_docker/data/appendonly.aof是否持久化成功</strong></p>
 
     </div>
 
@@ -561,7 +755,7 @@
   <p><span>本文标题:</span><a href="/2020/01/31/backEnd/Docker%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">Docker学习笔记</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 刘友滨 的个人博客">刘友滨</a></p>
   <p><span>发布时间:</span>2020年01月31日 - 11:01</p>
-  <p><span>最后更新:</span>2020年02月01日 - 00:42</p>
+  <p><span>最后更新:</span>2020年02月02日 - 22:11</p>
   <p><span>原始链接:</span><a href="/2020/01/31/backEnd/Docker%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" title="Docker学习笔记">http://liuyoubin.top/2020/01/31/backEnd/Docker%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</a>
     <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://liuyoubin.top/2020/01/31/backEnd/Docker%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"  aria-label="复制成功！"></i></span>
   </p>
@@ -669,7 +863,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Docker为什么会出现"><span class="nav-number">1.</span> <span class="nav-text">Docker为什么会出现</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Docker三要素"><span class="nav-number">2.</span> <span class="nav-text">Docker三要素</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Docker的安装与启动"><span class="nav-number">3.</span> <span class="nav-text">Docker的安装与启动</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Docker底层原理"><span class="nav-number">4.</span> <span class="nav-text">Docker底层原理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Docker命令"><span class="nav-number">5.</span> <span class="nav-text">Docker命令</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#帮助命令"><span class="nav-number">5.1.</span> <span class="nav-text">帮助命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#镜像命令"><span class="nav-number">5.2.</span> <span class="nav-text">镜像命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#容器命令"><span class="nav-number">5.3.</span> <span class="nav-text">容器命令</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Docker为什么会出现"><span class="nav-number">1.</span> <span class="nav-text">Docker为什么会出现</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Docker三要素"><span class="nav-number">2.</span> <span class="nav-text">Docker三要素</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Docker的安装与启动"><span class="nav-number">3.</span> <span class="nav-text">Docker的安装与启动</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Docker底层原理"><span class="nav-number">4.</span> <span class="nav-text">Docker底层原理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Docker命令"><span class="nav-number">5.</span> <span class="nav-text">Docker命令</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#帮助命令"><span class="nav-number">5.1.</span> <span class="nav-text">帮助命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#镜像命令"><span class="nav-number">5.2.</span> <span class="nav-text">镜像命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#容器命令"><span class="nav-number">5.3.</span> <span class="nav-text">容器命令</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Docker镜像详解"><span class="nav-number">6.</span> <span class="nav-text">Docker镜像详解</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#联合文件系统（UnionFS）"><span class="nav-number">6.1.</span> <span class="nav-text">联合文件系统（UnionFS）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Docker镜像加载原理"><span class="nav-number">6.2.</span> <span class="nav-text">Docker镜像加载原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Docker为什么要采用分层结构"><span class="nav-number">6.3.</span> <span class="nav-text">Docker为什么要采用分层结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#镜像制作命令"><span class="nav-number">6.4.</span> <span class="nav-text">镜像制作命令</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Docker容器数据卷"><span class="nav-number">7.</span> <span class="nav-text">Docker容器数据卷</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Dockerfile"><span class="nav-number">8.</span> <span class="nav-text">Dockerfile</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Dockerfile-基础"><span class="nav-number">8.1.</span> <span class="nav-text">Dockerfile 基础</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Dockerfile-保留字指令"><span class="nav-number">8.2.</span> <span class="nav-text">Dockerfile 保留字指令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DocderFile案例"><span class="nav-number">8.3.</span> <span class="nav-text">DocderFile案例</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Docker小结"><span class="nav-number">9.</span> <span class="nav-text">Docker小结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Docker常用安装"><span class="nav-number">10.</span> <span class="nav-text">Docker常用安装</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装MySQL"><span class="nav-number">10.1.</span> <span class="nav-text">安装MySQL</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装Redis"><span class="nav-number">10.2.</span> <span class="nav-text">安装Redis</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
