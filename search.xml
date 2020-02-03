@@ -3044,8 +3044,10 @@ springMvc会去src下找[i18n+对应的语言缩写.porperties]文件<figure cla
 <li>使用注解进行校验</li>
 </ul>
 <h2 id="JSR-303"><a href="#JSR-303" class="headerlink" title="JSR 303"></a>JSR 303</h2><ul>
-<li><h4 id="JSR-303是java为Bean数据合法性校验提供的标准框架，包含在java-EE-6-0中"><a href="#JSR-303是java为Bean数据合法性校验提供的标准框架，包含在java-EE-6-0中" class="headerlink" title="JSR 303是java为Bean数据合法性校验提供的标准框架，包含在java EE 6.0中"></a>JSR 303是java为Bean数据合法性校验提供的标准框架，包含在java EE 6.0中</h4></li>
-<li><h4 id="JSR-303通过在Bean属性上标注规定的注解指定校验规则，并通过验证接口对Bean进行验证"><a href="#JSR-303通过在Bean属性上标注规定的注解指定校验规则，并通过验证接口对Bean进行验证" class="headerlink" title="JSR 303通过在Bean属性上标注规定的注解指定校验规则，并通过验证接口对Bean进行验证"></a>JSR 303通过在Bean属性上标注规定的注解指定校验规则，并通过验证接口对Bean进行验证</h4></li>
+<li><p>JSR 303是java为Bean数据合法性校验提供的标准框架，包含在java EE 6.0中</p>
+</li>
+<li><p>JSR 303通过在Bean属性上标注规定的注解指定校验规则，并通过验证接口对Bean进行验证</p>
+</li>
 </ul>
 <table>
 <thead>
