@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>http://liuyoubin.top/2020/01/23/backEnd/framework/Spring%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</loc>
+    <lastmod>2020-02-03</lastmod>
+  </url>  <url>
+    <loc>http://liuyoubin.top/2020/01/24/backEnd/framework/Struts2%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</loc>
+    <lastmod>2020-02-03</lastmod>
+  </url>  <url>
     <loc>http://liuyoubin.top/2020/01/23/backEnd/framework/SpringMvc%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</loc>
     <lastmod>2020-02-03</lastmod>
   </url>  <url>
@@ -31,16 +37,10 @@
     <loc>http://liuyoubin.top/2020/01/25/backEnd/java/%E6%B5%85%E8%B0%88Java%E4%B8%AD%E7%9A%84%E5%80%BC%E4%BC%A0%E9%80%92%E4%B8%8E%E5%BC%95%E7%94%A8%E4%BC%A0%E9%80%92/</loc>
     <lastmod>2020-01-25</lastmod>
   </url>  <url>
-    <loc>http://liuyoubin.top/2020/01/24/backEnd/framework/Struts2%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</loc>
-    <lastmod>2020-01-25</lastmod>
-  </url>  <url>
     <loc>http://liuyoubin.top/2020/01/25/backEnd/framework/SSM%E6%95%B4%E5%90%88%E9%85%8D%E7%BD%AE%E5%8F%82%E8%80%83/</loc>
     <lastmod>2020-01-25</lastmod>
   </url>  <url>
     <loc>http://liuyoubin.top/2020/01/25/backEnd/framework/Spring%E6%B3%A8%E8%A7%A3%E5%BC%80%E5%8F%91/</loc>
-    <lastmod>2020-01-25</lastmod>
-  </url>  <url>
-    <loc>http://liuyoubin.top/2020/01/23/backEnd/framework/Spring%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</loc>
     <lastmod>2020-01-25</lastmod>
   </url>  <url>
     <loc>http://liuyoubin.top/2020/01/25/backEnd/framework/Shrio%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</loc>
