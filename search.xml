@@ -1,6 +1,86 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Linux Shell编程基础</title>
+    <url>/2020/02/02/backEnd/Linux-Shell%E7%BC%96%E7%A8%8B%E5%9F%BA%E7%A1%80/</url>
+    <content><![CDATA[<h1 id="Shell是什么"><a href="#Shell是什么" class="headerlink" title="Shell是什么"></a>Shell是什么</h1><p>​        shell是一个命令行解释器，它为用户提供了一个向内核发送请求以便运行程序的界面系统级程序，用户可以用Shell来启动、挂起、停止甚至是编写一些程序。</p>
+<p><img src="https://s2.ax1x.com/2020/02/03/1NYgiQ.png" alt="image"></p>
+<h1 id="Shell快速入门"><a href="#Shell快速入门" class="headerlink" title="Shell快速入门"></a>Shell快速入门</h1><h2 id="Shell脚本的执行方式"><a href="#Shell脚本的执行方式" class="headerlink" title="Shell脚本的执行方式"></a>Shell脚本的执行方式</h2><p><strong>脚本格式要求</strong></p>
+<ol>
+<li><p>脚本以<code>#!/bin/bash</code>开头</p>
+</li>
+<li><p>脚本需要有可执行权限</p>
+</li>
+</ol>
+<p><strong>编写第一个Shell脚本</strong></p>
+<p>​        要求：编写一个脚本输出hello world!</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">vim helloworld.sh</span><br><span class="line"></span><br><span class="line">-----</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">!/bin/bash</span></span><br><span class="line">echo "hello  world!"</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>执行方式1(输入脚本的绝对路径或者相对路径)</p>
+<ul>
+<li><p>首先要赋予脚本+x权限</p>
+<figure class="highlight angelscript"><table><tr><td class="code"><pre><span class="line">chmod <span class="number">744</span> helloworld.sh</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>执行脚本</p>
+<figure class="highlight stata"><table><tr><td class="code"><pre><span class="line">相对路径  ./helloworld.<span class="keyword">sh</span></span><br><span class="line">绝对路径  /root/<span class="keyword">shell</span>/helloworld.<span class="keyword">sh</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>执行方式2(sh+脚本)</p>
+<ul>
+<li><p>不用赋予脚本+x权限，直接执行</p>
+<figure class="highlight stata"><table><tr><td class="code"><pre><span class="line"><span class="keyword">sh</span> helloworld.<span class="keyword">sh</span></span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="Shell变量"><a href="#Shell变量" class="headerlink" title="Shell变量"></a>Shell变量</h2><p><strong>Shell变量</strong></p>
+<ol>
+<li><p>Linux shell变量有 <strong>系统变量</strong>和<strong>用户自定义变量</strong></p>
+</li>
+<li><p>系统变量例如： $HOME、$PWD、$SHELL、￥USER</p>
+</li>
+<li><p>输入系统中所有系统变量: set</p>
+</li>
+</ol>
+<p><strong>定义变量的规则</strong></p>
+<ol>
+<li>变量名称可以由字母、数组、下划线组成，但不能由下划线开头</li>
+<li>等号两边不能有空格</li>
+<li>变量名称一般大写</li>
+</ol>
+<p><strong>Shell变量的定义</strong></p>
+<pre><code>1. 定义变量: 变量=值
+  2. 撤销变量：unset 变量
+  3. 声明静态变量: readonly  变量, 注意不能unset </code></pre><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">!/bin/bash</span></span><br><span class="line">A=100</span><br><span class="line">echo "A=$A"</span><br><span class="line">unset A</span><br><span class="line">echo "A=$A"</span><br><span class="line"></span><br><span class="line">readonly B=200</span><br><span class="line">echo "B=$B"</span><br><span class="line">unset B</span><br><span class="line"></span><br><span class="line">-----</span><br><span class="line"></span><br><span class="line">A=100</span><br><span class="line">A=</span><br><span class="line">B=200</span><br><span class="line">./helloworld.sh: line 11: unset: B: cannot unset: readonly variable</span><br></pre></td></tr></table></figure>
+
+<p><strong>将命令返回值赋给变量</strong></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">1. A=`ls -la`</span><br><span class="line">2. A=$(ls -la)</span><br></pre></td></tr></table></figure>
+
+<p><strong>设置环境变量</strong></p>
+<ul>
+<li>Shell可以通过export设置全局环境变量</li>
+<li>通过source /etc/profile刷新配置</li>
+<li>其他Shell脚本可以访问到这个环境变量</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">在Shell脚本中 定义一个环境变量</span></span><br><span class="line">TOMCAT_HOME=/usr/local/tomcat/bin</span><br><span class="line">export TOMCAT_HOME</span><br><span class="line"></span><br><span class="line">----</span><br><span class="line"><span class="meta">#</span><span class="bash">刷新配置</span></span><br><span class="line">source /etc/profile</span><br><span class="line"></span><br><span class="line">----</span><br><span class="line"><span class="meta">#</span><span class="bash">其他Shell进行使用</span></span><br><span class="line">echo $TOMCAT_HOME</span><br></pre></td></tr></table></figure>
+
+<p><strong>位置参数变量</strong></p>
+]]></content>
+      <categories>
+        <category>笔记</category>
+        <category>后端</category>
+      </categories>
+      <tags>
+        <tag>Linux</tag>
+        <tag>Shell</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Docker学习笔记</title>
     <url>/2020/01/31/backEnd/Docker%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</url>
     <content><![CDATA[<h1 id="Docker为什么会出现"><a href="#Docker为什么会出现" class="headerlink" title="Docker为什么会出现"></a>Docker为什么会出现</h1><p>​    以前在服务器上部署一个应用，除了应用本身还要安装各种相应的软件、依赖，进行各种相应的配置。这种方式不仅费时费力还不能跨平台，不利于应用的集群部署。</p>
@@ -2932,9 +3012,12 @@ springMvc会去src下找[i18n+对应的语言缩写.porperties]文件<figure cla
 </li>
 </ul>
 <h1 id="十七、-类型转换器"><a href="#十七、-类型转换器" class="headerlink" title="十七、 类型转换器"></a>十七、 类型转换器</h1><h2 id="ConversionSerivce"><a href="#ConversionSerivce" class="headerlink" title="ConversionSerivce"></a>ConversionSerivce</h2><ul>
-<li><h4 id="ConversionService是Spring类型转换体系的核心接口"><a href="#ConversionService是Spring类型转换体系的核心接口" class="headerlink" title="ConversionService是Spring类型转换体系的核心接口"></a>ConversionService是Spring类型转换体系的核心接口</h4></li>
-<li><h4 id="可以利用ConversionServiceFeactoryBean在Spring-Ioc容器中定义一个CoversionService。Spring将自动识别出ConversionService并在Bean属性配置以及SpringMvc处理方法入参时绑定等场合进行数据类型的转换"><a href="#可以利用ConversionServiceFeactoryBean在Spring-Ioc容器中定义一个CoversionService。Spring将自动识别出ConversionService并在Bean属性配置以及SpringMvc处理方法入参时绑定等场合进行数据类型的转换" class="headerlink" title="可以利用ConversionServiceFeactoryBean在Spring Ioc容器中定义一个CoversionService。Spring将自动识别出ConversionService并在Bean属性配置以及SpringMvc处理方法入参时绑定等场合进行数据类型的转换"></a>可以利用ConversionServiceFeactoryBean在Spring Ioc容器中定义一个CoversionService。Spring将自动识别出ConversionService并在Bean属性配置以及SpringMvc处理方法入参时绑定等场合进行数据类型的转换</h4></li>
-<li><h4 id="可以通过ConversionserviceFactoryBean的converters属性注册自定义的类型转换器"><a href="#可以通过ConversionserviceFactoryBean的converters属性注册自定义的类型转换器" class="headerlink" title="可以通过ConversionserviceFactoryBean的converters属性注册自定义的类型转换器"></a>可以通过ConversionserviceFactoryBean的converters属性注册自定义的类型转换器</h4></li>
+<li><p>ConversionService是Spring类型转换体系的核心接口</p>
+</li>
+<li><p>可以利用ConversionServiceFeactoryBean在Spring Ioc容器中定义一个CoversionService。Spring将自动识别出ConversionService并在Bean属性配置以及SpringMvc处理方法入参时绑定等场合进行数据类型的转换</p>
+</li>
+<li><p>可以通过ConversionserviceFactoryBean的converters属性注册自定义的类型转换器</p>
+</li>
 </ul>
 <h2 id="Spring支持的转换器"><a href="#Spring支持的转换器" class="headerlink" title="Spring支持的转换器"></a>Spring支持的转换器</h2><ul>
 <li>Spring定义了三种类型的转换器接口，实现任意一种都可以作为自定义转换器注册到CoversionServiceFactoryBean<ul>
