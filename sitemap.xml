@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://liuyoubin.top/2020/01/31/backEnd/Docker%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</loc>
+    
+    <lastmod>2020-02-05T15:14:57.264Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://liuyoubin.top/2020/02/02/backEnd/Linux-Shell%E7%BC%96%E7%A8%8B%E5%9F%BA%E7%A1%80/</loc>
     
     <lastmod>2020-02-05T14:32:28.627Z</lastmod>
@@ -40,13 +47,6 @@
     <loc>http://liuyoubin.top/2020/01/23/backEnd/framework/SpringMvc%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</loc>
     
     <lastmod>2020-02-03T07:17:40.522Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://liuyoubin.top/2020/01/31/backEnd/Docker%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</loc>
-    
-    <lastmod>2020-02-02T14:45:15.002Z</lastmod>
     
   </url>
   
