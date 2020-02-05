@@ -57,9 +57,9 @@
 </ol>
 <p><strong>Shell变量的定义</strong></p>
 <ol>
-<li><p>定义变量: 变量=值</p>
-<pre><code>2.  撤销变量：unset 变量
-  3. 声明静态变量: readonly  变量, 注意不能unset </code></pre></li>
+<li>定义变量: 变量=值</li>
+<li>撤销变量：unset 变量</li>
+<li>声明静态变量: readonly  变量, 注意不能unset </li>
 </ol>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line">A=100</span><br><span class="line"><span class="built_in">echo</span> <span class="string">"A=<span class="variable">$A</span>"</span></span><br><span class="line"><span class="built_in">unset</span> A</span><br><span class="line"><span class="built_in">echo</span> <span class="string">"A=<span class="variable">$A</span>"</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">readonly</span> B=200</span><br><span class="line"><span class="built_in">echo</span> <span class="string">"B=<span class="variable">$B</span>"</span></span><br><span class="line"><span class="built_in">unset</span> B</span><br><span class="line"></span><br><span class="line">-----</span><br><span class="line"></span><br><span class="line">A=100</span><br><span class="line">A=</span><br><span class="line">B=200</span><br><span class="line">./helloworld.sh: line 11: <span class="built_in">unset</span>: B: cannot <span class="built_in">unset</span>: <span class="built_in">readonly</span> variable</span><br></pre></td></tr></table></figure>
 

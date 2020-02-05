@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://liuyoubin.top/2020/02/02/backEnd/Linux-Shell%E7%BC%96%E7%A8%8B%E5%9F%BA%E7%A1%80/</loc>
+    
+    <lastmod>2020-02-05T14:32:28.627Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://liuyoubin.top/2020/01/29/backEnd/Nginx%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</loc>
     
     <lastmod>2020-02-05T08:37:46.608Z</lastmod>
@@ -12,13 +19,6 @@
     <loc>http://liuyoubin.top/2020/01/25/backEnd/framework/SpringBoot%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</loc>
     
     <lastmod>2020-02-04T15:34:22.140Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://liuyoubin.top/2020/02/02/backEnd/Linux-Shell%E7%BC%96%E7%A8%8B%E5%9F%BA%E7%A1%80/</loc>
-    
-    <lastmod>2020-02-04T15:32:40.363Z</lastmod>
     
   </url>
   
