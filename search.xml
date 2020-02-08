@@ -1,6 +1,246 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Spring扩展2-Transaction</title>
+    <url>/2020/02/07/backEnd/framework/Spring%E6%89%A9%E5%B1%952-Transaction/</url>
+    <content><![CDATA[<h1 id="事务-Transaction"><a href="#事务-Transaction" class="headerlink" title="事务(Transaction)"></a>事务(Transaction)</h1><h2 id="什么是事务"><a href="#什么是事务" class="headerlink" title="什么是事务"></a>什么是事务</h2><p>​        事务是一系列操作的工作单元，是数据库操作的最小工作单元，这些操作要么同时成功，要么同时失败。</p>
+<a id="more"></a>
+
+<h2 id="事务的四大特性"><a href="#事务的四大特性" class="headerlink" title="事务的四大特性"></a>事务的四大特性</h2><p>​        <strong>事务的四大特性:ACID</strong></p>
+<ul>
+<li><p>原子性  (Atomicity) </p>
+<p>​        原子性是指一个事务是一个不可分割的整体，其中的操作要么全部成功，要么全部失败。如果其中某个操作发生错误那么所有的操作要回滚，数据库返回到事务开始前状态。</p>
+</li>
+</ul>
+<ul>
+<li><p>一致性  (Consistency)</p>
+<p>​        一致性是指事务执行结束后，数据库的完整性约束没有被破坏，事务执行前后都是合法的数据状态。</p>
+</li>
+</ul>
+<ul>
+<li><p>隔离性  (isolation)</p>
+<p>​        隔离性是指不同事务之间操作是隔离的，并发执行之间不能相互干扰影响。</p>
+</li>
+</ul>
+<ul>
+<li><p>持久性  (Durability)</p>
+<p>​        持久性是指事务一旦提交，它对数据库的改变就是永久的，不会因为宕机或其他故障而影响。</p>
+</li>
+</ul>
+<h1 id="Transactional"><a href="#Transactional" class="headerlink" title="Transactional"></a>Transactional</h1><p>​        Spring提供了基于AOP的声明式事务来帮我们管理事务。Spring声明式事务可以通过 配置XML进行配置，也可以采用注解式的声明式事务。</p>
+<p>​        下面给出两种配置的示例:</p>
+<h2 id="XML配置声明式事务"><a href="#XML配置声明式事务" class="headerlink" title="XML配置声明式事务"></a>XML配置声明式事务</h2><figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 配置数据源 --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"dataSource"</span> <span class="attr">class</span>=<span class="string">"org.springframework.jdbc.datasource.DriverManagerDataSource"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"driverClassName"</span> <span class="attr">value</span>=<span class="string">"com.mysql.jdbc.Driver"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"url"</span> <span class="attr">value</span>=<span class="string">"jdbc:mysql://localhost:3306/s_01?useUnicode=true<span class="symbol">&amp;amp;</span>characterEncoding=utf-8<span class="symbol">&amp;amp;</span>useSSL=false"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"username"</span> <span class="attr">value</span>=<span class="string">"root"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"password"</span> <span class="attr">value</span>=<span class="string">"lyb980328"</span>/&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">&lt;!-- 配置事务管理器 --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"txManager"</span> <span class="attr">class</span>=<span class="string">"org.springframework.jdbc.datasource.DataSourceTransactionManager"</span>&gt;</span></span><br><span class="line">  		<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"dataSource"</span> <span class="attr">ref</span>=<span class="string">"dataSource"</span>/&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">&lt;!-- 配置事务的通知 --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">tx:advice</span> <span class="attr">id</span>=<span class="string">"txAd"</span> <span class="attr">transaction-manager</span>=<span class="string">"txManager"</span>&gt;</span> </span><br><span class="line">  	<span class="tag">&lt;<span class="name">tx:attributes</span>&gt;</span></span><br><span class="line">  		<span class="comment">&lt;!-- 配置哪些方法使用什么样的事务，以及事务的传播特性 --&gt;</span></span><br><span class="line">  		<span class="tag">&lt;<span class="name">tx:method</span> <span class="attr">name</span>=<span class="string">"get"</span>  <span class="attr">read-only</span>=<span class="string">"true"</span> /&gt;</span></span><br><span class="line">  		<span class="tag">&lt;<span class="name">tx:method</span> <span class="attr">name</span>=<span class="string">"insert"</span> <span class="attr">propagation</span>=<span class="string">"REQUIRED"</span>/&gt;</span></span><br><span class="line">  		<span class="tag">&lt;<span class="name">tx:method</span> <span class="attr">name</span>=<span class="string">"delete"</span> <span class="attr">propagation</span>=<span class="string">"REQUIRED"</span>/&gt;</span></span><br><span class="line">  		<span class="tag">&lt;<span class="name">tx:method</span> <span class="attr">name</span>=<span class="string">"update"</span> <span class="attr">propagation</span>=<span class="string">"REQUIRED"</span>/&gt;</span></span><br><span class="line">  		<span class="tag">&lt;<span class="name">tx:method</span> <span class="attr">name</span>=<span class="string">"*"</span> <span class="attr">propagation</span>=<span class="string">"REQUIRED"</span>/&gt;</span></span><br><span class="line">  	<span class="tag">&lt;/<span class="name">tx:attributes</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">tx:advice</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">&lt;!--通过aop将事务通知切入方法--&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">aop:config</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">aop:pointcut</span> <span class="attr">expression</span>=<span class="string">"execution(* cn.lyb.dao.Imp.*.*(..))"</span> <span class="attr">id</span>=<span class="string">"point"</span>/&gt;</span>	</span><br><span class="line">		<span class="tag">&lt;<span class="name">aop:advisor</span> <span class="attr">advice-ref</span>=<span class="string">"txAd"</span> <span class="attr">pointcut-ref</span>=<span class="string">"point"</span>/&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">aop:config</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="注解方式配置声明式事务"><a href="#注解方式配置声明式事务" class="headerlink" title="注解方式配置声明式事务"></a>注解方式配置声明式事务</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@EnableTransactionManagement</span> <span class="comment">//开启声明式事务</span></span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="meta">@ComponentScan</span>(value = &#123;<span class="string">"com.lyb.service"</span>,<span class="string">"com.lyb.dao"</span>&#125;)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TxConfig</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 配置数据源</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     * <span class="doctag">@throws</span> PropertyVetoException</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> DataSource <span class="title">dataSource</span><span class="params">()</span> <span class="keyword">throws</span> PropertyVetoException </span>&#123;</span><br><span class="line">        ComboPooledDataSource dataSource = <span class="keyword">new</span> ComboPooledDataSource();</span><br><span class="line">        dataSource.setUser(<span class="string">"root"</span>);</span><br><span class="line">        dataSource.setPassword(<span class="string">"lyb980328"</span>);</span><br><span class="line">        dataSource.setDriverClass(<span class="string">"com.mysql.jdbc.Driver"</span>);</span><br><span class="line">        dataSource.setJdbcUrl(<span class="string">"jdbc:mysql://localhost:3306/s_02?useUnicode=true&amp;characterEncoding=utf-8&amp;useSSL=false"</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> dataSource;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> JdbcTemplate <span class="title">jdbcTemplate</span><span class="params">(DataSource dataSource)</span></span>&#123;</span><br><span class="line">        JdbcTemplate jdbcTemplate = <span class="keyword">new</span> JdbcTemplate(dataSource);</span><br><span class="line">        <span class="keyword">return</span> jdbcTemplate;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 注册事务管理器</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> PlatformTransactionManager <span class="title">transactionManager</span><span class="params">(DataSource dataSource)</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> DataSourceTransactionManager(dataSource);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">--------------</span><br><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserService</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> UserDao userDao;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Transactional</span> <span class="comment">//声明这个方法的事务特性</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">insertUser</span><span class="params">()</span></span>&#123;</span><br><span class="line">        userDao.insert();</span><br><span class="line">        <span class="comment">//模拟出错</span></span><br><span class="line">        <span class="keyword">int</span> i=<span class="number">10</span>/<span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="Transaction三大接口"><a href="#Transaction三大接口" class="headerlink" title="Transaction三大接口"></a>Transaction三大接口</h1><ul>
+<li><p>PlatformTransactionManager</p>
+<p>​        PlatformTransactionManager根据TransactionBefination提供的事务信息进行配置，是事务管理器的基类。Mybatis/JDBC使用DataSourceTransactionManager。一共三个方法：</p>
+<ul>
+<li>getTransaction（TransactionDefination），在当前环境中获取一个事务，如果没有则新建</li>
+<li>commit  提交事务</li>
+<li>rollback  回滚事务</li>
+</ul>
+</li>
+<li><p>TransactionDefination：封装了事务隔离级别，超时时间等</p>
+</li>
+<li><p>TransactionStatus：封装了事务具体运行的状态</p>
+</li>
+</ul>
+<h1 id="Transactional的配置项"><a href="#Transactional的配置项" class="headerlink" title="Transactional的配置项"></a>Transactional的配置项</h1><table>
+<thead>
+<tr>
+<th align="center">配置项目</th>
+<th align="center">含义</th>
+<th align="center">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">value</td>
+<td align="center">定义事务管理器</td>
+<td align="center">这是Spring容器中的一个Bean，这个Bean需要实现PlatformTransactionManager</td>
+</tr>
+<tr>
+<td align="center">transactionManager</td>
+<td align="center">同上</td>
+<td align="center">同上</td>
+</tr>
+<tr>
+<td align="center">isolation</td>
+<td align="center">隔离级别</td>
+<td align="center">定义不同事务在并发执行时的隔离级别，默认隔离级别取决于所用数据库默认的隔离级别</td>
+</tr>
+<tr>
+<td align="center">propagation</td>
+<td align="center">传播行为</td>
+<td align="center">事务传播行为，默认值为PROPAGATION.REQUIRED</td>
+</tr>
+<tr>
+<td align="center">timeout</td>
+<td align="center">超时时间</td>
+<td align="center">单位为秒，当超时时，会引发异常，默认回滚</td>
+</tr>
+<tr>
+<td align="center">readOnly</td>
+<td align="center">是否只读</td>
+<td align="center">默认为false</td>
+</tr>
+<tr>
+<td align="center">rollbackFor</td>
+<td align="center">回滚事务异常类定义</td>
+<td align="center">定义当前事务发生该异常时才发生回滚，否则提交事务</td>
+</tr>
+<tr>
+<td align="center">rollbackForClassName</td>
+<td align="center">回滚事务的异常类名定义</td>
+<td align="center">同上，只是用类名定义</td>
+</tr>
+<tr>
+<td align="center">noRollbackFor</td>
+<td align="center">产生哪些异常不回滚事务</td>
+<td align="center">产生该异常时，事务继续执行</td>
+</tr>
+<tr>
+<td align="center">noRollbackForClassName</td>
+<td align="center">产生哪些异常不回滚事务</td>
+<td align="center">同上，只是用类名定义</td>
+</tr>
+</tbody></table>
+<h1 id="Transactional事务生效条件"><a href="#Transactional事务生效条件" class="headerlink" title="Transactional事务生效条件"></a>Transactional事务生效条件</h1><ul>
+<li>@Transaction只对<strong>public</strong>修饰的方法起效，如果将@Transaction注解在<strong>protected、private</strong>上，编译可以通过但是事务不起作用。</li>
+</ul>
+<hr>
+<ul>
+<li>在默认条件下，事务只对运行时异常(RuntimeException)起作用，对于检查异常(check exception)不起作用。</li>
+</ul>
+<p>  首先我们来看一幅图：</p>
+<p>  <img src="https://s2.ax1x.com/2020/02/08/1WZ2Nt.png" alt="image"></p>
+<p>  ​        我们知道在java中RuntimeException及其子类都是运行时异常，对于运行时异常我们可以不用try catch捕获，也不用throws进行声明。而其他异常一般都是检查异常，对于检查异常我们要不然就进行try catch，要不然就要通过throws进行声明。</p>
+<p>  ​        <strong>而在Spring事务中，在默认情况下只有发生运行时异常，事务才会发生回滚。</strong></p>
+<p>  ​        <strong>并且不管是运行时异常和检查时异常只有在抛出的时候才是触发时机，也就是说在默认情况下如果你用try catch捕获运行时异常，事务也同样不会回滚。</strong></p>
+<p>  ​        下面看几个例子：</p>
+  <figure class="highlight java"><table><tr><td class="code"><pre><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">  * 发生算术异常（运行时异常），所以事务会回滚</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line">  <span class="meta">@Transactional</span></span><br><span class="line">  <span class="meta">@Override</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">updateStudent</span><span class="params">(Student student)</span> </span>&#123;</span><br><span class="line">       studentMapper.updateStudent(student);</span><br><span class="line">       <span class="keyword">int</span> i =  <span class="number">10</span>/<span class="number">0</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">  * 虽然发生了算术异常（运行时异常），但是异常被捕获没有继续抛出，所以事务不会回滚</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line">  <span class="meta">@Transactional</span></span><br><span class="line">  <span class="meta">@Override</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">updateStudent</span><span class="params">(Student student)</span> </span>&#123;</span><br><span class="line">      </span><br><span class="line">      studentMapper.updateStudent(student);</span><br><span class="line">      </span><br><span class="line">      <span class="keyword">try</span>&#123;</span><br><span class="line">          <span class="keyword">int</span> i =  <span class="number">10</span>/<span class="number">0</span>;</span><br><span class="line">      &#125; <span class="keyword">catch</span>(RuntimeException)&#123;</span><br><span class="line">          e.printStackTrace();</span><br><span class="line">      &#125;</span><br><span class="line">      </span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 由于抛出的是检查时异常，所以事务不会回滚</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line">   <span class="meta">@Transactional</span></span><br><span class="line">   <span class="meta">@Override</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">updateStudent</span><span class="params">(Student student)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">       studentMapper.updateStudent(student);</span><br><span class="line">  </span><br><span class="line">       <span class="keyword">throw</span> <span class="keyword">new</span> Exception(<span class="string">"异常"</span>);</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+
+<p>  ​            </p>
+<p>  ​        如果想让发生检查时异常也发生回滚可以通过rollbackFor/rollbackForClassName属性指定，同理也可以用noRollbackFor/noRollbackForClassName来指定发生运行时异常不回滚。注意这里的“发生异常”指的是抛出异常，被try catch的异常不会触发回滚。</p>
+  <figure class="highlight java"><table><tr><td class="code"><pre><span class="line">   <span class="comment">/**</span></span><br><span class="line"><span class="comment">* rollbackFor指定了Exception异常，所以事务会回滚</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line">   <span class="meta">@Transactional</span>(rollbackFor = Exception<span class="class">.<span class="keyword">class</span>)</span></span><br><span class="line"><span class="class">   @<span class="title">Override</span></span></span><br><span class="line"><span class="class">   <span class="title">public</span> <span class="title">void</span> <span class="title">updateStudent</span>(<span class="title">Student</span> <span class="title">student</span>) <span class="title">throws</span> <span class="title">Exception</span> </span>&#123;</span><br><span class="line">       studentMapper.updateStudent(student);</span><br><span class="line">  </span><br><span class="line">       <span class="keyword">throw</span> <span class="keyword">new</span> Exception(<span class="string">"异常"</span>);</span><br><span class="line">   &#125;</span><br><span class="line">   </span><br><span class="line">   <span class="comment">/**</span></span><br><span class="line"><span class="comment">* 虽然rollbackFor指定了Exception异常，但是Exception异常被捕获，所以事务不会回滚</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line">   <span class="meta">@Transactional</span>(rollbackFor = Exception<span class="class">.<span class="keyword">class</span>)</span></span><br><span class="line"><span class="class">   @<span class="title">Override</span></span></span><br><span class="line"><span class="class">   <span class="title">public</span> <span class="title">void</span> <span class="title">updateStudent</span>(<span class="title">Student</span> <span class="title">student</span>) </span>&#123;</span><br><span class="line">       studentMapper.updateStudent(student);</span><br><span class="line">  </span><br><span class="line">       <span class="keyword">try</span> &#123;</span><br><span class="line">           <span class="keyword">throw</span> <span class="keyword">new</span> Exception(<span class="string">"异常"</span>);</span><br><span class="line">       &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">           e.printStackTrace();</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="isolation事务隔离级别"><a href="#isolation事务隔离级别" class="headerlink" title="isolation事务隔离级别"></a>isolation事务隔离级别</h1><p>​        <strong>所谓隔离级别就是指不同事务在并发执行的时候，互相的影响程度。我么在进行事务操作的过程中有可能引发以下三种情况。</strong></p>
+<ul>
+<li><p>脏读</p>
+<p>​        所谓脏读就是读取未提交数据。比如：A事务修改了某一条数据但是还没提交，B事务读取了A事务修改后的数据，此时如果A事务发生了回滚，那么就发生了脏读。</p>
+</li>
+<li><p>不可重复读</p>
+<p>​        不可重复读，通俗的讲就是一个事务多次读取同一数据，结果却不一样。比如：A事务先读取了一条数据的值为0，B事务在A事务读取后，将这条数据的值改成1然后提交，A事务再次读取这条数据发现和这前不一样了，这就是不可重复的。</p>
+</li>
+<li><p>幻读</p>
+<p>​        幻读就是同一个事务中进行多次同一查询，但由于其他事务的增加数据的行为，每次查询返回的结果级都不一样。</p>
+</li>
+</ul>
+<p>​      <strong>Spring针对上面三种情况，提供了5中隔离级别来解决。</strong></p>
+<ul>
+<li><p>DEFAULT  默认级别</p>
+<p>​        这个级别取决于所用数据库的默认隔离级别，MySQL默认隔离级别REPEATABLE_READ</p>
+</li>
+</ul>
+<ul>
+<li><p>READ_UNCOMMITED 未提交读级别</p>
+<p>​        在这个级别，事务可以读到别的事务未提交的数据，可能出现脏读、不可重复读、幻读</p>
+</li>
+</ul>
+<ul>
+<li><p>READ_COMMITED  已提交读级别</p>
+<p>​        在这个级别，一个事务只能读取其他事务已提交的修改。在这个隔离级别解决了脏读，但依然存在不可重复读和幻读。应为其他事务可能会有多次commit。</p>
+</li>
+</ul>
+<ul>
+<li><p>REPEATABLE_READ  可重复读取级别</p>
+<p>​            在这个级别，一个事务多次执行查询同一数据将返回同一结果，不受其他事务的影响(只针对修改操作)。在这个隔离级别解决了脏读、不可重复读 ，但依然存在幻读。因为此时其他事务可以插入数据。</p>
+</li>
+</ul>
+<ul>
+<li><p>SERIALIZABLE  序列化级别</p>
+<p>​            在这个级别，所有事务将逐个执行，这样事务之间就完全隔离。在这个隔离级别解决了脏读、不可重复读和幻读。</p>
+</li>
+</ul>
+<h1 id="Propagation事务传播行为"><a href="#Propagation事务传播行为" class="headerlink" title="Propagation事务传播行为"></a>Propagation事务传播行为</h1><p>​        <strong>事务传播行为也就是多个事务方法相互调用时，事务如何在方法中传播。Spring定义了七种事务传播行为。</strong></p>
+<ul>
+<li><p>REQUIRED (默认)</p>
+<p>​        如果当前没有事务，就创建一个新事务，如果当前存在事务，就加入该事务</p>
+<p>​        通俗的讲：</p>
+<p>​                A方法调用B方法</p>
+<p>​                B方法的事务传播行为如果是REQUIRED，那么如果A方法存在事务那么B方法就加入A事务，如果A方法不存在事务，那B方法就自己创建事务</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">*  测试发现只要有一个方法出现异常，两个方法就都进行回滚，证明两个方法在同一个事务中</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line">  </span><br><span class="line">   <span class="meta">@Transactional</span></span><br><span class="line">   <span class="meta">@Override</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">A</span><span class="params">(Student student1, Student student2)</span> </span>&#123;</span><br><span class="line">       <span class="comment">//新增Student1</span></span><br><span class="line">       studentMapper.insertStudent(student1);</span><br><span class="line">  </span><br><span class="line">       <span class="comment">//调用事务方法修改student2</span></span><br><span class="line">       updateStudent(student2);</span><br><span class="line">  </span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   <span class="meta">@Transactional</span>(propadation=Propagation.REQUIRED)</span><br><span class="line">   <span class="meta">@Override</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">B</span><span class="params">(Student student)</span> </span>&#123;</span><br><span class="line">       studentMapper.updateStudent(student);</span><br><span class="line">       <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException();</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+<ul>
+<li><p>SUPPORTS</p>
+<p>​    自身不会开启事务，在事务范围内则使用相同事务，否则不使用事务。</p>
+<p>​    通俗的讲：</p>
+<p>​                A方法调用B方法</p>
+<p>​                B方法的事务传播行为如果是SUPPORTS，那么如果A方法存在事务那么B方法就加入A事务，如果A方法不存在事务，那B方法就不使用事务</p>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">   <span class="comment">/**</span></span><br><span class="line"><span class="comment">	*  就像下面这个例子，由于A方法没有事务(因为A方法的调用者没有事务)，所以B方法也就不用事务</span></span><br><span class="line"><span class="comment">	*/</span></span><br><span class="line"></span><br><span class="line"><span class="meta">@Transactional</span>(propadation=Propagation.SUPPORTS)</span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">A</span><span class="params">(Student student1, Student student2)</span> </span>&#123;</span><br><span class="line">    <span class="comment">//新增Student1</span></span><br><span class="line">    studentMapper.insertStudent(student1);</span><br><span class="line"></span><br><span class="line">    <span class="comment">//调用事务方法修改student2</span></span><br><span class="line">    updateStudent(student2);</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Transactional</span>(propadation=Propagation.SUPPORTS)</span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">B</span><span class="params">(Student student)</span> </span>&#123;</span><br><span class="line">    studentMapper.updateStudent(student);</span><br><span class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<ul>
+<li><p>MANDATORY</p>
+<p>​    支持当前事务，如果当前存在事务，就加入该事务，如果当前不存在事务，就抛出异常。</p>
+<p>​    通俗的讲：</p>
+<p>​                A方法调用B方法</p>
+<p>​                B方法的事务传播行为如果是MANDATORY，那么如果A方法存在事务那么B方法就加入A事务，如果A方法不存在事务，那B方法就抛出异常</p>
+</li>
+</ul>
+<ul>
+<li><p>REQUIRES_NEW</p>
+<p>​    创建新事务，无论当前存不存在事务，都创建新事务</p>
+<p>​    通俗的讲：</p>
+<p>​                A方法调用B方法</p>
+<p>​                B方法的事务传播行为如果是REQUIRES_NEW，那么如果A方法无论存不存在事务，B方法都会自己开启一个新事务。</p>
+</li>
+</ul>
+<ul>
+<li><p>NOT_SUPPORTED</p>
+<p>​    以非事务方式执行操作，如果当前存在事务，就把当前事务挂起</p>
+<p>​    通俗的讲：</p>
+<p>​                A方法调用B方法</p>
+<p>​                B方法的事务传播行为如果是NOT_SUPPORTED，那么如果A方法存在事务，运行到B方法的时候A事务挂起，B方法会以非事务运行，B运行完毕后A事务才继续执行。</p>
+</li>
+</ul>
+<ul>
+<li><p>NEVER</p>
+<p>​    以非事务方式执行，如果当前存在事务，则抛出异常</p>
+<p>​    通俗的讲：</p>
+<p>​                A方法调用B方法</p>
+<p>​                B方法的事务传播行为如果是NEVER，那么如果A方法存在事务，那么B方法就会抛异常</p>
+</li>
+</ul>
+<ul>
+<li><p>NESTED</p>
+<p>​        如果当前存在事务，则在嵌套事务内执行。如果当前没有事务，则执行与PROPAGATION_REQUIRED类似的操作</p>
+<p>​        和REQUIRES_NEW相似，不同的是REQUIRES_NEW中的两个事务是独立的。而NESTED的事务要依赖于父事务，如果父事务回滚，那么自己事务也会回滚。</p>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>笔记</category>
+        <category>后端</category>
+      </categories>
+      <tags>
+        <tag>Spring</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Linux Shell编程基础</title>
     <url>/2020/02/02/backEnd/Linux-Shell%E7%BC%96%E7%A8%8B%E5%9F%BA%E7%A1%80/</url>
     <content><![CDATA[<h1 id="Shell是什么"><a href="#Shell是什么" class="headerlink" title="Shell是什么"></a>Shell是什么</h1><p>​        shell是一个命令行解释器，它为用户提供了一个向内核发送请求以便运行程序的界面系统级程序，用户可以用Shell来启动、挂起、停止甚至是编写一些程序。</p>
