@@ -5,6 +5,8 @@
     <url>/2020/02/10/backEnd/database/InnoDB%E4%B8%8EMYISAM/</url>
     <content><![CDATA[<h1 id="区别"><a href="#区别" class="headerlink" title="区别"></a>区别</h1><h2 id="事务"><a href="#事务" class="headerlink" title="事务"></a><strong>事务</strong></h2><p><strong>InnoDB支持事务，MyISAM不支持事务</strong></p>
 <p>InnoDB默认将每一条sql语句都封装成事务，在实际开发中最后用具体的事务进行管理</p>
+<a id="more"></a>
+
 <h2 id="外键"><a href="#外键" class="headerlink" title="外键"></a><strong>外键</strong></h2><p><strong>InnoDB支持外键，MyISAM不支持外键</strong></p>
 <h2 id="行级锁与表级锁"><a href="#行级锁与表级锁" class="headerlink" title="行级锁与表级锁"></a><strong>行级锁与表级锁</strong></h2><p><strong>InnoDB支持行级锁和表级锁，MyISAM只支持表级锁</strong></p>
 <p>​        MyISAM的表级锁有两种模式：读锁（共享锁），写锁（排它锁）。所谓读锁就是在对表进行读操作的时候允许其他用户对表进行读操作，而阻塞其他用户对表进行写操作。而写锁就是在对表进行写操作的时候，阻塞其他用户的读操作和写操作。</p>
