@@ -55,11 +55,13 @@
 <meta property="og:site_name" content="何处似樽前">
 <meta property="og:description" content="Redis简介​        Redis是一个基于内存、支持持久化、的高性能NoSql的key-value数据库。 Redis的特点  支持数据持久化，可以将内存中的数据保存在磁盘中，重启的时候可以再次进行加载。 数据结构丰富，支持string、list、set、zset、hash……. 支持数据备份、集群等高可用功能 性能高 （读速度：110000次&#x2F;s，写速度：8100次&#x2F;s） 原子性，Re">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s2.ax1x.com/2020/02/20/3Z4Jkq.png">
 <meta property="article:published_time" content="2020-02-18T03:55:37.000Z">
-<meta property="article:modified_time" content="2020-02-19T15:02:44.645Z">
+<meta property="article:modified_time" content="2020-02-21T15:58:45.671Z">
 <meta property="article:author" content="刘友滨">
 <meta property="article:tag" content="Redis">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s2.ax1x.com/2020/02/20/3Z4Jkq.png">
 
 <link rel="canonical" href="http://liuyoubin.top/2020/02/18/backEnd/Redis%E7%AC%94%E8%AE%B0%E6%95%B4%E7%90%86/">
 
@@ -262,14 +264,14 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-02-19 23:02:44" itemprop="dateModified" datetime="2020-02-19T23:02:44+08:00">2020-02-19</time>
+                <time title="修改时间：2020-02-21 23:58:45" itemprop="dateModified" datetime="2020-02-21T23:58:45+08:00">2020-02-21</time>
               </span>
 			
 			<span class="post-meta-divider">|</span>
-			<span title="post.wordcount"><span class="post-meta-item-icon"><i class="fa fa-file-word-o"></i></span>字数： 2.6k</span>
+			<span title="post.wordcount"><span class="post-meta-item-icon"><i class="fa fa-file-word-o"></i></span>字数： 6.1k</span>
 			
 			<span class="post-meta-divider">|</span>
-			<span title="post.min2read"><span class="post-meta-item-icon"><i class="fa fa-clock-o"></i></span>阅读时长≈ 10min</span>
+			<span title="post.min2read"><span class="post-meta-item-icon"><i class="fa fa-clock-o"></i></span>阅读时长≈ 23min</span>
 			
 			<span class="post-meta-divider">|</span>
             <span class="post-meta-item">
@@ -504,7 +506,7 @@
 <li>volatile-lfu   设定超时时间的数据中删除使用频率最少的键</li>
 <li>allkeys-lfu    所有key中删除使用频率最少的键</li>
 </ul>
-<h1 id="Redis常用键命令"><a href="#Redis常用键命令" class="headerlink" title="Redis常用键命令"></a>Redis常用键命令</h1><ul>
+<h1 id="Redis常用命令"><a href="#Redis常用命令" class="headerlink" title="Redis常用命令"></a>Redis常用命令</h1><h2 id="键命令"><a href="#键命令" class="headerlink" title="键命令"></a>键命令</h2><ul>
 <li><p>DEL key</p>
 <p>​    用于key存在时删除 key</p>
 </li>
@@ -542,7 +544,23 @@
 <p>返回key所存储value的值</p>
 </li>
 </ul>
-<h1 id="Redis常用数据类型"><a href="#Redis常用数据类型" class="headerlink" title="Redis常用数据类型"></a>Redis常用数据类型</h1><h2 id="String"><a href="#String" class="headerlink" title="String"></a>String</h2><p>​    String是redis最基本的数据类型，是二进制安全的，意味着redis的string可以包含任何数据，比如jpg图片或者序列化对象。</p>
+<h2 id="数据库命令"><a href="#数据库命令" class="headerlink" title="数据库命令"></a>数据库命令</h2><p>​    Redis默认16个数据库，通过整数索引标识，默认情况连接到数据库0</p>
+<ul>
+<li><p>select 数据库索引  </p>
+<p>​    数据库切换</p>
+</li>
+<li><p>move key  数据库索引  </p>
+<p>​    将单前key移动到另外的数据库</p>
+</li>
+<li><p>flushdb</p>
+<p>​    清除当前数据的所有key</p>
+</li>
+<li><p>flushall</p>
+<p>​    清除所有数据库的key</p>
+</li>
+</ul>
+<h1 id="Redis常用数据类型"><a href="#Redis常用数据类型" class="headerlink" title="Redis常用数据类型"></a>Redis常用数据类型</h1><h2 id="String"><a href="#String" class="headerlink" title="String"></a>String</h2><p><strong>介绍</strong></p>
+<p>​        String是redis最基本的数据类型，是二进制安全的，意味着redis的string可以包含任何数据，比如jpg图片或者序列化对象。</p>
 <p><strong>String命令</strong></p>
 <ul>
 <li><p>SET key value</p>
@@ -581,7 +599,14 @@
 <p>将指定value追加到存储值末尾</p>
 </li>
 </ul>
-<h2 id="Hash"><a href="#Hash" class="headerlink" title="Hash"></a>Hash</h2><p>​        hash是一个string类型的field和value的映射表，hash特别适合存储对象，Redis每个hash可以存储2^32-1键值对</p>
+<p><strong>应用场景</strong></p>
+<ol>
+<li>string通常用于保存单个字符或者json字符串数据</li>
+<li>因为string的二进制安全的，所以可以保存图片文件的内容当作字符串来存储</li>
+<li>计数器 （例如：粉丝数、登陆错误次数记录）</li>
+</ol>
+<h2 id="Hash"><a href="#Hash" class="headerlink" title="Hash"></a>Hash</h2><p><strong>介绍</strong></p>
+<p>​        hash是一个string类型的field和value的映射表，hash特别适合存储对象，Redis每个hash可以存储2^32-1键值对</p>
 <p><strong>Hash命令</strong></p>
 <ul>
 <li><p>HSET key  field value [field value field value……]</p>
@@ -606,6 +631,163 @@
 <p>​    删除一个或多个HASH表字段</p>
 </li>
 </ul>
+<p><strong>应用场景</strong></p>
+<p>​        基于hash的特性，我们可以用hash类型来存储java bean对象</p>
+<h2 id="List"><a href="#List" class="headerlink" title="List"></a>List</h2><p><strong>介绍</strong></p>
+<p>​        Redis中的List是简单的字符串列表，按照插入的顺序排序，可以添加一个元素到列表的左边或右边。一个列表最多可以包含2^32-1个元素。</p>
+<p><strong>List命令</strong></p>
+<ul>
+<li><p>LPUSH key value [value…….]</p>
+<p>将一个或多个值插入列表左侧</p>
+</li>
+<li><p>RPUSH key value [value…….]</p>
+<p>​    将一个或多个值插入列表右侧</p>
+</li>
+<li><p>LPUSHX key value </p>
+<p>​    将一个值插入列表左侧，如果列表不存在则无效</p>
+</li>
+<li><p>RPUSHX key value </p>
+<p>​    将一个值插入列表右侧，如果列表不存在则无效</p>
+</li>
+<li><p>LLEN key</p>
+<p>​    获取列表长度</p>
+</li>
+<li><p>LINDEX key index</p>
+<p>​    获取列表指定下标的的元素</p>
+</li>
+<li><p>LRANGE key start end</p>
+<p>​    获取列表指定范围内的值（0表示第一个元素，1表示第二个元素，-1代表最后一个元素，-2代表倒数第二个元素）</p>
+</li>
+<li><p>LPOP </p>
+<p>​    从左侧获取并移除第一个元素</p>
+</li>
+<li><p>RPOP </p>
+<p>​    从右侧获取并移除第一个元素</p>
+</li>
+<li><p>BLPOP key [key2…] timeout(秒)</p>
+<p>​    阻塞地移除并获取第一个元素,直到超时或者发现可弹出数据</p>
+</li>
+<li><p>BRPOP key [key2…] timeout(秒)</p>
+<p>​    阻塞地移除并获取右侧第一个元素,直到超时或者发现可弹出数据</p>
+</li>
+<li><p>LTRIM key start end</p>
+<p>​    对列表进行修剪，不在区间内的元素将被删除</p>
+</li>
+<li><p>LSET key index value</p>
+<p>​    对指定索引的元素进行设置</p>
+</li>
+<li><p>LINSERT key BEFORE | AFTER word value</p>
+<p>​    将value插入列表中，位于值world之前或之后</p>
+</li>
+<li><p>RPOPLPUSH  source destination</p>
+<p>​    移除列表的最后一个元素并添加到另一个列表返回</p>
+</li>
+<li><p>BRPOPLPUSH  source destination timeout</p>
+<p>​    阻塞地进行</p>
+</li>
+</ul>
+<p><strong>应用场景</strong></p>
+<ol>
+<li><p>对数据量大的集合进行数据删减</p>
+<p>​    数据列表显示、关注列表、粉丝列表‘、留言评价、热点新闻</p>
+</li>
+<li><p>任务队列</p>
+<p>​    list可以用来实现一个消息队列，而且可以确保先后顺序</p>
+</li>
+</ol>
+<h2 id="Set"><a href="#Set" class="headerlink" title="Set"></a>Set</h2><p><strong>介绍</strong></p>
+<p>​        Redis的set是String类型的无序集合。集合的成员是唯一的。Redis中的集合是通过哈希来实现的，所以添加，删除，查找的复杂的都是O(1)。集合中最大成员数为2^32-1。</p>
+<p><strong>Set命令</strong></p>
+<ul>
+<li><p>SADD key value [value]</p>
+<p>​    往集合中存储一个或多个成员</p>
+</li>
+<li><p>SCARD key</p>
+<p>​    获取集合成员个数</p>
+</li>
+<li><p>SMEMBERS key</p>
+<p>​    获取集合中所以成员</p>
+</li>
+<li><p>SISMEMBER key value</p>
+<p>​    判断集合中是否存在某个value</p>
+</li>
+<li><p>SRANDMEMBER key [count]</p>
+<p>​    随机返回集合中一个或多个成员</p>
+</li>
+<li><p>SREM key value [value…]</p>
+<p>​    移除集合中一个或多个成员</p>
+</li>
+<li><p>SPOP key [count]</p>
+<p>​    随机移除并返回集合中的一个元素</p>
+</li>
+<li><p>SMOVE source destination value</p>
+<p>​    将value从source集合移到destination集合</p>
+</li>
+<li><p>SDIFF key1 [key2]</p>
+<p>​    返回所有给定集合的差集</p>
+</li>
+<li><p>SDIFF destination key1 [key2]</p>
+<p>​    返回所有给定集合的差集,并存放在destination 中</p>
+</li>
+<li><p>SINTER key1 [key2]</p>
+<p>​    返回所有给定集合的交集</p>
+</li>
+<li><p>SINTER destination key1 [key2]</p>
+<p>​    返回所有给定集合的交集,并存放在destination 中</p>
+</li>
+<li><p>SUNION key1 [key2]</p>
+<p>​    返回所有给定集合的并集</p>
+</li>
+<li><p>SUNION destination key1 [key2]</p>
+<p>​    返回所有给定集合的并集,并存放在destination 中</p>
+</li>
+</ul>
+<p><strong>应用场景</strong></p>
+<p>​        常用于两个集合数据之间的交叉并运算</p>
+<ol>
+<li>方便实现如共同关注、共同喜好、二度好友功能</li>
+<li>利用唯一性可以统计网站的独立ip</li>
+</ol>
+<h2 id="ZSet"><a href="#ZSet" class="headerlink" title="ZSet"></a>ZSet</h2><p><strong>介绍</strong></p>
+<p>​        不同于set，zset中每个元素都会关联一个double类型的分数，redis通过分数为元素中的成员进行排序，分数（score）可以重复。</p>
+<p><strong>Zset命令</strong></p>
+<ul>
+<li><p>ZADD key score1 value1 [score2 value2]</p>
+<p>​    向有序集合添加一个或多个成员，或者更新分数</p>
+</li>
+<li><p>ZCARD key</p>
+<p>​    获取有序集合成员个数</p>
+</li>
+<li><p>ZCOUNT key min max</p>
+<p>​    计算在有序集合中指定区间分数的成员数</p>
+</li>
+<li><p>ZRANK key value</p>
+<p>​    返回有序集合中指定成员的索引</p>
+</li>
+<li><p>ZRANGE key start stop [WITHSCORES] </p>
+</li>
+</ul>
+<p>​           返回有序集合中指定区间的成员(从低到高)</p>
+<ul>
+<li><p>ZREVRANGE key start stop [WITHSCORES] </p>
+<p>​    返回有序集合中指定区间的成员(从高到低)</p>
+</li>
+<li><p>ZREM key value [value]</p>
+<p>​    移除一个或多个元素</p>
+</li>
+<li><p>ZREMRANGEBYRANK key start stop</p>
+<p>​    移除排名区间的元素（第一个为0）</p>
+</li>
+<li><p>ZREMRANGEBYSCORE key min max</p>
+</li>
+</ul>
+<p>​            移除分数区间的元素</p>
+<p><strong>应用场景</strong></p>
+<ol>
+<li>存储学生的成绩 value可以是学号，score为分数，这样就可以做到动态排序</li>
+<li>还可以用zset来做带权重的队列，通过score来排序</li>
+</ol>
+<hr>
 <h1 id="Java整合Redis"><a href="#Java整合Redis" class="headerlink" title="Java整合Redis"></a>Java整合Redis</h1><p><strong>通过Jedis访问Redis</strong></p>
 <ol>
 <li><p>导入依赖</p>
@@ -625,6 +807,262 @@
 </li>
 <li><p>配置RedisTemplate（采用注解）</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RedisConfig</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Redis数据源配置</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> JedisPoolConfig <span class="title">jedisPoolConfig</span><span class="params">()</span></span>&#123;</span><br><span class="line">        JedisPoolConfig poolConfig = <span class="keyword">new</span> JedisPoolConfig();</span><br><span class="line">        poolConfig.setMaxTotal(<span class="number">100</span>);<span class="comment">//最大连接数</span></span><br><span class="line">        poolConfig.setMaxIdle(<span class="number">20</span>);<span class="comment">//最大空闲数</span></span><br><span class="line">        poolConfig.setMaxWaitMillis(<span class="number">1000</span>);<span class="comment">//最大连接等待时间</span></span><br><span class="line">        poolConfig.setTestOnBorrow(<span class="keyword">true</span>);<span class="comment">//是否在取出连接前进行检验，如果检验失败则重新获取</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> poolConfig;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Spring-Redis连接池工厂配置</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> JedisConnectionFactory <span class="title">jedisConnectionFactory</span><span class="params">(JedisPoolConfig jedisPoolConfig)</span></span>&#123;</span><br><span class="line"></span><br><span class="line">        JedisConnectionFactory jedisConnectionFactory = <span class="keyword">new</span> JedisConnectionFactory(jedisPoolConfig);</span><br><span class="line">        jedisConnectionFactory.setHostName(ip地址);</span><br><span class="line">        jedisConnectionFactory.setPassword(<span class="string">"123456"</span>);</span><br><span class="line">        jedisConnectionFactory.setPort(<span class="number">6379</span>);</span><br><span class="line">        <span class="keyword">return</span> jedisConnectionFactory;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 获取RedisTemplate</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> RedisTemplate <span class="title">redisTemplate</span><span class="params">(JedisConnectionFactory jedisConnectionFactory)</span></span>&#123;</span><br><span class="line">       </span><br><span class="line">        RedisTemplate&lt;String, String&gt; redisTemplate = <span class="keyword">new</span> RedisTemplate&lt;&gt;();</span><br><span class="line">        StringRedisSerializer stringRedisSerializer = <span class="keyword">new</span> StringRedisSerializer();</span><br><span class="line"></span><br><span class="line">        redisTemplate.setConnectionFactory(jedisConnectionFactory);</span><br><span class="line">     redisTemplate.setKeySerializer(stringRedisSerializer);</span><br><span class="line">        redisTemplate.setValueSerializer(stringRedisSerializer);</span><br><span class="line">        redisTemplate.setHashKeySerializer(stringRedisSerializer);</span><br><span class="line">        redisTemplate.setHashValueSerializer(stringRedisSerializer);</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span>  redisTemplate;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ol>
+<h1 id="Redis分布订阅"><a href="#Redis分布订阅" class="headerlink" title="Redis分布订阅"></a>Redis分布订阅</h1><p>​        Redis分布订阅（pub/sub）是一种消息通信模式：发送者(pub)发送消息，订阅者(sub)接收消息。Redis客户端可以订阅任意数量的频道</p>
+<p><img src="https://s2.ax1x.com/2020/02/20/3Z4Jkq.png" alt="image"></p>
+<p><strong>订阅频道</strong></p>
+<ul>
+<li>SUBSCRIBE channel [channel..] 订阅一个或多个频道</li>
+<li>PSUBSCRIBE pattern [pattern..] 订阅一个或多个给定模式的频道</li>
+</ul>
+<p><strong>发布频道</strong></p>
+<ul>
+<li>PUBLISH channel message 将消息发布到指定的频道</li>
+</ul>
+<p><strong>退订频道</strong></p>
+<ul>
+<li><p>UNSUBSCRIBE  channel [channel..]   退订一个或多个频道</p>
+</li>
+<li><p>PUNSUBSCRIBE pattern [pattern..] 退订一个或多个给定模式的频道</p>
+</li>
+</ul>
+<p><strong>应用场景</strong></p>
+<p>这一个功能可以用于各种实时消息系统，比如即时聊天，群聊等功能</p>
+<h1 id="Redis事务"><a href="#Redis事务" class="headerlink" title="Redis事务"></a>Redis事务</h1><p><strong>事务介绍</strong></p>
+<p>​        Redis的事务可以一次执行多个命令(允许在一次单独的步骤中执行一组命令)，批量操作在exec命令前被放入队列缓存，收到exec命令后进入事务执行，事务中的任意命令失败，其余命令依然被执行。并且具有以下两个特性。</p>
+<ol>
+<li>Redis会将一个事务的所有命令序列化，然后按顺序执行。</li>
+<li>执行中不会被其他命令插入</li>
+</ol>
+<p>​        一个事务从开始到执行会经历以下三个阶段：开始事务&gt;命令入列&gt;执行事务</p>
+<p><strong>事务命令</strong></p>
+<table>
+<thead>
+<tr>
+<th align="center">命令</th>
+<th align="center">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">DISCARD</td>
+<td align="center">取消事务，放弃执行事务块内的所有命令</td>
+</tr>
+<tr>
+<td align="center">EXEC</td>
+<td align="center">执行所有事务块内的命令</td>
+</tr>
+<tr>
+<td align="center">MUTL</td>
+<td align="center">标记一个事务块的开始</td>
+</tr>
+<tr>
+<td align="center">UNWATCH</td>
+<td align="center">取消watch命令对所有key的监视</td>
+</tr>
+<tr>
+<td align="center">WATCH key [key..]</td>
+<td align="center">监视一个或多个key，如果在事务执行前这些key被其他命令所改动，那么事务将被打断</td>
+</tr>
+</tbody></table>
+<p><strong>事务错误处理</strong></p>
+<p>​        Redis只有对报告错误进行事务回滚，什么叫报告错误？就是比如我在事务里写了 setww a 1这样一条命令，这条命令是无法执行成功的因为命令本身就不合法，所引发的错误。</p>
+<p>​        Redis对于逻辑的错误，只会取消逻辑错误的语句，而不会进行事务回滚。比如 set a bb ； incrby a  。这样的命令就是逻辑错误。</p>
+<h1 id="Redis持久化"><a href="#Redis持久化" class="headerlink" title="Redis持久化"></a>Redis持久化</h1><p>​    <code>Redis有两种持久化机制：RDB、AOF</code></p>
+<h2 id="RDB"><a href="#RDB" class="headerlink" title="RDB"></a>RDB</h2><p>​        RDB是redis默认的持久化机制，相当于快照。这种方式就是将内存中的数据以快照的方式写入二进制文件中。默认文件名：dump.rdb</p>
+<p><strong>快照条件</strong></p>
+<ol>
+<li>服务器正常关闭  ./bin/redis-cli shutdown</li>
+<li>执行save(阻塞 保存快照) ；执行bgsave (异步保存)</li>
+<li>flushall命令</li>
+<li>满足redis.conf中save配置条件</li>
+</ol>
+<p><strong>相关配置</strong></p>
+<ul>
+<li><p>save <seconds> <change></p>
+<p>​    指定在多次时间内有多少次更新操作，就将数据同步到数据文件中，可以多条件配合</p>
+<p>​    save 900 1                900秒内有1个更改</p>
+<p>​    save 300  10             300秒内有10个更改</p>
+<p>​    save  60    10000      60秒内有10000个更改</p>
+</li>
+<li><p>rdbcompression </p>
+<p>​    指定存储至本地数据库的时候是否采用LZF压缩，默认为true。如果设置成no可以节省cpu时间，但数据库文件会变大。</p>
+</li>
+<li><p>dbfilename</p>
+<p>​    指定数据库文件名，默认为dump.rdb</p>
+</li>
+<li><p>dir ./</p>
+<p>​    指定数据库文件存放位置</p>
+</li>
+</ul>
+<p><strong>优点</strong></p>
+<ul>
+<li>快照保存数据极快，还原数据极快，适用于灾难备份</li>
+<li>如果对数据完整性一致性要求不高，RDB是很好的选择</li>
+</ul>
+<p><strong>缺点</strong></p>
+<ul>
+<li>小内存机器不适合使用，因为执行rdb快照的时候redis会fork一个进程进行保存工作。</li>
+<li>数据完整性一致性不高，因为RDB最后一次备份有可能宕机</li>
+</ul>
+<h2 id="AOF"><a href="#AOF" class="headerlink" title="AOF"></a>AOF</h2><p>​        不同于RDB的快照方式，采用AOF可以更好地保证数据的完整性。redis会将每一个收到的写命令通过write函数追加到文件中（默认是appendonly.aof）。当redis重启时，会通过执行文件中的写命令来重建数据库的内容。</p>
+<p><strong>触发条件</strong></p>
+<p>​        根据appendfsync配置策略进行触发</p>
+<p><strong>相关配置</strong></p>
+<ul>
+<li><p>appendonly on</p>
+<p>​    指定是否每次在更新后进行日志记录，Redis在默认情况下是异步的把数据写入磁盘，如果不开启，可能会在断点时导致一段时间的数据丢失。因为redis本身同步数据文件是按上面save条件来同步的，所以有的数据会有一段时间内只存在于内存中。默认为no</p>
+</li>
+<li><p>appendfilename appendonly.aof</p>
+<p>​    指定更新日志文件名</p>
+</li>
+<li><p>appendfsync</p>
+<p>​    指定更新日志条件：</p>
+<ul>
+<li>no  表示等操作系统进行数据缓存同步到磁盘</li>
+<li>always  表示每次更新后手动调用fsync()将数据写到磁盘 (慢，安全)</li>
+<li>everysec   表示每秒同步一次</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="center">参数</th>
+<th align="center">优点</th>
+<th align="center">缺点</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">always</td>
+<td align="center">不丢失数据</td>
+<td align="center">IO开销大</td>
+</tr>
+<tr>
+<td align="center">everysec</td>
+<td align="center">每秒进行与fsync，最多丢失1秒数据</td>
+<td align="center">可能丢失1秒数据</td>
+</tr>
+<tr>
+<td align="center">no</td>
+<td align="center">不需要redis管控</td>
+<td align="center">不可控</td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+<p><strong>AOF重写</strong></p>
+<p>​        由于AOF的追加命令特点，文件一般会比RDB大而且很多是无用的命令。所以redis支持AOF重写优化存储文件。</p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">auto</span>-aof-rewrite-percentage <span class="number">100</span></span><br><span class="line"><span class="built_in">auto</span>-aof-rewrite-min-size <span class="number">64</span>mb</span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>优点</strong></p>
+<ul>
+<li>数据完整性和一致性更高</li>
+</ul>
+<p><strong>缺点</strong></p>
+<ul>
+<li>因为AOF记录的内容多，文件会越来越大，数据恢复也会越来越慢。</li>
+</ul>
+<h1 id="RDB和AOF对比"><a href="#RDB和AOF对比" class="headerlink" title="RDB和AOF对比"></a>RDB和AOF对比</h1><table>
+<thead>
+<tr>
+<th></th>
+<th align="center">RDB</th>
+<th align="center">AOF</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>启动优先级</td>
+<td align="center">低</td>
+<td align="center">高</td>
+</tr>
+<tr>
+<td>文件体积</td>
+<td align="center">小</td>
+<td align="center">大</td>
+</tr>
+<tr>
+<td>恢复速度</td>
+<td align="center">快</td>
+<td align="center">慢</td>
+</tr>
+<tr>
+<td>数据安全性</td>
+<td align="center">不太高有可能丢失数据</td>
+<td align="center">根据策略决定</td>
+</tr>
+</tbody></table>
+<h1 id="Redis缓存与数据库一致性"><a href="#Redis缓存与数据库一致性" class="headerlink" title="Redis缓存与数据库一致性"></a>Redis缓存与数据库一致性</h1><h2 id="实时同步"><a href="#实时同步" class="headerlink" title="实时同步"></a>实时同步</h2><p>​        对一致性比较高的，应采用实时同步方案。即查询缓存查询不到直接查询数据库，保存缓存。更新缓存时，先更新数据库，再设置缓存过期（建议不要更新缓存内容）。</p>
+<p>​        </p>
+<h2 id="异步队列"><a href="#异步队列" class="headerlink" title="异步队列"></a>异步队列</h2><p>​        对于并发程度较高的，可以采用异步队列的方式同步，采用消息中间件来处理消息。</p>
+<h1 id="Redis主从复制"><a href="#Redis主从复制" class="headerlink" title="Redis主从复制"></a>Redis主从复制</h1><p>​        Redis要实现主从复制架构非常简单，主服务器不需要做任何修改，只需要对从服务器做相应的配置就可以了。</p>
+<p>创建一个从服务器</p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./bin/redis-server ./redis.conf -port <span class="number">6380</span> -slaveof <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span> <span class="number">6379</span></span><br></pre></td></tr></table></figure>
+
+<p>主服务器负责写操作，从服务器只负责读，同步主服务器的更新数据。</p>
+<h1 id="Redis-Cluster集群"><a href="#Redis-Cluster集群" class="headerlink" title="Redis Cluster集群"></a>Redis Cluster集群</h1><p>​        Redis3.0之后支持redis-cluster,至少<strong>3(master)+3(slave)</strong>才能建立集群。Redis-Cluster采用无中心化结构，每个节点保存数据和整个集群状态，每个节点都和其他节点连接。</p>
+<p><strong>搭建流程</strong></p>
+<ol>
+<li><p>创建Redis节点安装目录</p>
+<figure class="highlight maxima"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">mkdir</span> /usr/<span class="built_in">local</span>/redis_cluster</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在redis_cluster目录下创建6个安装文件夹</p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkdir <span class="number">7001</span> <span class="number">7002.</span>...<span class="number">.7006</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>将redis-conf分别拷贝到安装文件夹下</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cp  <span class="regexp">/usr/</span>src<span class="regexp">/redis-4.0.1/</span>redis.conf <span class="regexp">/usr/</span>local<span class="regexp">/redis-cluster/</span><span class="number">7001</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>分别修改配置文件</p>
+<p><strong>protected-mode</strong>是为了禁用公网外部访问redis cache。启用条件有两个</p>
+<ol>
+<li>没有bind IP</li>
+<li>没有设置访问密码</li>
+</ol>
+<p>如果希望外部访问需要将protected-mode设置为no</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">bind 192.168.127.130 <span class="comment">//绑定服务器ip地址</span></span><br><span class="line">port 7001 <span class="comment">//绑定端口号，区分redis实例</span></span><br><span class="line">daemonize yes <span class="comment">//后台运行</span></span><br><span class="line">pidfile /<span class="keyword">var</span>/<span class="keyword">run</span>/redis-7001.pid <span class="comment">//修改pid进程文件</span></span><br><span class="line">logfile /root/application/<span class="keyword">program</span>/redis-<span class="keyword">cluster</span>/7001/redis.<span class="keyword">log</span> <span class="comment">//日志文件位置</span></span><br><span class="line"><span class="keyword">dir</span> /root/application/<span class="keyword">program</span>/redis-<span class="keyword">cluster</span>/7001/  <span class="comment">//数据文件存放地址</span></span><br><span class="line"><span class="keyword">cluster</span>-enabled yes <span class="comment">//启用集群</span></span><br><span class="line"><span class="keyword">cluster</span>-config-<span class="keyword">file</span> nodes-7001.<span class="keyword">conf</span> <span class="comment">//配置每个节点的配置文件</span></span><br><span class="line"><span class="keyword">cluster</span>-node-timeout 15000 <span class="comment">//节点超时时间</span></span><br><span class="line">appendonly yes <span class="comment">//启用AOF持久化策略</span></span><br><span class="line">appendfsync always <span class="comment">//AOF追加策略</span></span><br></pre></td></tr></table></figure>
+
+
+</li>
+</ol>
+<ol start="5">
+<li><p>启动各个redis节点</p>
+<figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">   <span class="comment">#将redis-4.0.1安装目录下的src复制到7001-7006目录下</span></span><br><span class="line">   <span class="keyword">cd</span>  <span class="string">/usr/src/redis-4.0.1/</span></span><br><span class="line">   cp -r <span class="string">./src</span> <span class="string">/usr/loca/redis_cluster/7001</span></span><br><span class="line">   </span><br><span class="line">   <span class="comment">#进入各个目录启动redis</span></span><br><span class="line">   <span class="keyword">cd</span> <span class="string">/usr/local/redis_cluster/</span></span><br><span class="line"><span class="string">./7001/src/redis-server</span> <span class="string">./7001/redis.conf</span></span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ol>
+<p><strong>创建集群</strong></p>
+<p>​        Redis官方提供了redis-trib.rb来创建集群，就在解压目录src下。我们可以将这个命令复制到/usr/local/bin下方便我们以后使用</p>
+<p>​        然后直接在命令使用</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">redis-trib</span><span class="selector-class">.rb</span> <span class="selector-tag">create</span> <span class="selector-tag">--replicas</span> 127<span class="selector-class">.0</span><span class="selector-class">.0</span><span class="selector-class">.1</span><span class="selector-pseudo">:7001</span> 127<span class="selector-class">.0</span><span class="selector-class">.0</span><span class="selector-class">.1</span><span class="selector-pseudo">:7002</span> ....</span><br></pre></td></tr></table></figure>
+
+<p>​        如果出现了<code>ruby :没有那个文件或目录</code>则需要安装ruby</p>
+<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">yum -y <span class="keyword">install </span>ruby ruby-devel rubygems rpm-<span class="keyword">build</span></span><br><span class="line"><span class="keyword"></span></span><br><span class="line"><span class="keyword">gem </span><span class="keyword">install </span>redis</span><br></pre></td></tr></table></figure>
+
+<p>​        如果还出现错误，则是因为Centos默认支持的ruby版本过低，需要安装rvm，再把ruby提升到2.2.2以上</p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">gpg --keyserver hkp:<span class="comment">//keys.gnupg.net --recv-keys</span></span><br><span class="line"><span class="number">409</span>B6B1796C275462A1703113804BB82D39DC0E3</span><br><span class="line"><span class="number">7</span>D2BAF1CF37B13E2069D6956105BD0E739499BDB</span><br><span class="line"></span><br><span class="line">curl -sSL http:<span class="comment">//get.rvm.io | bash -s stable</span></span><br><span class="line"></span><br><span class="line">find / -name rvm-print</span><br><span class="line"></span><br><span class="line">source /usr/local/rvm/scripts/rvm</span><br><span class="line"></span><br><span class="line">rvm list known <span class="comment">//查看ruby版本</span></span><br><span class="line"></span><br><span class="line">rvm install <span class="number">2.4</span><span class="number">.4</span></span><br><span class="line"></span><br><span class="line">rvm use <span class="number">2.4</span><span class="number">.4</span> <span class="comment">//使用版本</span></span><br><span class="line"></span><br><span class="line">rvm use <span class="number">2.4</span><span class="number">.4</span> --dafault <span class="comment">//设置默认版本</span></span><br><span class="line"></span><br><span class="line">ruby --version</span><br><span class="line"></span><br><span class="line">gem install redis</span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>测试集群</strong></p>
+<ol>
+<li><p>启动上面配置的6个redis，使用redis-trib.rb进行搭建</p>
+</li>
+<li><p>连接集群</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">redis-cli</span> <span class="string">-h</span> <span class="number">127.0</span><span class="number">.01</span> <span class="string">-c</span> <span class="string">-p</span> <span class="number">7001</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># -c 连接集群</span></span><br><span class="line"><span class="comment"># -h 由于绑定了ip地址，所有-h不可省略</span></span><br><span class="line"></span><br><span class="line"><span class="string">cluster</span> <span class="string">nodes</span> <span class="comment">#查看集群状态</span></span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ol>
+<p><strong>开放端口权限</strong></p>
+<ol>
+<li><p>一次开放端口权限</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">firewall-<span class="keyword">cmd</span><span class="bash"> --list-ports <span class="comment">#查看已开放端口</span></span></span><br><span class="line">firewall-<span class="keyword">cmd</span><span class="bash"> --zone=public --add-port=7001/tcp --permanent</span></span><br><span class="line">firewall-<span class="keyword">cmd</span><span class="bash"> --reload</span></span><br></pre></td></tr></table></figure>
 
 </li>
 </ol>
@@ -647,7 +1085,7 @@
   <p><span>本文标题:</span><a href="/2020/02/18/backEnd/Redis%E7%AC%94%E8%AE%B0%E6%95%B4%E7%90%86/">Redis笔记整理</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 刘友滨 的个人博客">刘友滨</a></p>
   <p><span>发布时间:</span>2020年02月18日 - 11:55</p>
-  <p><span>最后更新:</span>2020年02月19日 - 23:02</p>
+  <p><span>最后更新:</span>2020年02月21日 - 23:58</p>
   <p><span>原始链接:</span><a href="/2020/02/18/backEnd/Redis%E7%AC%94%E8%AE%B0%E6%95%B4%E7%90%86/" title="Redis笔记整理">http://liuyoubin.top/2020/02/18/backEnd/Redis%E7%AC%94%E8%AE%B0%E6%95%B4%E7%90%86/</a>
     <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://liuyoubin.top/2020/02/18/backEnd/Redis%E7%AC%94%E8%AE%B0%E6%95%B4%E7%90%86/"  aria-label="复制成功！"></i></span>
   </p>
@@ -758,7 +1196,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Redis简介"><span class="nav-number">1.</span> <span class="nav-text">Redis简介</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Redis安装"><span class="nav-number">2.</span> <span class="nav-text">Redis安装</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Redis启动与关闭"><span class="nav-number">3.</span> <span class="nav-text">Redis启动与关闭</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#启动服务端"><span class="nav-number">3.1.</span> <span class="nav-text">启动服务端</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#启动客户端"><span class="nav-number">3.2.</span> <span class="nav-text">启动客户端</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#关闭"><span class="nav-number">3.3.</span> <span class="nav-text">关闭</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Redis配置文件"><span class="nav-number">4.</span> <span class="nav-text">Redis配置文件</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Redis配置项详解"><span class="nav-number">4.1.</span> <span class="nav-text">Redis配置项详解</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Redis内存维护策略"><span class="nav-number">5.</span> <span class="nav-text">Redis内存维护策略</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Redis常用键命令"><span class="nav-number">6.</span> <span class="nav-text">Redis常用键命令</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Redis常用数据类型"><span class="nav-number">7.</span> <span class="nav-text">Redis常用数据类型</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#String"><span class="nav-number">7.1.</span> <span class="nav-text">String</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Hash"><span class="nav-number">7.2.</span> <span class="nav-text">Hash</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Java整合Redis"><span class="nav-number">8.</span> <span class="nav-text">Java整合Redis</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Redis简介"><span class="nav-number">1.</span> <span class="nav-text">Redis简介</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Redis安装"><span class="nav-number">2.</span> <span class="nav-text">Redis安装</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Redis启动与关闭"><span class="nav-number">3.</span> <span class="nav-text">Redis启动与关闭</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#启动服务端"><span class="nav-number">3.1.</span> <span class="nav-text">启动服务端</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#启动客户端"><span class="nav-number">3.2.</span> <span class="nav-text">启动客户端</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#关闭"><span class="nav-number">3.3.</span> <span class="nav-text">关闭</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Redis配置文件"><span class="nav-number">4.</span> <span class="nav-text">Redis配置文件</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Redis配置项详解"><span class="nav-number">4.1.</span> <span class="nav-text">Redis配置项详解</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Redis内存维护策略"><span class="nav-number">5.</span> <span class="nav-text">Redis内存维护策略</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Redis常用命令"><span class="nav-number">6.</span> <span class="nav-text">Redis常用命令</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#键命令"><span class="nav-number">6.1.</span> <span class="nav-text">键命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据库命令"><span class="nav-number">6.2.</span> <span class="nav-text">数据库命令</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Redis常用数据类型"><span class="nav-number">7.</span> <span class="nav-text">Redis常用数据类型</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#String"><span class="nav-number">7.1.</span> <span class="nav-text">String</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Hash"><span class="nav-number">7.2.</span> <span class="nav-text">Hash</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#List"><span class="nav-number">7.3.</span> <span class="nav-text">List</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Set"><span class="nav-number">7.4.</span> <span class="nav-text">Set</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ZSet"><span class="nav-number">7.5.</span> <span class="nav-text">ZSet</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Java整合Redis"><span class="nav-number">8.</span> <span class="nav-text">Java整合Redis</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Redis分布订阅"><span class="nav-number">9.</span> <span class="nav-text">Redis分布订阅</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Redis事务"><span class="nav-number">10.</span> <span class="nav-text">Redis事务</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Redis持久化"><span class="nav-number">11.</span> <span class="nav-text">Redis持久化</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#RDB"><span class="nav-number">11.1.</span> <span class="nav-text">RDB</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#AOF"><span class="nav-number">11.2.</span> <span class="nav-text">AOF</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#RDB和AOF对比"><span class="nav-number">12.</span> <span class="nav-text">RDB和AOF对比</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Redis缓存与数据库一致性"><span class="nav-number">13.</span> <span class="nav-text">Redis缓存与数据库一致性</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#实时同步"><span class="nav-number">13.1.</span> <span class="nav-text">实时同步</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#异步队列"><span class="nav-number">13.2.</span> <span class="nav-text">异步队列</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Redis主从复制"><span class="nav-number">14.</span> <span class="nav-text">Redis主从复制</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Redis-Cluster集群"><span class="nav-number">15.</span> <span class="nav-text">Redis Cluster集群</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
