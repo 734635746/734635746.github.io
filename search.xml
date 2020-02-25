@@ -1175,6 +1175,7 @@
 <h1 id="异步回调"><a href="#异步回调" class="headerlink" title="异步回调"></a>异步回调</h1><blockquote>
 <p>Future的设计初衷：对将来的某个事件的结果进行建模</p>
 </blockquote>
+<p><img src="https://s2.ax1x.com/2020/02/26/3txny9.png" alt="image"></p>
 ]]></content>
       <categories>
         <category>笔记</category>
@@ -2008,7 +2009,7 @@
 <ol>
 <li><p>数据卷可在容器之间共享和重用数据</p>
 <pre><code>2. 卷中的更改可以直接生效
-      3. 数据卷中的更改不会包含在镜像的更新中
+              3. 数据卷中的更改不会包含在镜像的更新中
           4. 数据卷的生命周期一直持续到没有容器使用它为止</code></pre></li>
 </ol>
 <p><strong>容器数据卷的添加</strong></p>
@@ -2808,7 +2809,7 @@
 <ul>
 <li>运行结果</li>
 </ul>
-<p><a href="https://imgchr.com/i/1eqwLR" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2020/01/25/1eqwLR.md.png" alt="1eqwLR.md.png"></a></p>
+<p><img src="https://s2.ax1x.com/2020/02/26/3tx2Os.png" alt="image"></p>
 <ul>
 <li>说明</li>
 </ul>
@@ -2824,7 +2825,7 @@
 <p>​      <strong>看到这里是不是有疑问,不是说值传递不会改变原来参数的值吗？这不就改变了吗，难道上面的结论是错的?</strong></p>
 <p>​      其实结论并没有错，上面已经讲了值传递传递的是实参的副本，而我们在<code>传递引用类型的时候传递的并不是对象本身而是引用</code>。所以看是不是<code>值传递</code>就看这个引用到底有没有被复制。</p>
 <p>​     看一下下面这张图就清楚了，上面的代码执行的时候发生了什么?</p>
-<p><img src="https://s2.ax1x.com/2020/01/26/1exz79.png" alt="image"></p>
+<p><img src="https://s2.ax1x.com/2020/02/26/3txclQ.png" alt="image"></p>
 <p>​        对于引用类型来说，参数传递的过程中传递的不是对象本身而是引用。引用发生了复制，传递的是副本，引用指向了同一对象。这也是为什么对象信息会发生改变但又说是值传递的原因了。</p>
 ]]></content>
       <categories>
