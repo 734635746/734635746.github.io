@@ -426,7 +426,7 @@
 <li>计数器 （例如：粉丝数、登陆错误次数记录）</li>
 </ol>
 <h2 id="Hash"><a href="#Hash" class="headerlink" title="Hash"></a>Hash</h2><p><strong>介绍</strong></p>
-<p>​        hash是一个string类型的field和value的映射表，hash特别适合存储对象，Redis每个hash可以存储2^32-1键值对</p>
+<p>​        hash是一个string类型的field和value的映射表，hash特别适合存储对象，Redis每个hash可以存储2^32^-1键值对</p>
 <p><strong>Hash命令</strong></p>
 <ul>
 <li><p>HSET key  field value [field value field value……]</p>
@@ -516,7 +516,7 @@
 </li>
 </ol>
 <h2 id="Set"><a href="#Set" class="headerlink" title="Set"></a>Set</h2><p><strong>介绍</strong></p>
-<p>​        Redis的set是String类型的无序集合。集合的成员是唯一的。Redis中的集合是通过哈希来实现的，所以添加，删除，查找的复杂的都是O(1)。集合中最大成员数为2^32-1。</p>
+<p>​        Redis的set是String类型的无序集合。集合的成员是唯一的。Redis中的集合是通过哈希来实现的，所以添加，删除，查找的复杂的都是O(1)。集合中最大成员数为2^32^-1。</p>
 <p><strong>Set命令</strong></p>
 <ul>
 <li><p>SADD key value [value]</p>
@@ -1176,6 +1176,11 @@
 <p>Future的设计初衷：对将来的某个事件的结果进行建模</p>
 </blockquote>
 <p><img src="https://s2.ax1x.com/2020/02/26/3txny9.png" alt="image"></p>
+<blockquote>
+<p>CompletableFuture是对Future的增强，可以使用来完成异步任务</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 没有返回值的runAsync异步回调</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test1</span><span class="params">()</span> <span class="keyword">throws</span> ExecutionException, InterruptedException </span>&#123;</span><br><span class="line">		<span class="comment">//开启一个异步任务</span></span><br><span class="line">        CompletableFuture&lt;Void&gt; completableFuture = CompletableFuture.runAsync(()-&gt;&#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                TimeUnit.SECONDS.sleep(<span class="number">2</span>);</span><br><span class="line">                System.out.println(Thread.currentThread().getName()+<span class="string">" runAsync"</span>);</span><br><span class="line">            &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        System.out.println(<span class="string">"runMain"</span>);</span><br><span class="line"></span><br><span class="line">        completableFuture.get();<span class="comment">//阻塞获取执行结果</span></span><br><span class="line">&#125;    </span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 有返回值的supplyAsync异步回调</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test2</span><span class="params">()</span> <span class="keyword">throws</span> ExecutionException, InterruptedException </span>&#123;</span><br><span class="line"></span><br><span class="line">       CompletableFuture&lt;Integer&gt; completableFuture2 = CompletableFuture.supplyAsync(() -&gt; &#123;</span><br><span class="line">            System.out.println(Thread.currentThread().getName()+<span class="string">" supplyAsync"</span>);</span><br><span class="line">            <span class="comment">//int s = 10/0;</span></span><br><span class="line">            <span class="keyword">return</span> <span class="number">1024</span>;</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        Integer integer = completableFuture2.whenComplete((u, t) -&gt; &#123;<span class="comment">//编译时回调</span></span><br><span class="line">            System.out.println(u);<span class="comment">//编译正确返回的结果</span></span><br><span class="line">            System.out.println(t);<span class="comment">//编译失败返回的结果</span></span><br><span class="line">        &#125;).exceptionally(e -&gt; &#123;<span class="comment">//编译失败时回调</span></span><br><span class="line">            System.out.println(e.getMessage());</span><br><span class="line">            <span class="keyword">return</span> <span class="number">123</span>;</span><br><span class="line">        &#125;).get();</span><br><span class="line"></span><br><span class="line">        System.out.println(integer)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 ]]></content>
       <categories>
         <category>笔记</category>
