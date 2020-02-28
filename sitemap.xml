@@ -2,6 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://liuyoubin.top/2020/02/08/backEnd/java/JVM%E6%8E%A2%E7%A9%B6/</loc>
+    
+    <lastmod>2020-02-28T15:09:09.274Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://liuyoubin.top/2020/02/19/backEnd/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E6%95%B4%E7%90%86/</loc>
+    
+    <lastmod>2020-02-27T16:47:42.103Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://liuyoubin.top/2020/01/27/backEnd/java/%E6%B3%A8%E8%A7%A3%E5%92%8C%E5%8F%8D%E5%B0%84/</loc>
     
     <lastmod>2020-02-27T08:58:10.436Z</lastmod>
@@ -12,13 +26,6 @@
     <loc>http://liuyoubin.top/2020/02/12/backEnd/java/JUC%E7%AC%94%E8%AE%B0/</loc>
     
     <lastmod>2020-02-26T16:59:58.313Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://liuyoubin.top/2020/02/19/backEnd/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E6%95%B4%E7%90%86/</loc>
-    
-    <lastmod>2020-02-26T16:51:14.887Z</lastmod>
     
   </url>
   
