@@ -1,11 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>http://liuyoubin.top/2020/02/08/backEnd/java/JVM%E6%8E%A2%E7%A9%B6/</loc>
-    <lastmod>2020-02-28</lastmod>
+    <loc>http://liuyoubin.top/2020/02/29/backEnd/framework/Netty%E7%AC%94%E8%AE%B0/</loc>
+    <lastmod>2020-02-29</lastmod>
+  </url>  <url>
+    <loc>http://liuyoubin.top/2020/01/25/algorithm/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%E6%95%B4%E7%90%86/</loc>
+    <lastmod>2020-02-29</lastmod>
   </url>  <url>
     <loc>http://liuyoubin.top/2020/02/19/backEnd/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E6%95%B4%E7%90%86/</loc>
-    <lastmod>2020-02-27</lastmod>
+    <lastmod>2020-02-28</lastmod>
+  </url>  <url>
+    <loc>http://liuyoubin.top/2020/02/08/backEnd/java/JVM%E6%8E%A2%E7%A9%B6/</loc>
+    <lastmod>2020-02-28</lastmod>
   </url>  <url>
     <loc>http://liuyoubin.top/2020/01/27/backEnd/java/%E6%B3%A8%E8%A7%A3%E5%92%8C%E5%8F%8D%E5%B0%84/</loc>
     <lastmod>2020-02-27</lastmod>
@@ -68,9 +74,6 @@
     <lastmod>2020-01-25</lastmod>
   </url>  <url>
     <loc>http://liuyoubin.top/2020/01/24/backEnd/framework/MyBatis%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</loc>
-    <lastmod>2020-01-25</lastmod>
-  </url>  <url>
-    <loc>http://liuyoubin.top/2020/01/25/algorithm/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%E6%95%B4%E7%90%86/</loc>
     <lastmod>2020-01-25</lastmod>
   </url>
 </urlset>
