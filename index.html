@@ -227,7 +227,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://liuyoubin.top/2020/02/29/backEnd/framework/Netty%E7%AC%94%E8%AE%B0/">
+    <link itemprop="mainEntityOfPage" href="http://liuyoubin.top/2020/02/29/backEnd/framework/NIO%E4%B8%8ENetty/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/cxm.jpg">
@@ -241,7 +241,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           
-            <a href="/2020/02/29/backEnd/framework/Netty%E7%AC%94%E8%AE%B0/" class="post-title-link" itemprop="url">Netty笔记</a>
+            <a href="/2020/02/29/backEnd/framework/NIO%E4%B8%8ENetty/" class="post-title-link" itemprop="url">NIO与Netty</a>
         </h1>
 
         <div class="post-meta">
@@ -250,16 +250,22 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2020-02-29 19:52:59 / 修改时间：23:11:13" itemprop="dateCreated datePublished" datetime="2020-02-29T19:52:59+08:00">2020-02-29</time>
+              <time title="创建时间：2020-02-29 19:52:59" itemprop="dateCreated datePublished" datetime="2020-02-29T19:52:59+08:00">2020-02-29</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-03-01 22:40:22" itemprop="dateModified" datetime="2020-03-01T22:40:22+08:00">2020-03-01</time>
+              </span>
 			
 			<span class="post-meta-divider">|</span>
-			<span title="post.wordcount"><span class="post-meta-item-icon"><i class="fa fa-file-word-o"></i></span>字数： 1.1k</span>
+			<span title="post.wordcount"><span class="post-meta-item-icon"><i class="fa fa-file-word-o"></i></span>字数： 2.1k</span>
 			
 			<span class="post-meta-divider">|</span>
-			<span title="post.min2read"><span class="post-meta-item-icon"><i class="fa fa-clock-o"></i></span>阅读时长≈ 4min</span>
+			<span title="post.min2read"><span class="post-meta-item-icon"><i class="fa fa-clock-o"></i></span>阅读时长≈ 8min</span>
 			
 			<span class="post-meta-divider">|</span>
             <span class="post-meta-item">
@@ -344,16 +350,20 @@
 
 <p>register方法参数说明:指定监听的就绪事件</p>
 <ul>
-<li><p>SelectionKey.OP_CONNECT</p>
-</li>
-<li><p>SelectionKey.OP_ACCEPT</p>
-</li>
-<li><p>SelectionKey.OP_READ</p>
-</li>
-<li><p>SelectionKey.OP_WRITE</p>
-</li>
+<li>SelectionKey.OP_CONNECT 有新的网络连接可以accept ，值为16</li>
 </ul>
 </li>
+</ol>
+<ul>
+<li><p>SelectionKey.OP_ACCEPT      代表连接已建立，值为8</p>
+</li>
+<li><p>SelectionKey.OP_READ          代表读操作，值为1</p>
+<ul>
+<li>SelectionKey.OP_WRITE         代表写操作，值为4</li>
+</ul>
+</li>
+</ul>
+<ol start="2">
 <li><p><strong>Selector选择就绪的Channel</strong></p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> n = selector.select();</span><br></pre></td></tr></table></figure>
 
@@ -372,6 +382,7 @@
 </li>
 <li><p><strong>迭达处理</strong></p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">Selector selector = Selector.open();</span><br><span class="line">   </span><br><span class="line">      Set&lt;SelectionKey&gt; keySet = selector.selectedKeys();</span><br><span class="line">   </span><br><span class="line">      Iterator&lt;SelectionKey&gt; keyIterator = keySet.iterator();</span><br><span class="line">   </span><br><span class="line">      <span class="keyword">while</span> (keyIterator.hasNext())&#123;</span><br><span class="line">   </span><br><span class="line">          SelectionKey key = keyIterator.next();</span><br><span class="line">          <span class="comment">//将处理的key移除</span></span><br><span class="line">          keyIterator.remove();</span><br><span class="line">          <span class="keyword">if</span>(key.isAcceptable())&#123;</span><br><span class="line">              <span class="comment">//相应的处理</span></span><br><span class="line">          &#125;<span class="keyword">else</span> <span class="keyword">if</span>(key.isConnectable())&#123;</span><br><span class="line">              <span class="comment">//相应的处理</span></span><br><span class="line">          &#125;<span class="keyword">else</span> <span class="keyword">if</span>(key.isReadable())&#123;</span><br><span class="line">              <span class="comment">//相应的处理</span></span><br><span class="line">          &#125;<span class="keyword">else</span>  <span class="keyword">if</span>(key.isWritable())&#123;</span><br><span class="line">              <span class="comment">//相应的处理</span></span><br><span class="line">          &#125;</span><br><span class="line">      &#125;</span><br></pre></td></tr></table></figure>
+
 
 
 
@@ -408,6 +419,44 @@
 <li>Position - 下一个要被读写的位置 </li>
 </ul>
 <p><img src="https://s2.ax1x.com/2020/02/29/36QIiD.png" alt="image"></p>
+<h2 id="NIO通信案例"><a href="#NIO通信案例" class="headerlink" title="NIO通信案例"></a>NIO通信案例</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//服务端</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">NIOServer</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//创建ServerSocketChannel</span></span><br><span class="line">        ServerSocketChannel serverSocketChannel = ServerSocketChannel.open();</span><br><span class="line">        <span class="comment">//得到一个Selector对象</span></span><br><span class="line">        Selector selector = Selector.open();</span><br><span class="line">        <span class="comment">//绑定端口</span></span><br><span class="line">        serverSocketChannel.bind(<span class="keyword">new</span> InetSocketAddress(<span class="number">8888</span>));</span><br><span class="line">        <span class="comment">//设置为非阻塞</span></span><br><span class="line">        serverSocketChannel.configureBlocking(<span class="keyword">false</span>);</span><br><span class="line">        <span class="comment">//把ServerSocketChannel注册到Selector</span></span><br><span class="line">        serverSocketChannel.register(selector, SelectionKey.OP_ACCEPT);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span> (<span class="keyword">true</span>)&#123;<span class="comment">//等待客户端连接</span></span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span>(selector.select(<span class="number">1000</span>)==<span class="number">0</span>)&#123;<span class="comment">//等待一秒</span></span><br><span class="line">                System.out.println(<span class="string">"服务器等待1秒,无连接"</span>);</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="comment">//获取相关的selectorKey</span></span><br><span class="line">            Set&lt;SelectionKey&gt; selectionKeySet = selector.selectedKeys();</span><br><span class="line">            <span class="comment">//使用迭达器遍历</span></span><br><span class="line">            Iterator&lt;SelectionKey&gt; iterator = selectionKeySet.iterator();</span><br><span class="line"></span><br><span class="line">            <span class="keyword">while</span> (iterator.hasNext())&#123;</span><br><span class="line"></span><br><span class="line">                SelectionKey key = iterator.next();</span><br><span class="line">                <span class="comment">//移除key</span></span><br><span class="line">                iterator.remove();</span><br><span class="line">                <span class="comment">//根据就绪事件做不同的处理</span></span><br><span class="line">                <span class="keyword">if</span>(key.isAcceptable())&#123;<span class="comment">//有客户端连接</span></span><br><span class="line">                    <span class="comment">//获取客户端连接</span></span><br><span class="line">                    SocketChannel socketChannel = serverSocketChannel.accept();</span><br><span class="line">                    <span class="comment">//设置为非阻塞</span></span><br><span class="line">                    socketChannel.configureBlocking(<span class="keyword">false</span>);</span><br><span class="line">                    <span class="comment">//将连接通道注册到Selector中,就绪事件为OP_READ,同时分配一个Buffer</span></span><br><span class="line">                    socketChannel.register(selector, SelectionKey.OP_READ,ByteBuffer.allocate(<span class="number">1024</span>));</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">if</span> (key.isReadable())&#123;<span class="comment">//可读</span></span><br><span class="line">                    <span class="comment">//通过key获取通道</span></span><br><span class="line">                    SocketChannel socketChannel = (SocketChannel) key.channel();</span><br><span class="line">                    <span class="comment">//获取该channel的Buffer</span></span><br><span class="line">                    ByteBuffer byteBuffer = (ByteBuffer) key.attachment();</span><br><span class="line">                    <span class="comment">//将Buffer中的数据读到Channel中</span></span><br><span class="line">                    socketChannel.read(byteBuffer);</span><br><span class="line">                    System.out.println(<span class="string">"客户端："</span>+<span class="keyword">new</span> String(byteBuffer.array()));</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//客户端</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">NIOClient</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        <span class="comment">//创建一个网络通道</span></span><br><span class="line">        SocketChannel socketChannel = SocketChannel.open();</span><br><span class="line">        <span class="comment">//设置为非阻塞</span></span><br><span class="line">        socketChannel.configureBlocking(<span class="keyword">false</span>);</span><br><span class="line">        <span class="comment">//提供服务端的ip和端口</span></span><br><span class="line">        InetSocketAddress inetSocketAddress = <span class="keyword">new</span> InetSocketAddress(<span class="string">"127.0.0.1"</span>, <span class="number">8888</span>);</span><br><span class="line">        <span class="comment">//连接服务器</span></span><br><span class="line">        <span class="keyword">if</span>(!socketChannel.connect(inetSocketAddress))&#123;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">while</span> (!socketChannel.finishConnect())&#123;</span><br><span class="line">                System.out.println(<span class="string">"连接不成功，客户端不会阻塞"</span>);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//发送数据</span></span><br><span class="line">        String str = <span class="string">"hello,world"</span>;</span><br><span class="line">        ByteBuffer byteBuffer = ByteBuffer.wrap(str.getBytes());</span><br><span class="line"></span><br><span class="line">        socketChannel.write(byteBuffer);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h1 id="零拷贝"><a href="#零拷贝" class="headerlink" title="零拷贝"></a>零拷贝</h1><blockquote>
+<p>零拷贝是网络编程的关键，很多性能优化都离不开</p>
+<p>Java常用的零拷贝有mmap(内存映射)和sendFile</p>
+</blockquote>
+<p>先看下面这段代码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">      File file = <span class="keyword">new</span> File(<span class="string">"a.html"</span>);</span><br><span class="line">      RandomAccessFile raf = <span class="keyword">new</span> RandomAccessFile(file, <span class="string">"rw"</span>);</span><br><span class="line"><span class="keyword">int</span> len = file.length();</span><br><span class="line">      <span class="keyword">byte</span>[] arr = <span class="keyword">new</span> <span class="keyword">byte</span>[len];</span><br><span class="line">      raf.read(arr);</span><br><span class="line"></span><br><span class="line">      Socket socket = <span class="keyword">new</span> ServerSocket(<span class="number">8080</span>).accept();</span><br><span class="line">      socket.getOutputStream().write(arr);</span><br></pre></td></tr></table></figure>
+
+<p>当执行这段代码的时候OS底层发生了什么呢? </p>
+<h2 id="传统IO"><a href="#传统IO" class="headerlink" title="传统IO"></a>传统IO</h2><p><img src="https://s2.ax1x.com/2020/03/01/3gvWkV.png" alt="image"></p>
+<ul>
+<li>read方法导致用户态到内核态的切换，同时通过DMA（直接内存读取）方式将数据从硬盘读到内核缓冲区</li>
+<li>接下来将数据从内核态通过CPU拷贝到用户缓冲区，发生了第二次上下文切换</li>
+<li>数据从用户缓冲区通过CPU拷贝到Socket缓冲区，发生了第三次上下文切换</li>
+<li>数据从Socket缓冲区通过DMA方式传输到网络协议引擎</li>
+</ul>
+<p><strong>总共发生了3次上下文切换和4次拷贝</strong></p>
+<h2 id="MMAP优化"><a href="#MMAP优化" class="headerlink" title="MMAP优化"></a>MMAP优化</h2><p><img src="https://s2.ax1x.com/2020/03/01/3gxBAx.png" alt="image"></p>
+<p>如图所示</p>
+<p>user buffer 和 kernel buffer 共享数据文件。如果你想把硬盘的文件传输到网络中，再也不用拷贝到用户空间，再从用户空间拷贝到 Socket 缓冲区。通过MMAP，你只需要从内核缓冲区拷贝到 Socket 缓冲区即可，这将减少一次内存拷贝（从 4 次变成了 3 次），但不减少上下文切换次数。</p>
+<p><strong>总共发生了3次上下文切换和3次拷贝</strong></p>
+<h2 id="SendFile优化"><a href="#SendFile优化" class="headerlink" title="SendFile优化"></a>SendFile优化</h2><p><img src="https://s2.ax1x.com/2020/03/01/32Smes.png" alt="image"></p>
+<p>​        Linux 2.1 版本 提供了 sendFile 函数，其基本原理如下：数据根本不经过用户态，直接从内核缓冲区进入到 Socket Buffer，同时，由于和用户态完全无关，就减少了一次上下文切换。</p>
+<p><strong>总共发生了2次上下文切换和3次拷贝</strong></p>
+<h2 id="SendFile进阶优化"><a href="#SendFile进阶优化" class="headerlink" title="SendFile进阶优化"></a>SendFile进阶优化</h2><p><img src="https://s2.ax1x.com/2020/03/01/32SjhV.png" alt="image"></p>
+<p>​        Linux 在 2.4 版本中，做了一些修改，避免了从内核缓冲区拷贝到 Socket buffer 的操作，直接拷贝到协议栈，从而再一次减少了数据拷贝。</p>
+<p><strong>总共发生了2次上下文切换和2次拷贝</strong></p>
+<blockquote>
+<p>说明：零拷贝不是指没有发生拷贝。而是指没有CPU拷贝。</p>
+<p>​            零拷贝不仅减少了CPU拷贝也减少了上下文切换    </p>
+<p>​            在Java中的transferTo 和 transferFrom 方法底层就是用用到了零拷贝技术</p>
+</blockquote>
+<h1 id="Netty概述"><a href="#Netty概述" class="headerlink" title="Netty概述"></a>Netty概述</h1><p>​    <strong>Netty是一个异步的，基于事件的网络应用框架</strong></p>
 
       
     </div>
