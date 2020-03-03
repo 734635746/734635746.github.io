@@ -100,6 +100,19 @@
 <h1 id="TCP流量控制"><a href="#TCP流量控制" class="headerlink" title="TCP流量控制"></a>TCP流量控制</h1><blockquote>
 <p>为了让接收方能够来得及接收数据，不会因发送端发送速率过快而导致来不及接收。Tcp利用滑动窗口机制来实现流量控制</p>
 </blockquote>
+<p>​        在通信过程中，接收方根据自己接收缓存的大小，动态地调整发送方的发送端口，即<strong>接收窗口rwnd</strong>（接收方通过确认报文的窗口字段来将rwnd通知给发送方），发送方的<strong>发送窗口</strong>取<strong>接收窗口rwnd</strong>和<strong>拥塞窗口cwnd</strong>的最小值。</p>
+<p>​        当接收方的接收缓存已经满了，那么接收方会发送一个<strong>零窗口通知</strong>。发送方接收到<strong>零窗口通知</strong>，就会启动一个计时器，计时器持续时间到就会发送一个<strong>零窗口探测报文</strong>，接收方收到探测报文会给出现在的窗口值。</p>
+<h1 id="TCP拥塞控制"><a href="#TCP拥塞控制" class="headerlink" title="TCP拥塞控制"></a>TCP拥塞控制</h1><blockquote>
+<p>防止过多的数据注入到网络中，与流量控制相比拥塞控制具有全局性</p>
+</blockquote>
+<p><strong>为了解决拥塞问题，TCP提供了四种算法</strong></p>
+<p>注意：下面的算法讨论有以下几个前提</p>
+<ol>
+<li>数据单向发送，接收方只发送确认报文</li>
+<li>假定接收方的接收缓存总是充足的，即发送窗口=拥塞窗口cwnd</li>
+</ol>
+<h2 id="慢开始-拥塞避免"><a href="#慢开始-拥塞避免" class="headerlink" title="慢开始/拥塞避免"></a>慢开始/拥塞避免</h2><p><img src="https://s2.ax1x.com/2020/03/03/35ifw6.png" alt="image"></p>
+<h2 id="快重传-快恢复"><a href="#快重传-快恢复" class="headerlink" title="快重传/快恢复"></a>快重传/快恢复</h2><p><img src="F:%5Cpicture%5Cblog_picture%5CTCP%E5%8D%8F%E8%AE%AE%5C35F29g.png" alt="image"></p>
 ]]></content>
       <categories>
         <category>笔记</category>
