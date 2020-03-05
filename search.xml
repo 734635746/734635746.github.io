@@ -1652,6 +1652,103 @@
 <li>启动类加载器检查是否可以加载，如果可以则加载，如果无法加载则通知子加载器加载，一直到最下的加载器</li>
 <li>如果所有加载器都无法加载则抛ClassNotFoundException</li>
 </ol>
+<h1 id="GC-Root"><a href="#GC-Root" class="headerlink" title="GC Root"></a>GC Root</h1><p>*<em>JVM如何判断一个对象是不再使用的对象(垃圾)? *</em></p>
+<p>​    使用可达性分析算法，从一系列名为<strong>GC Root</strong>的对象出发，如果待判断的对象没有被GC Root任何引用链相连时，则说明此对象是不可用对象。</p>
+<p><strong>哪些对象可以作为GC Root？</strong></p>
+<ul>
+<li>虚拟机栈（栈帧中的局部变量表）中引用的对象</li>
+<li>方法区中的静态属性引用的对象</li>
+<li>方法区中的常量引用的对象</li>
+<li>本地方法栈中JNI（Native方法）引用的对象</li>
+</ul>
+<h1 id="JVM常用参数"><a href="#JVM常用参数" class="headerlink" title="JVM常用参数"></a>JVM常用参数</h1><h2 id="查看JVM参数命令"><a href="#查看JVM参数命令" class="headerlink" title="查看JVM参数命令"></a>查看JVM参数命令</h2><ul>
+<li><p>jps -l </p>
+<p>查看当前的java进程</p>
+</li>
+<li><p>jinfo -flag 参数 进程号</p>
+<p>查看某个进程的指定参数开启情况</p>
+</li>
+<li><p>jinfo -flags 进程</p>
+<p>查看某个进程的所以参数开启情况</p>
+</li>
+</ul>
+<hr>
+<ul>
+<li><p>java -XX:+PrintFlagsInitial</p>
+<p>参看初始化参数情况</p>
+</li>
+<li><p>java -XX:+PrintFlagsFinal</p>
+<p>参看修改后参数情况</p>
+</li>
+</ul>
+<h2 id="标配参数"><a href="#标配参数" class="headerlink" title="标配参数"></a>标配参数</h2><ul>
+<li>-version</li>
+<li>-help</li>
+<li>-showversion</li>
+</ul>
+<h2 id="X参数"><a href="#X参数" class="headerlink" title="X参数"></a>X参数</h2><ul>
+<li>-Xint 解释执行</li>
+<li>-Xcomp 第一次使用就编译成本地代码</li>
+<li>-Xmixed 混合模式</li>
+</ul>
+<h2 id="XX参数"><a href="#XX参数" class="headerlink" title="XX参数"></a>XX参数</h2><h3 id="Boolean类型"><a href="#Boolean类型" class="headerlink" title="Boolean类型"></a>Boolean类型</h3><blockquote>
+<p>-XX:+或者-某个参数 （表示开启和关闭）</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th align="center">命令</th>
+<th align="center">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">-XX:+PrintGCDetails</td>
+<td align="center">开启打印GC收集细节</td>
+</tr>
+<tr>
+<td align="center">-XX:+UseSerialGC</td>
+<td align="center">使用串行垃圾回收器</td>
+</tr>
+<tr>
+<td align="center">-XX:+HeapDumpOnOutOfMemoryError</td>
+<td align="center">设置当首次遭遇内存溢出时导出此时堆中相关信息</td>
+</tr>
+</tbody></table>
+<h3 id="KV类型"><a href="#KV类型" class="headerlink" title="KV类型"></a>KV类型</h3><blockquote>
+<p> -XX:key=value</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th align="center">命令</th>
+<th align="center">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">-XX:InitialHeapSize= (等价于-Xms)</td>
+<td align="center">初始堆内存大小</td>
+</tr>
+<tr>
+<td align="center">-XX:MaxHeapSize= (等价于-Xmx)</td>
+<td align="center">最大堆内存大小</td>
+</tr>
+<tr>
+<td align="center">-XX:ThreadStackSize=(等价于-Xss)</td>
+<td align="center">单个线程栈的大小（默认为512K~1024K）</td>
+</tr>
+<tr>
+<td align="center">-XX:HeapDumpPath=</td>
+<td align="center">指定导出堆信息时的路径或文件名</td>
+</tr>
+<tr>
+<td align="center">-XX:MetaSpace=128M</td>
+<td align="center">设置元空间内存大小</td>
+</tr>
+<tr>
+<td align="center">-XX:MaxTenuringThreshold=15</td>
+<td align="center">设置新生代进行老年代的存活次数</td>
+</tr>
+</tbody></table>
 ]]></content>
       <categories>
         <category>笔记</category>
@@ -3387,7 +3484,7 @@
 <li>将第一待排序序列第一个元素看做一个有序序列，把第二个元素到最后一个元素当成是未排序序列。</li>
 <li>从头到尾依次扫描未排序序列，将扫描到的每个元素插入有序序列的适当位置。（如果待插入的元素与有序序列中的某个元素相等，则将待插入元素插入到相等元素的后面。）</li>
 </ol>
-<h2 id="代码实现：-2"><a href="#代码实现：-2" class="headerlink" title="代码实现："></a>代码实现：</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span>[] sort(<span class="keyword">int</span>[] array)&#123;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//从下标1开始扫描,下标0的元素默认为有序</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; array.length; i++) &#123;</span><br><span class="line">            <span class="comment">//记录待插入的元素</span></span><br><span class="line">            <span class="keyword">int</span> tmp = array[i];</span><br><span class="line"></span><br><span class="line">            <span class="keyword">int</span> j = i;</span><br><span class="line">            <span class="keyword">while</span> (j&gt;<span class="number">0</span> &amp;&amp; tmp&lt;array[j-<span class="number">1</span>])&#123;</span><br><span class="line">                array[j] = array[j-<span class="number">1</span>];</span><br><span class="line">                j--;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="comment">//存在比其小的数，插入</span></span><br><span class="line">            <span class="keyword">if</span>(j!=i)&#123;</span><br><span class="line">                array[j] = tmp;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">        &#125;java</span><br><span class="line">        <span class="keyword">return</span> array;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<h2 id="代码实现：-2"><a href="#代码实现：-2" class="headerlink" title="代码实现："></a>代码实现：</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span>[] sort(<span class="keyword">int</span>[] array)&#123;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//从下标1开始扫描,下标0的元素默认为有序</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; array.length; i++) &#123;</span><br><span class="line">            <span class="comment">//记录待插入的元素</span></span><br><span class="line">            <span class="keyword">int</span> tmp = array[i];</span><br><span class="line"></span><br><span class="line">            <span class="keyword">int</span> j = i;</span><br><span class="line">            <span class="keyword">while</span> (j&gt;<span class="number">0</span> &amp;&amp; tmp&lt;array[j-<span class="number">1</span>])&#123;</span><br><span class="line">                array[j] = array[j-<span class="number">1</span>];</span><br><span class="line">                j--;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="comment">//存在比其小的数，插入</span></span><br><span class="line">            <span class="keyword">if</span>(j!=i)&#123;</span><br><span class="line">                array[j] = tmp;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> array;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
 
 
 
