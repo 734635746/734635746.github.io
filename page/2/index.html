@@ -360,14 +360,14 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-03-05 23:30:51" itemprop="dateModified" datetime="2020-03-05T23:30:51+08:00">2020-03-05</time>
+                <time title="修改时间：2020-03-06 23:39:22" itemprop="dateModified" datetime="2020-03-06T23:39:22+08:00">2020-03-06</time>
               </span>
 			
 			<span class="post-meta-divider">|</span>
-			<span title="post.wordcount"><span class="post-meta-item-icon"><i class="fa fa-file-word-o"></i></span>字数： 616</span>
+			<span title="post.wordcount"><span class="post-meta-item-icon"><i class="fa fa-file-word-o"></i></span>字数： 1k</span>
 			
 			<span class="post-meta-divider">|</span>
-			<span title="post.min2read"><span class="post-meta-item-icon"><i class="fa fa-clock-o"></i></span>阅读时长≈ 2min</span>
+			<span title="post.min2read"><span class="post-meta-item-icon"><i class="fa fa-clock-o"></i></span>阅读时长≈ 3min</span>
 			
 			<span class="post-meta-divider">|</span>
             <span class="post-meta-item">
@@ -427,7 +427,30 @@
 <li>方法区中的常量引用的对象</li>
 <li>本地方法栈中JNI（Native方法）引用的对象</li>
 </ul>
-<h1 id="JVM常用参数"><a href="#JVM常用参数" class="headerlink" title="JVM常用参数"></a>JVM常用参数</h1><h2 id="查看JVM参数命令"><a href="#查看JVM参数命令" class="headerlink" title="查看JVM参数命令"></a>查看JVM参数命令</h2><ul>
+<h1 id="四大引用"><a href="#四大引用" class="headerlink" title="四大引用"></a>四大引用</h1><h2 id="强引用"><a href="#强引用" class="headerlink" title="强引用"></a>强引用</h2><blockquote>
+<p>当内存不足时，JVM开始回收垃圾，对于强引用的对象，就算是出现OOM也不会对该对象进行回收</p>
+</blockquote>
+<p>​        强引用就是我们常见的对象引用，当一个对象赋给一个引用变量，垃圾回收器就不回收该对象，强引用是引起OOM的主要原因之一。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Object obj = <span class="keyword">new</span> Object();</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="软引用"><a href="#软引用" class="headerlink" title="软引用"></a>软引用</h2><blockquote>
+<p>相对于强引用来说软化了一些，需要实现java.lang.SolfReference类来实现</p>
+</blockquote>
+<p>​        对于软引用的对象，当<strong>系统内存充足时不会被回收，当系统内存不足时会被回收。</strong>软引用通常用在对内存敏感的程序中，比如高速缓存中就用的软引用。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SoftReference&lt;Object&gt; softReference = <span class="keyword">new</span> SoftReference&lt;&gt;(<span class="keyword">new</span> Object());</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="弱引用"><a href="#弱引用" class="headerlink" title="弱引用"></a>弱引用</h2><blockquote>
+<p>只要垃圾回收一执行，不管内存是否足够，弱引用的对象都会被回收</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">WeakReference&lt;Object&gt; weakReference = <span class="keyword">new</span> WeakReference&lt;&gt;(<span class="keyword">new</span> Object());</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="虚引用"><a href="#虚引用" class="headerlink" title="虚引用"></a>虚引用</h2><h1 id="JVM常用参数"><a href="#JVM常用参数" class="headerlink" title="JVM常用参数"></a>JVM常用参数</h1><h2 id="查看JVM参数命令"><a href="#查看JVM参数命令" class="headerlink" title="查看JVM参数命令"></a>查看JVM参数命令</h2><ul>
 <li><p>jps -l </p>
 <p>查看当前的java进程</p>
 </li>
@@ -514,7 +537,32 @@
 <td align="center">-XX:MaxTenuringThreshold=15</td>
 <td align="center">设置新生代进行老年代的存活次数</td>
 </tr>
+<tr>
+<td align="center">-XX:SurvivorRatio</td>
+<td align="center">设置eden区和survivor的比例。默认值为8，也就是8:1:1</td>
+</tr>
+<tr>
+<td align="center">-XX:NewRatio</td>
+<td align="center">设置新生代和老年代在堆中的占比,默认值为2。也就是Old:New=2:1</td>
+</tr>
 </tbody></table>
+<h1 id="JVM-堆"><a href="#JVM-堆" class="headerlink" title="JVM 堆"></a>JVM 堆</h1><p><img src="https://s2.ax1x.com/2020/03/06/3LghuQ.png" alt="image"></p>
+<h2 id="MinorGC过程"><a href="#MinorGC过程" class="headerlink" title="MinorGC过程"></a>MinorGC过程</h2><ol>
+<li><p><strong>Eden区和From区上存活的对象复制到SurvivorTo区，存活对象年龄加1</strong></p>
+<p>首先，当Eden区满的时候会触发第一次GC，把还活着的对象拷贝到SurvivorFrom区；当Eden区再次满的时候会扫描Eden区和SurvicorTo区，将存活的对象复制到To区，存活的对象年龄加1</p>
+</li>
+<li><p><strong>清除Eden区和SurvivorFrom的可回收对象</strong></p>
+</li>
+<li><p><strong>SurvivorFrom和SurvivorTo互相交换</strong></p>
+</li>
+</ol>
+<h1 id="GC-日志"><a href="#GC-日志" class="headerlink" title="GC 日志"></a>GC 日志</h1><blockquote>
+<p>可以使用-XX:+PrintGCDetails开启GC日志打印</p>
+</blockquote>
+<p><strong>GC日志图解</strong></p>
+<p><img src="https://s2.ax1x.com/2020/03/06/3L0029.png" alt="image"></p>
+<p><strong>Full GC图解</strong></p>
+<p><img src="https://s2.ax1x.com/2020/03/06/3Lski8.png" alt="image"></p>
 
       
     </div>
