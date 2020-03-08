@@ -1709,21 +1709,36 @@
 <h2 id="垃圾收集器"><a href="#垃圾收集器" class="headerlink" title="垃圾收集器"></a>垃圾收集器</h2><p><img src="https://images2015.cnblogs.com/blog/249993/201703/249993-20170308202431391-1323581863.png" alt="image"></p>
 <ol>
 <li><p><strong>Serial（串行垃圾收集器）</strong></p>
-<p>​        它为单线程环境下设计且只使用一个线程进行垃圾回收，会暂停所有用户线程，不适合服务器环境</p>
+<p>​        它为单线程环境下设计且只使用一个线程进行垃圾回收，会暂停所有用户线程，不适合服务器环境。</p>
+<p>虽然需要暂停用户线程，但是简单高效，对于单CPU环境比较合适。</p>
+<p><strong>对应JVM参数：-XX:+UseSerialGC</strong></p>
+<p><strong>开启后会使用：Serial+Serial Old的收集器组合</strong></p>
 <p><img src="https://s2.ax1x.com/2020/03/07/3jajXR.png" alt="image"></p>
 </li>
-<li><p><strong>Paraller(并行垃圾回收器)</strong></p>
-<p>​    多个垃圾收集线程并行工作，同样会暂停用户线程，适用于科学计算/大数据处理等弱交互场景</p>
+<li><p><strong>ParNew（并行垃圾收集器）</strong></p>
+<p>​    ParNew是Serial的多线程版本，通常和CMS配合使用，其余行为和Serial一样。</p>
+<p><strong>对应JVM参数：-XX:+UseParNewGC</strong></p>
+<p><strong>开启后会使用：Serial+Serial Old的收集器组合</strong></p>
+<p><img src="F:%5Cpicture%5Cblog_picture%5CJVM%E6%8E%A2%E7%A9%B6%5C3jwnM9-1583590582707.png" alt="image"></p>
+</li>
+<li><p><strong>Parallel(并行垃圾回收器)</strong></p>
+<p>​    多个垃圾收集线程并行工作，同样会暂停用户线程，适用于科学计算/大数据处理等弱交互场景。类似ParNew，俗称吞吐量优先收集器。</p>
+<p><strong>对应JVM参数：-XX:+UseParallerGC或-XX:+UseParallerOldGC（互相激活）</strong></p>
+<p><img src="https://s2.ax1x.com/2020/03/07/3jToHx.png" alt="image"></p>
 <p><img src="https://s2.ax1x.com/2020/03/07/3jwnM9.png" alt="image"></p>
 </li>
-<li><p><strong>CMS(并发垃圾回收器)</strong></p>
-<p>​        用户线程和GC线程同时执行（不一定并行，可能交替执行），不需要停止用户线程，适用于对响应时间有要求的场景</p>
-<p><img src="https://s2.ax1x.com/2020/03/07/3j0Ewt.png" alt="image"></p>
+<li><p><strong>Parallel Old</strong>整理</p>
+<p>Parallel的老年代版本，jdk1.6之后提供，关注吞吐量。</p>
 </li>
-<li><p><strong>G1</strong></p>
-<p>​    G1垃圾回收器将堆内存分割成不同的区域然后并发的对其进行垃圾回收</p>
+<li><p><strong>CMS(并发标记清除)</strong></p>
 </li>
 </ol>
+<p>​        用户线程和GC线程同时执行（不一定并行，可能交替执行），不需要停止用户线程，适用于对响应时间有要求的场景</p>
+<p><img src="https://s2.ax1x.com/2020/03/07/3jqBGT.png" alt="image"></p>
+<ol start="6">
+<li><strong>G1</strong></li>
+</ol>
+<p>​    G1垃圾回收器将堆内存分割成不同的区域然后并发的对其进行垃圾回收</p>
 <h1 id="JVM常用参数"><a href="#JVM常用参数" class="headerlink" title="JVM常用参数"></a>JVM常用参数</h1><h2 id="查看JVM参数命令"><a href="#查看JVM参数命令" class="headerlink" title="查看JVM参数命令"></a>查看JVM参数命令</h2><ul>
 <li><p>jps -l </p>
 <p>查看当前的java进程</p>
