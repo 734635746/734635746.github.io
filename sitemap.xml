@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://liuyoubin.top/2020/02/19/backEnd/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E6%95%B4%E7%90%86/</loc>
+    
+    <lastmod>2020-03-13T15:40:32.104Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://liuyoubin.top/2020/02/08/backEnd/java/JVM%E6%8E%A2%E7%A9%B6/</loc>
     
     <lastmod>2020-03-07T15:39:26.846Z</lastmod>
@@ -40,13 +47,6 @@
     <loc>http://liuyoubin.top/2020/02/29/backEnd/framework/NIO%E4%B8%8ENetty/</loc>
     
     <lastmod>2020-03-01T16:15:51.038Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://liuyoubin.top/2020/02/19/backEnd/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E6%95%B4%E7%90%86/</loc>
-    
-    <lastmod>2020-02-28T17:20:38.481Z</lastmod>
     
   </url>
   
