@@ -157,7 +157,7 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">26</span></a>
+    <a href="/tags" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">27</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
@@ -167,7 +167,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">26</span></a>
+    <a href="/archives" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">27</span></a>
 
   </li>
         <li class="menu-item menu-item-sitemap">
@@ -223,6 +223,148 @@
             
 
   <div class="posts-expand">
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://liuyoubin.top/2020/03/14/backEnd/database/MyCat%E5%85%A5%E9%97%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/cxm.jpg">
+      <meta itemprop="name" content="刘友滨">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="何处似樽前">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/03/14/backEnd/database/MyCat%E5%85%A5%E9%97%A8/" class="post-title-link" itemprop="url">MyCat入门</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-03-14 16:35:28 / 修改时间：23:05:50" itemprop="dateCreated datePublished" datetime="2020-03-14T16:35:28+08:00">2020-03-14</time>
+            </span>
+			
+			<span class="post-meta-divider">|</span>
+			<span title="post.wordcount"><span class="post-meta-item-icon"><i class="fa fa-file-word-o"></i></span>字数： 476</span>
+			
+			<span class="post-meta-divider">|</span>
+			<span title="post.min2read"><span class="post-meta-item-icon"><i class="fa fa-clock-o"></i></span>阅读时长≈ 1min</span>
+			
+			<span class="post-meta-divider">|</span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index">
+                    <span itemprop="name">笔记</span>
+                  </a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AC%94%E8%AE%B0/%E5%90%8E%E7%AB%AF/" itemprop="url" rel="index">
+                    <span itemprop="name">后端</span>
+                  </a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AC%94%E8%AE%B0/%E5%90%8E%E7%AB%AF/%E6%95%B0%E6%8D%AE%E5%BA%93/" itemprop="url" rel="index">
+                    <span itemprop="name">数据库</span>
+                  </a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><blockquote>
+<p>Mycat 是一个开源的分布式数据库系统，但是由于真正的数据库需要存储引擎，而 Mycat 并没有存 储引擎，所以并不是完全意义的分布式数据库系统<br> mycat是一个数据库中间件，也可以理解为是数据库代理。在架构体系中是位于数据库和应用层之间的一个组件，并且对于应用层是透明的，即数据库 感受不到mycat的存在，认为是直接连接的mysql数据库（实际上是连接的mycat,mycat实现了mysql的原生协议）</p>
+</blockquote>
+<p><strong>mycat的三大功能：分库分表、读写分离、主从切换</strong></p>
+<h1 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h1><p>​        MyCat的原理就是<strong>“拦截”</strong>，它拦截了用户发送的SQL语句，首先对SQL语句做一些特定的分析：如<strong>分片分析、路由分析、读写分离分析、缓存分析</strong>，然后将数据库发往后端的真实数据库，并将返回结果做适当的处理，最终返回给用户。</p>
+<h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><ol>
+<li><p>到官网 <a href="http://www.mycat.io/" target="_blank" rel="noopener">http://www.mycat.io/</a> 下载合适的安装包</p>
+</li>
+<li><p>解压安装包，并把解压后文件拷贝到/usr/local下</p>
+</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">tar -zxvf Mycat-server-1.6-RELEASE-20161028204710-linux.tar.gz</span><br><span class="line">mv mycat /usr/<span class="built_in">local</span></span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li><p>三个重要的配置文件</p>
+<ol>
+<li><p>schema.xml 定义了逻辑库、逻辑表、分片节点等内容</p>
+<p><img src="https://s1.ax1x.com/2020/03/14/8l2xC6.png" alt="imgae"></p>
+</li>
+<li><p>rule.xml 定义了分片规则</p>
+</li>
+<li><p>server.xml 定义用户以及系统相关变量，如端口</p>
+<p><img src="https://s1.ax1x.com/2020/03/14/8lcQbR.png" alt="image"></p>
+</li>
+</ol>
+</li>
+</ol>
+<h1 id="启动与登陆"><a href="#启动与登陆" class="headerlink" title="启动与登陆"></a>启动与登陆</h1><ol>
+<li><p>在启动前确保远程数据库可以正常访问</p>
+</li>
+<li><p>启动</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /usr/<span class="built_in">local</span>/mycat/bin</span><br><span class="line"></span><br><span class="line"><span class="comment">#控制台启动</span></span><br><span class="line">./mycat console</span><br><span class="line"></span><br><span class="line"><span class="comment">#后台启动</span></span><br><span class="line">./mycat start</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>登陆</p>
+<ol>
+<li><p>登陆后台管理窗口（用于运维）</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql -uroot -p123456 -P9066 [-h ip地址]</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>登陆数据窗口</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql -uroot -p123456 -P8066 [-h ip地址]</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ol>
+</li>
+</ol>
+<h1 id="搭建读写分离"><a href="#搭建读写分离" class="headerlink" title="搭建读写分离"></a>搭建读写分离</h1><p>​        我们通过Mycat的读写分离配置MySQL的主从复制，实现MySQL的高可用性。</p>
+<p><img src="https://s1.ax1x.com/2020/03/14/8l5sg0.png" alt="image"></p>
+
+      
+    </div>
+
+    
+    
+    
+	
+	<div>
+      
+	</div>
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
         
   
   
@@ -698,113 +840,6 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://liuyoubin.top/2020/02/12/backEnd/java/JUC%E7%AC%94%E8%AE%B0/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/cxm.jpg">
-      <meta itemprop="name" content="刘友滨">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="何处似樽前">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/02/12/backEnd/java/JUC%E7%AC%94%E8%AE%B0/" class="post-title-link" itemprop="url">JUC笔记</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-02-12 18:00:47" itemprop="dateCreated datePublished" datetime="2020-02-12T18:00:47+08:00">2020-02-12</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-03-06 18:32:27" itemprop="dateModified" datetime="2020-03-06T18:32:27+08:00">2020-03-06</time>
-              </span>
-			
-			<span class="post-meta-divider">|</span>
-			<span title="post.wordcount"><span class="post-meta-item-icon"><i class="fa fa-file-word-o"></i></span>字数： 7.6k</span>
-			
-			<span class="post-meta-divider">|</span>
-			<span title="post.min2read"><span class="post-meta-item-icon"><i class="fa fa-clock-o"></i></span>阅读时长≈ 33min</span>
-			
-			<span class="post-meta-divider">|</span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index">
-                    <span itemprop="name">笔记</span>
-                  </a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AC%94%E8%AE%B0/%E5%90%8E%E7%AB%AF/" itemprop="url" rel="index">
-                    <span itemprop="name">后端</span>
-                  </a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AC%94%E8%AE%B0/%E5%90%8E%E7%AB%AF/Java/" itemprop="url" rel="index">
-                    <span itemprop="name">Java</span>
-                  </a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="JUC简介"><a href="#JUC简介" class="headerlink" title="JUC简介"></a>JUC简介</h1><p>​        java.util.concurrent包的简称，目的就是为了更好的支持高并发任务，让开发者利用这个包进行的多线程编程时可以有效的减少竞争条件和死锁线程。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/02/12/backEnd/java/JUC%E7%AC%94%E8%AE%B0/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-	
-	<div>
-      
-	</div>
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -877,7 +912,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives">
         
-          <span class="site-state-item-count">26</span>
+          <span class="site-state-item-count">27</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -890,7 +925,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags">
           
-        <span class="site-state-item-count">26</span>
+        <span class="site-state-item-count">27</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
