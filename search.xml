@@ -6,7 +6,7 @@
     <content><![CDATA[<h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><blockquote>
 <p>Mycat 是一个开源的分布式数据库系统，但是由于真正的数据库需要存储引擎，而 Mycat 并没有存 储引擎，所以并不是完全意义的分布式数据库系统<br> mycat是一个数据库中间件，也可以理解为是数据库代理。在架构体系中是位于数据库和应用层之间的一个组件，并且对于应用层是透明的，即数据库 感受不到mycat的存在，认为是直接连接的mysql数据库（实际上是连接的mycat,mycat实现了mysql的原生协议）</p>
 </blockquote>
-<p><strong>mycat的三大功能：分库分表、读写分离、主从切换</strong></p>
+<p><strong>MyCat的三大功能：分库分表、读写分离、主从切换</strong></p>
 <a id="more"></a>
 
 <h1 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h1><p>​        MyCat的原理就是<strong>“拦截”</strong>，它拦截了用户发送的SQL语句，首先对SQL语句做一些特定的分析：如<strong>分片分析、路由分析、读写分离分析、缓存分析</strong>，然后将数据库发往后端的真实数据库，并将返回结果做适当的处理，最终返回给用户。</p>
