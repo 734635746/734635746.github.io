@@ -31,23 +31,26 @@
     <loc>http://liuyoubin.top/2020/02/18/backEnd/Redis%E7%AC%94%E8%AE%B0%E6%95%B4%E7%90%86/</loc>
     <lastmod>2020-02-26</lastmod>
   </url>  <url>
+    <loc>http://liuyoubin.top/2020/02/10/backEnd/database/InnoDB%E4%B8%8EMYISAM/</loc>
+    <lastmod>2020-02-26</lastmod>
+  </url>  <url>
+    <loc>http://liuyoubin.top/2020/01/25/backEnd/Tomcat%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</loc>
+    <lastmod>2020-02-26</lastmod>
+  </url>  <url>
+    <loc>http://liuyoubin.top/2020/01/29/backEnd/Nginx%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</loc>
+    <lastmod>2020-02-26</lastmod>
+  </url>  <url>
+    <loc>http://liuyoubin.top/2020/02/02/backEnd/Linux-Shell%E7%BC%96%E7%A8%8B%E5%9F%BA%E7%A1%80/</loc>
+    <lastmod>2020-02-26</lastmod>
+  </url>  <url>
     <loc>http://liuyoubin.top/2020/01/25/backEnd/java/%E6%B5%85%E8%B0%88Java%E4%B8%AD%E7%9A%84%E5%80%BC%E4%BC%A0%E9%80%92%E4%B8%8E%E5%BC%95%E7%94%A8%E4%BC%A0%E9%80%92/</loc>
     <lastmod>2020-02-25</lastmod>
   </url>  <url>
     <loc>http://liuyoubin.top/2020/01/31/backEnd/Docker%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</loc>
     <lastmod>2020-02-25</lastmod>
   </url>  <url>
-    <loc>http://liuyoubin.top/2020/02/10/backEnd/database/InnoDB%E4%B8%8EMYISAM/</loc>
-    <lastmod>2020-02-10</lastmod>
-  </url>  <url>
     <loc>http://liuyoubin.top/2020/02/07/backEnd/framework/Spring%E6%89%A9%E5%B1%952-Transaction/</loc>
     <lastmod>2020-02-09</lastmod>
-  </url>  <url>
-    <loc>http://liuyoubin.top/2020/02/02/backEnd/Linux-Shell%E7%BC%96%E7%A8%8B%E5%9F%BA%E7%A1%80/</loc>
-    <lastmod>2020-02-05</lastmod>
-  </url>  <url>
-    <loc>http://liuyoubin.top/2020/01/29/backEnd/Nginx%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</loc>
-    <lastmod>2020-02-05</lastmod>
   </url>  <url>
     <loc>http://liuyoubin.top/2020/01/25/backEnd/framework/SpringBoot%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</loc>
     <lastmod>2020-02-04</lastmod>
@@ -60,9 +63,6 @@
   </url>  <url>
     <loc>http://liuyoubin.top/2020/01/23/backEnd/framework/SpringMvc%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</loc>
     <lastmod>2020-02-03</lastmod>
-  </url>  <url>
-    <loc>http://liuyoubin.top/2020/01/25/backEnd/Tomcat%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</loc>
-    <lastmod>2020-01-29</lastmod>
   </url>  <url>
     <loc>http://liuyoubin.top/2020/01/29/backEnd/framework/Spring%E6%89%A9%E5%B1%951-%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/</loc>
     <lastmod>2020-01-29</lastmod>

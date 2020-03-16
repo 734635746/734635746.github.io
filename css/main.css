@@ -1161,7 +1161,7 @@ pre .javascript .function {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #0bffff;
+  background: #ff03fc;
   border-radius: 50%;
   content: ' ';
   display: inline-block;
@@ -2834,6 +2834,15 @@ article {
 .post-title {
   text-align: left;
 }
+.posts-expand {
+  margin-top: 50px;
+  margin-bottom: 50px;
+  padding: 25px;
+  box-shadow: 0 0 16px rgba(202,203,203,0.5);
+}
+.posts-expand .post-block {
+  border-radius: 30px;
+}
 .posts-expand .post-title-link {
   line-height: 1.5;
 }
@@ -2870,8 +2879,11 @@ btn {
   margin-top: 0;
   margin-bottom: 15px;
 }
+.pagination {
+  border-radius: 30px;
+}
 body {
-  background: url("https://images.unsplash.com/photo-1578539046812-74308e093283?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&h=900&ixlib=rb-1.2.1&q=80&w=1800");
+  background: url("https://s1.ax1x.com/2020/03/16/8YsXFA.jpg");
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-position: 50% 50%;
