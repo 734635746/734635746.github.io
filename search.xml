@@ -54,8 +54,8 @@
 </ol>
 <h1 id="搭建读写分离"><a href="#搭建读写分离" class="headerlink" title="搭建读写分离"></a>搭建读写分离</h1><p>​        <strong>我们通过Mycat的读写分离配置MySQL的主从复制，实现MySQL的高可用性。</strong></p>
 <h2 id="读写分离架构"><a href="#读写分离架构" class="headerlink" title="读写分离架构"></a>读写分离架构</h2><p><img src="https://s1.ax1x.com/2020/03/14/8l5sg0.png" alt="image"></p>
-<h2 id="MySQL主从复制原理与搭建"><a href="#MySQL主从复制原理与搭建" class="headerlink" title="MySQL主从复制原理与搭建"></a>MySQL主从复制原理与搭建</h2><h3 id="原理图"><a href="#原理图" class="headerlink" title="原理图"></a>原理图</h3><p><img src="https://s1.ax1x.com/2020/03/15/81pHf0.png" alt="image"></p>
-<h3 id="搭建主从复制"><a href="#搭建主从复制" class="headerlink" title="搭建主从复制"></a>搭建主从复制</h3><ol>
+<h2 id="MySQL主从复制原理图"><a href="#MySQL主从复制原理图" class="headerlink" title="MySQL主从复制原理图"></a>MySQL主从复制原理图</h2><p><img src="https://s1.ax1x.com/2020/03/15/81pHf0.png" alt="image"></p>
+<h2 id="单主单从模式"><a href="#单主单从模式" class="headerlink" title="单主单从模式"></a>单主单从模式</h2><h3 id="搭建主从复制"><a href="#搭建主从复制" class="headerlink" title="搭建主从复制"></a>搭建主从复制</h3><ol>
 <li>修改配置文件</li>
 </ol>
 <ul>
@@ -86,7 +86,7 @@
 
 </li>
 </ol>
-<h2 id="搭建读写分离-单主单从模式"><a href="#搭建读写分离-单主单从模式" class="headerlink" title="搭建读写分离(单主单从模式)"></a>搭建读写分离(单主单从模式)</h2><ol>
+<h3 id="搭建读写分离-1"><a href="#搭建读写分离-1" class="headerlink" title="搭建读写分离"></a>搭建读写分离</h3><ol>
 <li><p>修改MyCat的配置文件server.xml</p>
 <p><img src="https://s1.ax1x.com/2020/03/14/8lcQbR.png" alt="image"></p>
 </li>
@@ -127,6 +127,19 @@
 <li><p>验证读写分离</p>
 <figure class="highlight less"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">1</span>. 在主机插入<span class="selector-tag">insert</span> <span class="selector-tag">into</span> <span class="selector-tag">user</span> <span class="selector-tag">values</span>(<span class="number">1</span>,<span class="variable">@@hostname</span>);  <span class="comment">//主从机器的数据不一样了</span></span><br><span class="line"><span class="selector-tag">2</span>. 在<span class="selector-tag">mycat</span>进行查询 <span class="selector-tag">select</span> * <span class="selector-tag">from</span> <span class="selector-tag">user</span>; <span class="comment">//可以判断读写分离是否成功</span></span><br></pre></td></tr></table></figure>
 
+
+</li>
+</ol>
+<h2 id="双主双从模式"><a href="#双主双从模式" class="headerlink" title="双主双从模式"></a>双主双从模式</h2><p>​        相较于单主但从的读写分离模式，双主双从模式的可用性更高。一个主机m1负责处理所有的写请求，它的从机s1和另一台主机m2和从机s2负责所有的读请求。当m1宕机后，m2负责写请求，m1、m2互为备机。</p>
+<p><img src="https://s1.ax1x.com/2020/03/18/8DP23q.png" alt="image"></p>
+<h3 id="搭建主从复制-1"><a href="#搭建主从复制-1" class="headerlink" title="搭建主从复制"></a>搭建主从复制</h3><ol>
+<li><p>双主机配置</p>
+<ol>
+<li>Master1配置</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">#主服务器唯一ID</span></span><br><span class="line">server-id=1</span><br><span class="line"><span class="comment">#启用二进制文件</span></span><br><span class="line"><span class="built_in">log</span>-bin=mysql-bin</span><br><span class="line"><span class="comment">#设置不用复制的数据库(可设置多个)</span></span><br><span class="line">binlog-ignore-db=mysql</span><br><span class="line"><span class="comment">#设置需要复制的数据库(可设置多个)</span></span><br><span class="line">binlog-do-db=</span><br><span class="line"><span class="comment">#设置logbin格式</span></span><br><span class="line">binlog_format=STATEMENT</span><br><span class="line"><span class="comment">#在作为从数据库的时候，有写入操作也要更新二进制文件</span></span><br><span class="line"><span class="built_in">log</span>-slave-updates</span><br><span class="line"><span class="comment">#表示自增长字段每次递增的量，默认值是1取值范围是1~65535</span></span><br><span class="line">auto-increment-increment=2</span><br><span class="line"><span class="comment">#表示自增长字段从哪个数开始,取值范围是1~65535</span></span><br><span class="line">auto-increment-offset=1</span><br></pre></td></tr></table></figure>
+
+<p>​                                                                                                                                                    <strong>3月18号</strong></p>
 </li>
 </ol>
 ]]></content>
@@ -599,7 +612,20 @@
 </ul>
 </li>
 </ul>
-<h1 id="观察者模式"><a href="#观察者模式" class="headerlink" title="观察者模式"></a>观察者模式</h1><h2 id="概述-6"><a href="#概述-6" class="headerlink" title="概述"></a>概述</h2><h2 id="类图"><a href="#类图" class="headerlink" title="类图"></a>类图</h2><p><img src="https://s2.ax1x.com/2020/02/29/3r5Dtf.png" alt="image"></p>
+<h1 id="观察者模式"><a href="#观察者模式" class="headerlink" title="观察者模式"></a>观察者模式</h1><h2 id="概述-6"><a href="#概述-6" class="headerlink" title="概述"></a>概述</h2><p>​        观察者模式是解决一对多依赖的一种解决方案。比如说一个对象的变化会引起其他多个对象的变化，这时就可以考虑观察者模式</p>
+<ul>
+<li>优点：<ol>
+<li>降低了目标与观察者之间的耦合关系，两者之间是抽象耦合关系。</li>
+<li>目标与观察者之间建立了一套触发机制。</li>
+</ol>
+</li>
+<li>缺点<ol>
+<li>目标与观察者之间的依赖关系并没有完全解除，而且有可能出现循环引用。</li>
+<li>当观察者对象很多时，通知的发布会花费很多时间，影响程序的效率。</li>
+</ol>
+</li>
+</ul>
+<h2 id="类图"><a href="#类图" class="headerlink" title="类图"></a>类图</h2><p><img src="https://s2.ax1x.com/2020/02/29/3r5Dtf.png" alt="image"></p>
 <h2 id="实现-4"><a href="#实现-4" class="headerlink" title="实现"></a>实现</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//观察者</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Observer</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">update</span><span class="params">(<span class="keyword">float</span> temperature,<span class="keyword">float</span> pressure,<span class="keyword">float</span> humidity)</span></span>;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//具体观察者</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CurrentConditions</span> <span class="keyword">implements</span> <span class="title">Observer</span></span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">float</span> temperature;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">float</span> pressure;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">float</span> humidity;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">update</span><span class="params">(<span class="keyword">float</span> temperature, <span class="keyword">float</span> pressure, <span class="keyword">float</span> humidity)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.temperature = temperature;</span><br><span class="line">        <span class="keyword">this</span>.pressure = pressure;</span><br><span class="line">        <span class="keyword">this</span>.humidity = humidity;</span><br><span class="line">        display();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">display</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"气温："</span>+<span class="keyword">this</span>.temperature);</span><br><span class="line">        System.out.println(<span class="string">"气压："</span>+<span class="keyword">this</span>.pressure);</span><br><span class="line">        System.out.println(<span class="string">"湿度："</span>+<span class="keyword">this</span>.humidity);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Subject</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">registerObserver</span><span class="params">(Observer o)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">removeObserver</span><span class="params">(Observer o)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">notifyObservers</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">WeatherData</span> <span class="keyword">implements</span> <span class="title">Subject</span></span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">float</span> temperature;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">float</span> pressure;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">float</span> humidity;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//观察者集合</span></span><br><span class="line">    <span class="keyword">private</span> List&lt;Observer&gt; observers = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//注册观察者</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">registerObserver</span><span class="params">(Observer o)</span> </span>&#123;</span><br><span class="line">        observers.add(o);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//移除观察者</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">removeObserver</span><span class="params">(Observer o)</span> </span>&#123;</span><br><span class="line">        observers.remove(o);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//遍历通知观察者</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">notifyObservers</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        observers.forEach(n-&gt; n.update(<span class="keyword">this</span>.temperature, <span class="keyword">this</span>.pressure, <span class="keyword">this</span>.humidity));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 更新数据时通知观察者</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">updateData</span><span class="params">(<span class="keyword">float</span> temperature,<span class="keyword">float</span> pressure,<span class="keyword">float</span> humidity)</span></span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.temperature = temperature;</span><br><span class="line">        <span class="keyword">this</span>.pressure = pressure;</span><br><span class="line">        <span class="keyword">this</span>.humidity = humidity;</span><br><span class="line">        notifyObservers();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 
@@ -1769,6 +1795,7 @@
 <li>而对于辅助索引，实际存储的是主键值，也就是说会进行两次索引查询</li>
 </ul>
 <p><img src="https://s2.ax1x.com/2020/02/10/15y1AO.png" alt="image"></p>
+<p>​                                                                                                                                                            </p>
 <h2 id="具体行数的保存"><a href="#具体行数的保存" class="headerlink" title="具体行数的保存"></a>具体行数的保存</h2><p>​        InnoDB不保存表的具体行数，也就是说执行<code>select count(*) from  table</code>的时候InnoDB需要遍历整张表来计算，而MyISAM可以直接读出保存的行数</p>
 <h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><ul>
 <li>对于有事务要求的选择InnoDB，如果不需要可以考虑MyISAM</li>
