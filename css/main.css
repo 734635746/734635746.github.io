@@ -1160,7 +1160,7 @@ pre .javascript .function {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #95a152;
+  background: #8aa488;
   border-radius: 50%;
   content: ' ';
   display: inline-block;
@@ -2771,6 +2771,7 @@ posts-expand article {
 }
 .posts-expand .post-block {
   border-radius: 30px;
+  margin-bottom: 25px;
 }
 .posts-expand .post-title-link {
   line-height: 1.5;
