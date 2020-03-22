@@ -72,8 +72,9 @@
 <meta property="og:image" content="https://s1.ax1x.com/2020/03/22/84jd4f.png">
 <meta property="og:image" content="https://s1.ax1x.com/2020/03/22/8592VJ.png">
 <meta property="og:image" content="https://s1.ax1x.com/2020/03/22/857VUS.png">
+<meta property="og:image" content="https://s1.ax1x.com/2020/03/22/8IEYgs.png">
 <meta property="article:published_time" content="2020-03-14T08:35:28.000Z">
-<meta property="article:modified_time" content="2020-03-22T08:49:53.041Z">
+<meta property="article:modified_time" content="2020-03-22T13:51:42.718Z">
 <meta property="article:author" content="liuyoubin">
 <meta property="article:tag" content="MyCat">
 <meta name="twitter:card" content="summary">
@@ -280,14 +281,14 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-03-22 16:49:53" itemprop="dateModified" datetime="2020-03-22T16:49:53+08:00">2020-03-22</time>
+                <time title="修改时间：2020-03-22 21:51:42" itemprop="dateModified" datetime="2020-03-22T21:51:42+08:00">2020-03-22</time>
               </span>
 			
 			<span class="post-meta-divider">|</span>
-			<span title="post.wordcount"><span class="post-meta-item-icon"><i class="fa fa-file-word-o"></i></span>字数： 2.9k</span>
+			<span title="post.wordcount"><span class="post-meta-item-icon"><i class="fa fa-file-word-o"></i></span>字数： 3.4k</span>
 			
 			<span class="post-meta-divider">|</span>
-			<span title="post.min2read"><span class="post-meta-item-icon"><i class="fa fa-clock-o"></i></span>阅读时长≈ 10min</span>
+			<span title="post.min2read"><span class="post-meta-item-icon"><i class="fa fa-clock-o"></i></span>阅读时长≈ 13min</span>
 			
 			<span class="post-meta-divider">|</span>
             <span class="post-meta-item">
@@ -597,14 +598,45 @@
 <ol start="3">
 <li>启动MyCat</li>
 </ol>
-<h2 id="MyCat分片的“Join”"><a href="#MyCat分片的“Join”" class="headerlink" title="MyCat分片的“Join”"></a>MyCat分片的“Join”</h2><p>​        Orders订单表现在已经被分到dn1、dn2两个分片上，那么和它关联的订单详情表order_detail如何进行关联呢?。答案是同时要对订单详情表进行分片操作。</p>
-<p><img src="https://s1.ax1x.com/2020/03/22/8592VJ.png" alt="image"></p>
-<ol>
-<li><p>ER表</p>
-<p>​        <strong>MyCat提出了基于E-R关系的数据分片策略，子表的记录与关联的父表记录存储在同一个数据分片上，彻底解决JOIN的的效率和性能问题。</strong></p>
-<p><img src="https://s1.ax1x.com/2020/03/22/857VUS.png" alt="image"></p>
+<h2 id="MyCat分片的“Join”"><a href="#MyCat分片的“Join”" class="headerlink" title="MyCat分片的“Join”"></a>MyCat分片的“Join”</h2><p>​        Orders订单表现在已经被分到dn1、dn2两个分片上，那么和它关联的订单详情表order_detail如何进行关联呢?。答案是同时要对订单详情表进行分片操作,可以采用基于E-R表的分片策略进行解决。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;订单详情表</span><br><span class="line">CREATE TABLE orders_detail(</span><br><span class="line">	id INT AUTO_INCREMENT,</span><br><span class="line">    detail VARCHAR(2000),</span><br><span class="line">    order_id INT,</span><br><span class="line">    PRIMARY KEY(id)</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<p>​        除了订单详情表还有一张字典表dict_order_type，不管是订单表还是订单详情表都需要数据字典表的数据，可以说这是一张全局表，那全局表应该怎么解决。考虑到字典表有几个特征：</p>
+<ul>
+<li><p>变动不频繁</p>
 </li>
-</ol>
+<li><p>数据量不大</p>
+<p>鉴于此，MyCat定义了“全局表”来进行解决。</p>
+</li>
+</ul>
+<p><img src="https://s1.ax1x.com/2020/03/22/8592VJ.png" alt="image"></p>
+<h3 id="ER表"><a href="#ER表" class="headerlink" title="ER表"></a>ER表</h3><p>​        <strong>MyCat提出了基于E-R关系的数据分片策略，子表的记录与关联的父表记录存储在同一个数据分片上，彻底解决JOIN的的效率和性能问题。</strong></p>
+<p><img src="https://s1.ax1x.com/2020/03/22/857VUS.png" alt="image"></p>
+<p>​                                                                                                                                    </p>
+<pre><code>### 全局表</code></pre><p>​        <strong>全局表具有以下特征</strong></p>
+<ul>
+<li>全局表的插入、更新会在所有节点上执行，保证分片数据的一致性</li>
+<li>全局表的查询操作只能在一个节点获取</li>
+<li>全局表可以和任何一个表进行Join操作</li>
+</ul>
+<p><img src="https://s1.ax1x.com/2020/03/22/8IEYgs.png" alt="image"></p>
+<h2 id="常用的分片操作"><a href="#常用的分片操作" class="headerlink" title="常用的分片操作"></a>常用的分片操作</h2><h3 id="取模"><a href="#取模" class="headerlink" title="取模"></a>取模</h3><p>​        对分片的指定字段求模运算，对结果进行分片，是一种常用的分片规则。具体参考上面搭建水平分库的过程。</p>
+<h3 id="分片枚举"><a href="#分片枚举" class="headerlink" title="分片枚举"></a>分片枚举</h3><p>​        通过在配置文件中配置可能的枚举id，自己配置分片，本规则适用于特定场景。比如有些业务需要按照省份或区县进行保存，此类业务使用于本条规则。</p>
+<p>例如：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">#修改schema.xml文件</span><br><span class="line"><span class="tag">&lt;<span class="name">table</span> <span class="attr">name</span>=<span class="string">"order_info"</span> <span class="attr">dataNode</span>=<span class="string">"dn1,dn2"</span> <span class="attr">rule</span>=<span class="string">"store_by_intfile"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">#修改rule.xml文件</span><br><span class="line"><span class="tag">&lt;<span class="name">tableRule</span> <span class="attr">name</span>=<span class="string">"store_by_intfile"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">rule</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">columns</span>&gt;</span>areacode<span class="tag">&lt;/<span class="name">columns</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">algorithm</span>&gt;</span>hash-int<span class="tag">&lt;/<span class="name">algorithm</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">rule</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">table</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">function</span> <span class="attr">name</span>=<span class="string">"hash-int"</span> <span class="attr">class</span>=<span class="string">"io.mycat.route.function.PartitionByFileMap"</span>&gt;</span></span><br><span class="line">	    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"mapFile"</span>&gt;</span>partition-hash-int.txt<span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">    	<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"type"</span>&gt;</span>1<span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">   	    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"defaultNode"</span>&gt;</span>0<span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">function</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>columns : 分片字段</li>
+<li>alogrithm：分片函数</li>
+<li>mapFile：标识配置文件名称</li>
+<li>type：0为int型，非0为String型（这里的类型指的是分片字段的类型）</li>
+<li>defaultNode：默认节点，小于0表示不设置默认节点，大于等于0表示设置默认节点。设置默认节点如果碰到不能识别的枚举值，就路由到默认节点。</li>
+</ul>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">#修改partition-hash-int.txt文件</span><br><span class="line">110=0</span><br><span class="line">120=1</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="范围约定"><a href="#范围约定" class="headerlink" title="范围约定"></a>范围约定</h3><p>​        </p>
 
     </div>
 
@@ -624,7 +656,7 @@
   <p><span>本文标题:</span><a href="/2020/03/14/backEnd/database/MyCat%E5%85%A5%E9%97%A8/">MyCat入门</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 liuyoubin 的个人博客">liuyoubin</a></p>
   <p><span>发布时间:</span>2020年03月14日 - 16:35</p>
-  <p><span>最后更新:</span>2020年03月22日 - 16:49</p>
+  <p><span>最后更新:</span>2020年03月22日 - 21:51</p>
   <p><span>原始链接:</span><a href="/2020/03/14/backEnd/database/MyCat%E5%85%A5%E9%97%A8/" title="MyCat入门">http://liuyoubin.top/2020/03/14/backEnd/database/MyCat%E5%85%A5%E9%97%A8/</a>
     <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://liuyoubin.top/2020/03/14/backEnd/database/MyCat%E5%85%A5%E9%97%A8/"  aria-label="复制成功！"></i></span>
   </p>
@@ -732,7 +764,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#简介"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#原理"><span class="nav-number">2.</span> <span class="nav-text">原理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安装"><span class="nav-number">3.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#启动与登陆"><span class="nav-number">4.</span> <span class="nav-text">启动与登陆</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#搭建读写分离"><span class="nav-number">5.</span> <span class="nav-text">搭建读写分离</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#读写分离架构"><span class="nav-number">5.1.</span> <span class="nav-text">读写分离架构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MySQL主从复制原理图"><span class="nav-number">5.2.</span> <span class="nav-text">MySQL主从复制原理图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#单主单从模式"><span class="nav-number">5.3.</span> <span class="nav-text">单主单从模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#搭建主从复制"><span class="nav-number">5.3.1.</span> <span class="nav-text">搭建主从复制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#搭建读写分离-1"><span class="nav-number">5.3.2.</span> <span class="nav-text">搭建读写分离</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#双主双从模式"><span class="nav-number">5.4.</span> <span class="nav-text">双主双从模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#搭建主从复制-1"><span class="nav-number">5.4.1.</span> <span class="nav-text">搭建主从复制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#搭建读写分离-2"><span class="nav-number">5.4.2.</span> <span class="nav-text">搭建读写分离</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#垂直划分"><span class="nav-number">6.</span> <span class="nav-text">垂直划分</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#介绍"><span class="nav-number">6.1.</span> <span class="nav-text">介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#搭建垂直分库"><span class="nav-number">6.2.</span> <span class="nav-text">搭建垂直分库</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#水平划分"><span class="nav-number">7.</span> <span class="nav-text">水平划分</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#介绍-1"><span class="nav-number">7.1.</span> <span class="nav-text">介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#搭建水平分库"><span class="nav-number">7.2.</span> <span class="nav-text">搭建水平分库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MyCat分片的“Join”"><span class="nav-number">7.3.</span> <span class="nav-text">MyCat分片的“Join”</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#简介"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#原理"><span class="nav-number">2.</span> <span class="nav-text">原理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安装"><span class="nav-number">3.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#启动与登陆"><span class="nav-number">4.</span> <span class="nav-text">启动与登陆</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#搭建读写分离"><span class="nav-number">5.</span> <span class="nav-text">搭建读写分离</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#读写分离架构"><span class="nav-number">5.1.</span> <span class="nav-text">读写分离架构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MySQL主从复制原理图"><span class="nav-number">5.2.</span> <span class="nav-text">MySQL主从复制原理图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#单主单从模式"><span class="nav-number">5.3.</span> <span class="nav-text">单主单从模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#搭建主从复制"><span class="nav-number">5.3.1.</span> <span class="nav-text">搭建主从复制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#搭建读写分离-1"><span class="nav-number">5.3.2.</span> <span class="nav-text">搭建读写分离</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#双主双从模式"><span class="nav-number">5.4.</span> <span class="nav-text">双主双从模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#搭建主从复制-1"><span class="nav-number">5.4.1.</span> <span class="nav-text">搭建主从复制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#搭建读写分离-2"><span class="nav-number">5.4.2.</span> <span class="nav-text">搭建读写分离</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#垂直划分"><span class="nav-number">6.</span> <span class="nav-text">垂直划分</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#介绍"><span class="nav-number">6.1.</span> <span class="nav-text">介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#搭建垂直分库"><span class="nav-number">6.2.</span> <span class="nav-text">搭建垂直分库</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#水平划分"><span class="nav-number">7.</span> <span class="nav-text">水平划分</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#介绍-1"><span class="nav-number">7.1.</span> <span class="nav-text">介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#搭建水平分库"><span class="nav-number">7.2.</span> <span class="nav-text">搭建水平分库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MyCat分片的“Join”"><span class="nav-number">7.3.</span> <span class="nav-text">MyCat分片的“Join”</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#ER表"><span class="nav-number">7.3.1.</span> <span class="nav-text">ER表</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常用的分片操作"><span class="nav-number">7.4.</span> <span class="nav-text">常用的分片操作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#取模"><span class="nav-number">7.4.1.</span> <span class="nav-text">取模</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分片枚举"><span class="nav-number">7.4.2.</span> <span class="nav-text">分片枚举</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#范围约定"><span class="nav-number">7.4.3.</span> <span class="nav-text">范围约定</span></a></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
