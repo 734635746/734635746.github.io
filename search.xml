@@ -1,6 +1,166 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Java基础知识整理</title>
+    <url>/2020/03/24/backEnd/java/Java%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E6%95%B4%E7%90%86/</url>
+    <content><![CDATA[<div class="note info">
+            <p>Java基础知识的整理,包括一些知识的细节</p>
+          </div>
+
+<a id="more"></a>
+
+<h1 id="基础篇"><a href="#基础篇" class="headerlink" title="基础篇"></a>基础篇</h1><h2 id="Java基础知识"><a href="#Java基础知识" class="headerlink" title="Java基础知识"></a>Java基础知识</h2><h3 id="基本数据类型"><a href="#基本数据类型" class="headerlink" title="基本数据类型"></a>基本数据类型</h3><h4 id="基本数据类型的类型、长度"><a href="#基本数据类型的类型、长度" class="headerlink" title="基本数据类型的类型、长度"></a>基本数据类型的类型、长度</h4><ul>
+<li>整型：byte short int long</li>
+</ul>
+<ul>
+<li><p>浮点型： float double</p>
+</li>
+<li><p>字符型： char</p>
+</li>
+<li><p>布尔型： boolean</p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="center">类型</th>
+<th align="center">长度(位)</th>
+<th align="center">范围</th>
+<th align="center">包装类</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">byte</td>
+<td align="center">8</td>
+<td align="center">（-2^7）~  (2^7-1)</td>
+<td align="center">Byte</td>
+</tr>
+<tr>
+<td align="center">short</td>
+<td align="center">16</td>
+<td align="center">（-2^15）~（2^15 - 1）</td>
+<td align="center">Short</td>
+</tr>
+<tr>
+<td align="center">int</td>
+<td align="center">32</td>
+<td align="center">（-2^31）~（2^31 - 1）</td>
+<td align="center">Integer</td>
+</tr>
+<tr>
+<td align="center">long</td>
+<td align="center">64</td>
+<td align="center">（-2^63）~（2^63 -1）</td>
+<td align="center">Long</td>
+</tr>
+<tr>
+<td align="center">float</td>
+<td align="center">32</td>
+<td align="center">符合IEEE 754标准的浮点数</td>
+<td align="center">Float</td>
+</tr>
+<tr>
+<td align="center">double</td>
+<td align="center">64</td>
+<td align="center">符合IEEE 754标准的浮点数</td>
+<td align="center">Double</td>
+</tr>
+<tr>
+<td align="center">char</td>
+<td align="center">16</td>
+<td align="center">\u0000(即为0) ~ \uffff（即为65,535）</td>
+<td align="center">Character</td>
+</tr>
+<tr>
+<td align="center">boolean</td>
+<td align="center">单独占32位(编译成int)，数组占8位(编译成byte[])</td>
+<td align="center"></td>
+<td align="center">Boolean</td>
+</tr>
+</tbody></table>
+<h4 id="Integer缓存机制"><a href="#Integer缓存机制" class="headerlink" title="Integer缓存机制"></a>Integer缓存机制</h4><p>Integer源码：通过源码可以看出Integer有个内部类IntegerCache来进行缓存</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Integer <span class="title">valueOf</span><span class="params">(<span class="keyword">int</span> i)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">assert</span> IntegerCache.high &gt;= <span class="number">127</span>;</span><br><span class="line">        <span class="comment">//当前值在缓存数组区间段，则直接返回该缓存值</span></span><br><span class="line">        <span class="keyword">if</span> (i &gt;= IntegerCache.low &amp;&amp; i &lt;= IntegerCache.high)</span><br><span class="line">            <span class="keyword">return</span> IntegerCache.cache[i + (-IntegerCache.low)];</span><br><span class="line">        <span class="comment">//否则创建新的Integer实例</span></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> Integer(i);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">IntegerCache</span> </span>&#123;</span><br><span class="line">        <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> low = -<span class="number">128</span>;</span><br><span class="line">        <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> high;</span><br><span class="line">        <span class="keyword">static</span> <span class="keyword">final</span> Integer cache[];</span><br><span class="line"></span><br><span class="line">        <span class="comment">//IntegerCache初始化时，缓存数值为-128-127的Integer实例(默认是从-128到127)。</span></span><br><span class="line">        <span class="keyword">static</span> &#123;</span><br><span class="line">            <span class="comment">// high value may be configured by property</span></span><br><span class="line">            <span class="keyword">int</span> h = <span class="number">127</span>;</span><br><span class="line">            String integerCacheHighPropValue =</span><br><span class="line">                sun.misc.VM.getSavedProperty(<span class="string">"java.lang.Integer.IntegerCache.high"</span>);</span><br><span class="line">            <span class="keyword">if</span> (integerCacheHighPropValue != <span class="keyword">null</span>) &#123;</span><br><span class="line">                <span class="keyword">int</span> i = parseInt(integerCacheHighPropValue);</span><br><span class="line">                i = Math.max(i, <span class="number">127</span>);</span><br><span class="line">                <span class="comment">// Maximum array size is Integer.MAX_VALUE</span></span><br><span class="line">                h = Math.min(i, Integer.MAX_VALUE - (-low) -<span class="number">1</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            high = h;</span><br><span class="line"></span><br><span class="line">            cache = <span class="keyword">new</span> Integer[(high - low) + <span class="number">1</span>];</span><br><span class="line">            <span class="keyword">int</span> j = low;</span><br><span class="line">            <span class="comment">//填充缓存数组</span></span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> k = <span class="number">0</span>; k &lt; cache.length; k++)</span><br><span class="line">                cache[k] = <span class="keyword">new</span> Integer(j++);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">private</span> <span class="title">IntegerCache</span><span class="params">()</span> </span>&#123;&#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>Integer会缓存 -128-127(默认)区间的Integer实例缓存到cache数组中 。 通过valueOf()方法很明显发现，当再次创建值在-128-127区间的Integer实例时，会复用缓存中的实例，也就是直接指向缓存中的Integer实例。 </p>
+<p>注意： 这里的创建不包括用new创建，new创建对象不会复用缓存实例</p>
+</blockquote>
+<blockquote>
+<p> 实际上不仅仅Integer具有缓存机制，<strong>Byte、Short、Long、Character都具有缓存机制</strong> 。其中<strong>Byte，Short，Integer，Long为 -128 到 127，Character范围为 0 到 127。</strong></p>
+<p> <strong>除了 Integer 可以通过参数改变范围外，其它的都不行。</strong></p>
+</blockquote>
+<h4 id="String"><a href="#String" class="headerlink" title="String"></a>String</h4><h5 id="字符串的不可变性"><a href="#字符串的不可变性" class="headerlink" title="字符串的不可变性"></a>字符串的不可变性</h5><ul>
+<li>什么是不可变性？</li>
+</ul>
+<p>字符串的不可变形表现在 一个String对象在内存中被创建出来就无法被修改 </p>
+<ul>
+<li><p>jdk如何实现String不可变性</p>
+<ul>
+<li><p>String类被final修饰保证了无法被继承扩展</p>
+</li>
+<li><p>String底层使用一个private final修饰的char[] 来存储数据</p>
+</li>
+<li><p>String 本身的所有方法都没有改变char[]本身的值，只是返回一个新的对象</p>
+<p>我们知道被final修饰的引用类型无法修改引用的内存地址，被private修饰的属性无法直接被外界引用到。而String本身的方法又无法修改char[]的值，所有String具有不可变性。</p>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">String</span> /** <span class="title">final</span>修饰类保证无法被继承*/</span></span><br><span class="line"><span class="class">    <span class="keyword">implements</span> <span class="title">java</span>.<span class="title">io</span>.<span class="title">Serializable</span>, <span class="title">Comparable</span>&lt;<span class="title">String</span>&gt;, <span class="title">CharSequence</span> </span>&#123;</span><br><span class="line">    <span class="comment">/** 通过private保证无法直接被外界访问到，通过final保证引用的内存地址不变 */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">char</span> value[];</span><br><span class="line">	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h5 id="jdk6和jdk7-substring的原理和区别"><a href="#jdk6和jdk7-substring的原理和区别" class="headerlink" title="jdk6和jdk7+ substring的原理和区别"></a>jdk6和jdk7+ substring的原理和区别</h5><p>​        substring(int beginIndex, int endIndex) 方法截取字符串并返回其[beginIndex,endIndex-1]范围内的内容 。</p>
+<p>不同点在于：</p>
+<ul>
+<li><p>jdk6的字符串构成是char[]、offset、count用于记录祖父数组的其实位置和字符个数。所以在substring的时候放回的新对象实际上重用了这个char[],只是offset和count不同</p>
+</li>
+<li><p>jdk7+ 的substring方法会重新创建一个字符数组</p>
+</li>
+</ul>
+<h5 id="replaceFirst、replaceAll、replace的区别"><a href="#replaceFirst、replaceAll、replace的区别" class="headerlink" title="replaceFirst、replaceAll、replace的区别"></a>replaceFirst、replaceAll、replace的区别</h5><ul>
+<li><p>replace和replaceAll都是替换<strong>所有</strong>匹配的字符,不同点在于replace匹配的是字符而replace匹配的规则是<strong>正则表达式</strong></p>
+</li>
+<li><p>replace的匹配规则也是<strong>正则表达式</strong>，但是只替换第一个匹配的字符</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"> <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        String str = <span class="string">"aa.bb.cc.dd"</span>;</span><br><span class="line">        String replace1 = str.replace(<span class="string">"."</span>, <span class="string">"@"</span>);</span><br><span class="line">        System.out.println(replace1);</span><br><span class="line"></span><br><span class="line">        String replace2 = str.replaceAll(<span class="string">"."</span>, <span class="string">"@"</span>);</span><br><span class="line">        System.out.println(replace2);</span><br><span class="line"></span><br><span class="line">        String replace3 = str.replaceFirst(<span class="string">"."</span>, <span class="string">"@"</span>);</span><br><span class="line">        System.out.println(replace3);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">结果：</span><br><span class="line">    aa<span class="meta">@bb</span><span class="meta">@cc</span><span class="meta">@dd</span></span><br><span class="line">    @@@@@@@@@@@</span><br><span class="line">    <span class="meta">@a</span>.bb.cc.dd</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+<h5 id="String-valueOf和Integer-toString的区别"><a href="#String-valueOf和Integer-toString的区别" class="headerlink" title="String.valueOf和Integer.toString的区别"></a>String.valueOf和Integer.toString的区别</h5><ul>
+<li>String.valueOf()底层用了Integer.toString()方法</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">valueOf</span><span class="params">(<span class="keyword">int</span> i)</span> </span>&#123;</span><br><span class="line">       <span class="keyword">return</span> Integer.toString(i);</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="switch对String的支持"><a href="#switch对String的支持" class="headerlink" title="switch对String的支持"></a>switch对String的支持</h5><p>​        switch对byte、short、int、char(ascii码)支持，在jdk7之后也对String支持了。通过下面的源码可以知道，java编译器是如何对String进行支持.</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">switchDemoString</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        String str = <span class="string">"world"</span>;</span><br><span class="line">        <span class="keyword">switch</span> (str) &#123;</span><br><span class="line">        <span class="keyword">case</span> <span class="string">"hello"</span>:</span><br><span class="line">            System.out.println(<span class="string">"hello"</span>);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> <span class="string">"world"</span>:</span><br><span class="line">            System.out.println(<span class="string">"world"</span>);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">default</span>:</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">------对代码进行反编译得到</span><br><span class="line">    </span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">switchDemoString</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">switchDemoString</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String args[])</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        String str = <span class="string">"world"</span>;</span><br><span class="line">        String s;</span><br><span class="line">        <span class="keyword">switch</span>((s = str).hashCode())</span><br><span class="line">        &#123;</span><br><span class="line">        <span class="keyword">default</span>:</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> <span class="number">99162322</span>:</span><br><span class="line">            <span class="keyword">if</span>(s.equals(<span class="string">"hello"</span>))</span><br><span class="line">                System.out.println(<span class="string">"hello"</span>);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> <span class="number">113318802</span>:</span><br><span class="line">            <span class="keyword">if</span>(s.equals(<span class="string">"world"</span>))</span><br><span class="line">                System.out.println(<span class="string">"world"</span>);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>​    通过反编译的结果可以看出编译器会将String对象的hashCode以及equals()作为匹配依据。</p>
+<h5 id="字符串池、运行时常量池、class常量池"><a href="#字符串池、运行时常量池、class常量池" class="headerlink" title="字符串池、运行时常量池、class常量池"></a>字符串池、运行时常量池、class常量池</h5><ul>
+<li><p>字符串池</p>
+<p>​    全局字符串池的内容是在类加载完成，经过<strong>验证、准备</strong>之后在堆中生成字符串对象实例，该字符串对象的引用值存到<strong>StringPool</strong>(注意：StringPool存放的不是字符串对象本身而是引用值），也就是说堆中某些字符串实例被StringPool引用后就被同等赋予了“驻留字符串的身份”，而这个StringPool在每个虚拟机中只有一份，被所有类共享。</p>
+</li>
+<li><p>class常量池</p>
+<p>​    class文件中包含了类的版本、字段、方法、接口等信息。同时还有一项就是常量池(Constant pool table)，用于存放编译器生成的各种字面量和符号引用。</p>
+</li>
+<li><p>运行时常量池</p>
+<p>​    jvm在执行某个类的时候，必须经过加载、连接、初始化，而连接又包括验证、准备、解析三个阶段。而当类加载到内存中后，jvm就会将class常量池中的内容存放到运行时常量池中，class常量池中存的是字面量和符号引用，也就是说他们存的并不是对象的实例，而是对象的符号引用值。而经过解析（resolve）之后，也就是把符号引用替换为直接引用，解析的过程会去查询全局字符串池，也就是我们上面所说的StringPool，以保证运行时常量池所引用的字符串与全局字符串池中所引用的是一致的。</p>
+</li>
+</ul>
+<h5 id="intern方法"><a href="#intern方法" class="headerlink" title="intern方法"></a>intern方法</h5><ul>
+<li>在jdk1.6中，当一个String实例str调用intern()方法时，Java查找常量池中是否有相同Unicode的字符串常量，如果有，则返回常量池中字符串常量的引用，如果没有，则在常量池中增加一个Unicode等于str的字符串并返回它的引用</li>
+<li>而在jdk1.7，当一个String实例str调用intern()方法时，Java查找常量池中是否有相同Unicode的字符串常量，如果有，则返回常量池中字符串常量的引用，这一点和jdk1.6没什区别。区别在于，如果没有，则不会再在常量池中增加一个Unicode等于str的字符串，而只是在常量池中生成一个指向堆中的str对象的引用，并返回</li>
+</ul>
+]]></content>
+      <categories>
+        <category>笔记</category>
+        <category>后端</category>
+        <category>Java</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>MyCat入门</title>
     <url>/2020/03/14/backEnd/database/MyCat%E5%85%A5%E9%97%A8/</url>
     <content><![CDATA[<h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><blockquote>
@@ -283,7 +443,7 @@
 <h3 id="ER表"><a href="#ER表" class="headerlink" title="ER表"></a>ER表</h3><p>​        <strong>MyCat提出了基于E-R关系的数据分片策略，子表的记录与关联的父表记录存储在同一个数据分片上，彻底解决JOIN的的效率和性能问题。</strong></p>
 <p><img src="https://s1.ax1x.com/2020/03/22/857VUS.png" alt="image"></p>
 <p>​                                                                                                                                    </p>
-<pre><code>### 全局表</code></pre><p>​        <strong>全局表具有以下特征</strong></p>
+<h3 id="全局表"><a href="#全局表" class="headerlink" title="全局表"></a>全局表</h3><p>​        <strong>全局表具有以下特征</strong></p>
 <ul>
 <li>全局表的插入、更新会在所有节点上执行，保证分片数据的一致性</li>
 <li>全局表的查询操作只能在一个节点获取</li>
