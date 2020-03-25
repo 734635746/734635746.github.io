@@ -1,5 +1,5 @@
-http://liuyoubin.top/2020/03/24/backEnd/java/Java%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E6%95%B4%E7%90%86/
 http://liuyoubin.top/2020/03/14/backEnd/database/MyCat%E5%85%A5%E9%97%A8/
 http://liuyoubin.top/2020/03/02/netWork/TCP%E5%8D%8F%E8%AE%AE/
 http://liuyoubin.top/2020/02/29/backEnd/framework/NIO%E4%B8%8ENetty/
 http://liuyoubin.top/2020/02/19/backEnd/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E6%95%B4%E7%90%86/
+http://liuyoubin.top/2020/02/18/backEnd/Redis%E7%AC%94%E8%AE%B0%E6%95%B4%E7%90%86/
