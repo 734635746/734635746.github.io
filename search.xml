@@ -3664,12 +3664,19 @@
 
 <h1 id="网络层次"><a href="#网络层次" class="headerlink" title="网络层次"></a>网络层次</h1><p><img src="https://s1.ax1x.com/2020/03/31/GlMXzn.png" alt="image"></p>
 <p><strong>应用层</strong></p>
+<p>​        为应用程序提供服务，为操作系统或应用程序提供访问网络的能力。</p>
 <p><strong>表示层</strong></p>
+<p>​        提供数据格式转化、数据加密。例如常见的URL加密、口令加密、图片编解码、数据解压缩。</p>
 <p><strong>会话层</strong></p>
+<p>​        为通道提供访问验证和会话管理。例如：服务器验证用户登陆，断点续传。</p>
 <p><strong>传输层</strong></p>
+<p>​        建立、管理和维护应用程序之间的连接、逻辑通信。</p>
 <p><strong>网络层</strong></p>
+<p>​        提供主机到主机间的寻址连接、分组转发数据。</p>
 <p><strong>数据链路层</strong></p>
+<p>​        在通信实体间建立数据链路连接。</p>
 <p><strong>物理层</strong></p>
+<p>​        为数据端设备提供原始比特流的传输通路。</p>
 ]]></content>
       <categories>
         <category>笔记</category>
@@ -3933,6 +3940,19 @@
 </ul>
 <p>TCP连接在发送后将仍然保持打开状态，于是，浏览器可以继续通过相同的连接发送请求。保持连接节省了为每个请求建立新连接所需的时间，还节约了网络带宽。</p>
 <p>建立TCP连接-&gt;发送请求行-&gt;发送请求头-&gt;（到达服务器）发送状态行-&gt;发送响应头-&gt;发送响应数据-&gt;断TCP连接</p>
+<h1 id="HTTPS"><a href="#HTTPS" class="headerlink" title="HTTPS"></a>HTTPS</h1><p>​        Https协议是在Http协议的基础上和SSL/TLS证书结合起来的一种协议，保证了传输过程的数据安全性，减少了恶意劫持的行为。</p>
+<ul>
+<li>对称加密<ul>
+<li>对称加密就是加密解密的密钥是同一把，这就要求通讯双方一开始就能安全地确认密钥，加密速度快、加密效率高。</li>
+</ul>
+</li>
+<li>非对称加密<ul>
+<li>非对称加密就是加密解密用不同的密钥，通过公钥进行加密，私钥进行解密。非对称加密减少双方保存密钥的负担，缺点是加密速度慢。</li>
+</ul>
+</li>
+</ul>
+<p>​        <strong>Https使用的加密方式是：混合加密方式。</strong></p>
+<h2 id="Https的过程"><a href="#Https的过程" class="headerlink" title="Https的过程"></a>Https的过程</h2><p><img src="https://s1.ax1x.com/2020/04/01/G8avDO.png" alt="image"></p>
 ]]></content>
       <categories>
         <category>笔记</category>
