@@ -1614,6 +1614,13 @@
 <figure class="highlight angelscript"><table><tr><td class="code"><pre><span class="line">./bin/redis-server ./redis.conf -port <span class="number">6380</span> -slaveof <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span> <span class="number">6379</span></span><br></pre></td></tr></table></figure>
 
 <p>主服务器负责写操作，从服务器只负责读，同步主服务器的更新数据。</p>
+<p><strong>主从复制的作用</strong></p>
+<ul>
+<li>数据备份：主从复制实现了数据的热备份，是持久化之外的一种数据冗余方式</li>
+<li>故障恢复：当主节点出现问题时，可以由从节点提供服务实现故障转移；实际上是一种服务冗余</li>
+<li>负载均衡：在主从复制的基础上实现读写分离，由主节点提供写服务，从节点提供读服务，提高Redis的并发能力</li>
+<li>高可用基石：主从复制的哨兵模式和集群实现的基础</li>
+</ul>
 <h1 id="Redis-Cluster集群"><a href="#Redis-Cluster集群" class="headerlink" title="Redis Cluster集群"></a>Redis Cluster集群</h1><p>​        Redis3.0之后支持redis-cluster,至少<strong>3(master)+3(slave)</strong>才能建立集群。Redis-Cluster采用无中心化结构，每个节点保存数据和整个集群状态，每个节点都和其他节点连接。</p>
 <p><strong>搭建流程</strong></p>
 <ol>
