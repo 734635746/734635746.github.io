@@ -928,6 +928,11 @@
 </ul>
 <a id="more"></a>
 
+
+
+<blockquote>
+<p>Redis是单线程，Redis是基于内存操作的，CPU不是Redsi的瓶颈，Redis的瓶颈是内存大小和网络带宽。</p>
+</blockquote>
 <h1 id="Redis安装"><a href="#Redis安装" class="headerlink" title="Redis安装"></a>Redis安装</h1><p>​        Redis有Windows版本，也有Linux版本，这里记录Linux版本的安装。（如果会Docker也可以采用Docker进行安装）</p>
 <ol>
 <li><p>安装gcc环镜</p>
