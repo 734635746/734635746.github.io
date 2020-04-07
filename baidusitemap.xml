@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>http://liuyoubin.top/2020/01/24/backEnd/framework/MyBatis%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</loc>
+    <lastmod>2020-04-07</lastmod>
+  </url>  <url>
     <loc>http://liuyoubin.top/2020/02/18/backEnd/Redis%E7%AC%94%E8%AE%B0%E6%95%B4%E7%90%86/</loc>
     <lastmod>2020-04-02</lastmod>
   </url>  <url>
@@ -83,9 +86,6 @@
     <lastmod>2020-01-25</lastmod>
   </url>  <url>
     <loc>http://liuyoubin.top/2020/01/25/backEnd/framework/Shrio%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</loc>
-    <lastmod>2020-01-25</lastmod>
-  </url>  <url>
-    <loc>http://liuyoubin.top/2020/01/24/backEnd/framework/MyBatis%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</loc>
     <lastmod>2020-01-25</lastmod>
   </url>
 </urlset>

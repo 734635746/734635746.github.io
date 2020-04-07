@@ -2,9 +2,16 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://liuyoubin.top/2020/01/24/backEnd/framework/MyBatis%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</loc>
+    
+    <lastmod>2020-04-07T15:20:08.599Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://liuyoubin.top/2020/02/18/backEnd/Redis%E7%AC%94%E8%AE%B0%E6%95%B4%E7%90%86/</loc>
     
-    <lastmod>2020-04-02T16:18:30.797Z</lastmod>
+    <lastmod>2020-04-02T16:34:44.707Z</lastmod>
     
   </url>
   
@@ -194,13 +201,6 @@
     <loc>http://liuyoubin.top/2020/01/25/backEnd/framework/Shrio%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</loc>
     
     <lastmod>2020-01-25T13:20:49.402Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://liuyoubin.top/2020/01/24/backEnd/framework/MyBatis%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</loc>
-    
-    <lastmod>2020-01-25T13:20:45.932Z</lastmod>
     
   </url>
   
