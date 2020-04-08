@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://liuyoubin.top/"/>
-  <updated>2020-03-24T09:48:59.331Z</updated>
+  <updated>2020-04-08T07:32:22.501Z</updated>
   <id>http://liuyoubin.top/</id>
   
   <author>
@@ -15,6 +15,36 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>SpringBoot自动配置原理</title>
+    <link href="http://liuyoubin.top/2020/04/08/backEnd/framework/SpringBoot%E8%87%AA%E5%8A%A8%E9%85%8D%E7%BD%AE%E5%8E%9F%E7%90%86/"/>
+    <id>http://liuyoubin.top/2020/04/08/backEnd/framework/SpringBoot%E8%87%AA%E5%8A%A8%E9%85%8D%E7%BD%AE%E5%8E%9F%E7%90%86/</id>
+    <published>2020-04-08T03:43:28.000Z</published>
+    <updated>2020-04-08T07:32:22.501Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="SpringBoot"><a href="#SpringBoot" class="headerlink" title="SpringBoot"></a>SpringBoot</h1><p>​        SpringBoot是一个优秀的快速搭建框架的手脚架，使用了特定的方式来进行配置，免去了开发者传统的繁杂配置搭建，从而使开发人员不再需要定义样板化的配置。</p><h1 id="SpringBoot自动配置原理"><a href="#SpringBoot自动配置原理" class="headerlink" title="SpringBoot自动配置原理"></a>SpringBoot自动配置原理</h1><p>​        首先我们知道SpringBoot应用的主启动类上有一个<strong>@SpringBootApplication</strong>注解，我们点击这个注解进去看看。</p><p><img src="https://s1.ax1x.com/2020/04/08/GWGQNF.png" alt="image"></p><p>​        发现@SpringBootApplication中有一个<strong>@EnableAutoConfiguration</strong>注解，通过名字可以知道是用来进行自动配置，继续跟进这个注解。</p><p><img src="https://s1.ax1x.com/2020/04/08/GWGWE8.png" alt="image"></p><p>​        发现<strong>@EnableAutoConfiguration</strong>也是一个复合注解，主要的作用是导入<strong>AutoConfigurationImportSelector</strong>类，这个类主要是给Spring导入一些组件。跟进这个类会发现这个类有一个<strong>selectImports(AnnotationMetadata annotationMetadata)</strong>方法。一步步跟进之后会发现最后会调用<strong>SpringFactoriesLoader.loadFactoryNames()</strong>扫描所有jar包类路径下”META-INF/spring.factories”。</p><p><img src="https://s1.ax1x.com/2020/04/08/GWth4O.png" alt="image"></p><p>​        </p><p>​        而spring-boot-autoconfigure-x.x.x.x.jar里就有一个这样的spring.factories文件。这样SpringBoot就可以找到所有自动配置类的位置。</p><p><img src="https://s1.ax1x.com/2020/04/08/GWNbz4.png" alt="image"></p><p>​        </p><h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>​        <strong>也就是说：SpringBoot通过@SpringBootApplication中的@EnableAutoConfiguration注解定位到AutoConfigurationImportSelector类，在SpringBoot主启动类启动时SpringApplication.run()就会执行selectImports()方法找到所有的自动配置类将组件加载到Spring容器中。每一个自动配置类根据配置生效的条件@ConditionalXXX有选择的进行加载配置。</strong></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;SpringBoot&quot;&gt;&lt;a href=&quot;#SpringBoot&quot; class=&quot;headerlink&quot; title=&quot;SpringBoot&quot;&gt;&lt;/a&gt;SpringBoot&lt;/h1&gt;&lt;p&gt;​        SpringBoot是一个优秀的快速搭建框架的手脚架，使用
+      
+    
+    </summary>
+    
+    
+      <category term="笔记" scheme="http://liuyoubin.top/categories/%E7%AC%94%E8%AE%B0/"/>
+    
+      <category term="后端" scheme="http://liuyoubin.top/categories/%E7%AC%94%E8%AE%B0/%E5%90%8E%E7%AB%AF/"/>
+    
+      <category term="框架" scheme="http://liuyoubin.top/categories/%E7%AC%94%E8%AE%B0/%E5%90%8E%E7%AB%AF/%E6%A1%86%E6%9E%B6/"/>
+    
+    
+      <category term="SpringBoot" scheme="http://liuyoubin.top/tags/SpringBoot/"/>
+    
+  </entry>
   
   <entry>
     <title>MyCat入门</title>
@@ -607,33 +637,6 @@
       <category term="算法" scheme="http://liuyoubin.top/tags/%E7%AE%97%E6%B3%95/"/>
     
       <category term="排序" scheme="http://liuyoubin.top/tags/%E6%8E%92%E5%BA%8F/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Tomcat学习笔记</title>
-    <link href="http://liuyoubin.top/2020/01/25/backEnd/Tomcat%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
-    <id>http://liuyoubin.top/2020/01/25/backEnd/Tomcat%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</id>
-    <published>2020-01-25T12:29:08.000Z</published>
-    <updated>2020-02-26T07:34:29.715Z</updated>
-    
-    <content type="html"><![CDATA[<div class="note info">            <p>Tomcat相关知识笔记 </p>          </div><a id="more"></a><h2 id="Tomcat目录"><a href="#Tomcat目录" class="headerlink" title="Tomcat目录"></a>Tomcat目录</h2><ul><li><p>bin</p><p>bin目录主要是用来存放tomcat的命令，主要有两大类，一类是以.sh结尾的（linux命令），另一类是以.bat结尾的（windows命令）。</p></li><li><p>conf</p><p>conf目录主要是用来存放tomcat的一些配置文件。</p><p>server.xml可以设置端口号、设置域名或IP、默认加载的项目、请求编码<br>web.xml可以设置tomcat支持的文件类型<br>context.xml可以用来配置数据源之类的<br>tomcat-users.xml用来配置管理tomcat的用户与权限<br>在Catalina目录下可以设置默认加载的项目</p></li><li><p>lib</p><p>lib目录主要用来存放tomcat运行需要加载的jar包。</p></li><li><p>logs</p><p>logs目录用来存放tomcat在运行过程中产生的日志文件。</p><p>在windows环境中，控制台的输出日志在catalina.xxxx-xx-xx.log文件中</p><p>在linux环境中，控制台的输出日志在catalina.out文件中</p></li><li><p>temp</p><p>temp目录用户存放tomcat在运行过程中产生的临时文件。</p></li><li><p>webapps</p><p>webapps目录用来存放应用程序，当tomcat启动时会去加载webapps目录下的应用程序。可以以文件夹、war包、jar包的形式发布应用。<br>当然，你也可以把应用程序放置在磁盘的任意位置，在配置文件中映射好就行。</p></li><li><p>work</p><p>work目录用来存放tomcat在运行时的编译后文件，例如JSP编译后的文件。</p></li></ul><h2 id="Tomcat结构"><a href="#Tomcat结构" class="headerlink" title="Tomcat结构"></a>Tomcat结构</h2><h3 id="Tomcat顶层架构"><a href="#Tomcat顶层架构" class="headerlink" title="Tomcat顶层架构"></a>Tomcat顶层架构</h3><p><img src="https://s2.ax1x.com/2020/01/07/l6vjQP.png" alt="l6vjQP.png"></p><p>Tomcat最顶层的容器是<strong>Server</strong>代表整个服务器,一个<strong>Server</strong>至少可以包含一个<strong>Service</strong>，用于提供具体服务</p><p><strong>Service</strong>主要包含两个部分：<strong>Connection</strong>和<strong>Container</strong></p><blockquote><p><code>Connector</code>: 连接器用于处理连接相关的事情，并提供<code>Socket</code>与<code>Request</code>和<code>Response</code>相关的转换；<code>Container</code>: 容器用于封装和管理<code>Servlet</code>，以及具体处理<code>Request</code>请求；</p></blockquote><h3 id="Connection和Container的关系"><a href="#Connection和Container的关系" class="headerlink" title="Connection和Container的关系"></a>Connection和Container的关系</h3><p>一个请求发送到<code>Tomcat</code>后，交给<code>Service</code>，<code>Service</code>会将请求交给<code>Connector</code>,<code>Connector</code>用于接收请求并将请求封装成<code>Request</code>对象交给<code>Container</code>处理，处理完后<code>Container</code>将<code>Response</code>交给<code>Connection</code>,<code>Connection</code>将结构通过Socket返回给客户端。</p><h3 id="Container架构"><a href="#Container架构" class="headerlink" title="Container架构"></a>Container架构</h3><p><img src="https://s2.ax1x.com/2020/01/07/lcCnPg.png" alt="lcCnPg.png"></p><blockquote><p>Engine：引擎，用来管理多站点，一个Service最多只有能有一个Engine;<br>Host：代表一个站点，也可以叫做虚拟主机，通过配置Host就可以添加站点；<br>Context：代表一个应用程序，对应着平时开发的一套程序，或者一个WEB-INF目录以及下面的web.xml文件；<br>Wrapper：每一个wrapper封装着一个Servlet;</p></blockquote><h2 id="Tomcat四种部署方式"><a href="#Tomcat四种部署方式" class="headerlink" title="Tomcat四种部署方式"></a>Tomcat四种部署方式</h2><ul><li>将应用文件夹部署到webapps下</li><li>将war包部署到webapps下</li><li>通过server.xml中的Context节点配置</li><li>通过描述符部署（\conf\Catalina)</li></ul>]]></content>
-    
-    <summary type="html">
-    
-      &lt;div class=&quot;note info&quot;&gt;
-            &lt;p&gt;Tomcat相关知识笔记 &lt;/p&gt;
-          &lt;/div&gt;
-    
-    </summary>
-    
-    
-      <category term="笔记" scheme="http://liuyoubin.top/categories/%E7%AC%94%E8%AE%B0/"/>
-    
-      <category term="后端" scheme="http://liuyoubin.top/categories/%E7%AC%94%E8%AE%B0/%E5%90%8E%E7%AB%AF/"/>
-    
-    
-      <category term="Tomcat" scheme="http://liuyoubin.top/tags/Tomcat/"/>
     
   </entry>
   

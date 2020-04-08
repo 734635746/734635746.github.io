@@ -1,6 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>SpringBoot自动配置原理</title>
+    <url>/2020/04/08/backEnd/framework/SpringBoot%E8%87%AA%E5%8A%A8%E9%85%8D%E7%BD%AE%E5%8E%9F%E7%90%86/</url>
+    <content><![CDATA[<h1 id="SpringBoot"><a href="#SpringBoot" class="headerlink" title="SpringBoot"></a>SpringBoot</h1><p>​        SpringBoot是一个优秀的快速搭建框架的手脚架，使用了特定的方式来进行配置，免去了开发者传统的繁杂配置搭建，从而使开发人员不再需要定义样板化的配置。</p>
+<h1 id="SpringBoot自动配置原理"><a href="#SpringBoot自动配置原理" class="headerlink" title="SpringBoot自动配置原理"></a>SpringBoot自动配置原理</h1><p>​        首先我们知道SpringBoot应用的主启动类上有一个<strong>@SpringBootApplication</strong>注解，我们点击这个注解进去看看。</p>
+<p><img src="https://s1.ax1x.com/2020/04/08/GWGQNF.png" alt="image"></p>
+<p>​        发现@SpringBootApplication中有一个<strong>@EnableAutoConfiguration</strong>注解，通过名字可以知道是用来进行自动配置，继续跟进这个注解。</p>
+<p><img src="https://s1.ax1x.com/2020/04/08/GWGWE8.png" alt="image"></p>
+<p>​        发现<strong>@EnableAutoConfiguration</strong>也是一个复合注解，主要的作用是导入<strong>AutoConfigurationImportSelector</strong>类，这个类主要是给Spring导入一些组件。跟进这个类会发现这个类有一个<strong>selectImports(AnnotationMetadata annotationMetadata)</strong>方法。一步步跟进之后会发现最后会调用<strong>SpringFactoriesLoader.loadFactoryNames()</strong>扫描所有jar包类路径下”META-INF/spring.factories”。</p>
+<p><img src="https://s1.ax1x.com/2020/04/08/GWth4O.png" alt="image"></p>
+<p>​        </p>
+<p>​        而spring-boot-autoconfigure-x.x.x.x.jar里就有一个这样的spring.factories文件。这样SpringBoot就可以找到所有自动配置类的位置。</p>
+<p><img src="https://s1.ax1x.com/2020/04/08/GWNbz4.png" alt="image"></p>
+<p>​        </p>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>​        <strong>也就是说：SpringBoot通过@SpringBootApplication中的@EnableAutoConfiguration注解定位到AutoConfigurationImportSelector类，在SpringBoot主启动类启动时SpringApplication.run()就会执行selectImports()方法找到所有的自动配置类将组件加载到Spring容器中。每一个自动配置类根据配置生效的条件@ConditionalXXX有选择的进行加载配置。</strong></p>
+]]></content>
+      <categories>
+        <category>笔记</category>
+        <category>后端</category>
+        <category>框架</category>
+      </categories>
+      <tags>
+        <tag>SpringBoot</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>MyCat入门</title>
     <url>/2020/03/14/backEnd/database/MyCat%E5%85%A5%E9%97%A8/</url>
     <content><![CDATA[<h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><blockquote>
