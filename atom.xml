@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://liuyoubin.top/"/>
-  <updated>2020-04-26T15:46:35.568Z</updated>
+  <updated>2020-04-30T16:08:52.471Z</updated>
   <id>http://liuyoubin.top/</id>
   
   <author>
@@ -15,6 +15,39 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>ReentranLock与AQS</title>
+    <link href="http://liuyoubin.top/2020/04/30/backEnd/java/ReentranLock%E4%B8%8EAQS/"/>
+    <id>http://liuyoubin.top/2020/04/30/backEnd/java/ReentranLock%E4%B8%8EAQS/</id>
+    <published>2020-04-30T10:49:54.000Z</published>
+    <updated>2020-04-30T16:08:52.471Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="AQS"><a href="#AQS" class="headerlink" title="AQS"></a>AQS</h1><p>​        抽象队列式同步器<code>AbstractQueuedSynchronizer</code>下面简称AQS，是java并发包的下面很多类的实现基础，比如常见的ReentranLock、CyclicBarrier、Semaphore都是基于AQS实现了。</p><p>​        AQS的实现原理就是<strong>通过一个共享变量state来实现对线程入队阻塞和出队唤醒操作</strong>。</p><p>​        这次具体通过对ReentranLock的源码分析来学习AQS</p><a id="more"></a><h1 id="ReentranLock"><a href="#ReentranLock" class="headerlink" title="ReentranLock"></a>ReentranLock</h1><p>​        ReentranLock是jdk1.5加入的一个类，用于协调线程对共享资源的访问本质上是一种锁机制。</p><p>​        ReentranLock和Synchronized一样是一把可重入锁，但是与Synchronized不同的是ReentranLoak支持公平锁和可中断的阻塞。</p><h2 id="公平锁与非公平锁"><a href="#公平锁与非公平锁" class="headerlink" title="公平锁与非公平锁"></a>公平锁与非公平锁</h2><p>​        ReentraLock分为公平锁和非公平锁，可以通过其构造函数指定。所谓公平和非公平主要区别在于获得锁的机会是否取决于线程的排队顺序。</p><p>​        当锁已经被一个线程占用，其他线程申请锁将会被阻塞挂起，加入队列。理论上来说先调用lock指令的线程将排在队列前面。</p><p>​        当锁被释放，公平锁会唤醒队列前面的线程去获得锁，非公平锁则是唤醒所以阻塞线程去尝试获取锁。</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//指定公平锁、非公平锁</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">ReentrantLock</span><span class="params">(<span class="keyword">boolean</span> fair)</span> </span>&#123;</span><br><span class="line">sync = fair ? <span class="keyword">new</span> FairSync() : <span class="keyword">new</span> NonfairSync();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>​        通过源码可以知道<code>FairSync</code>和<code>NonfairSync</code>都继承了抽象的静态内部类<code>Sync</code>，而<code>Sync</code>则继承了<code>AbstractQueuedSynchronizer</code></p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">abstract</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Sync</span> <span class="keyword">extends</span> <span class="title">AbstractQueuedSynchronizer</span> </span>&#123;</span><br><span class="line">......</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h2 id="Lock"><a href="#Lock" class="headerlink" title="Lock"></a>Lock</h2><p>​        ReentranLock的Lock方法调用了Sync的lock方法，而Sync的lock没有具体实现，实际上是调用了<code>FairSync</code>或者是<code>NonfairSync</code>的lock方法，下面以公平锁来进行分析。</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"> <span class="comment">//ReentranLock的Lock方法</span></span><br><span class="line"> <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">lock</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    sync.lock();</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">FairSync</span> <span class="keyword">extends</span> <span class="title">Sync</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">final</span> <span class="keyword">void</span> <span class="title">lock</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            acquire(<span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">.....</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>​        可以发现lock方法调用了acquire这个方法，这个方法是AQS中的一个重要方法。</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//AQS的acquire方法</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">void</span> <span class="title">acquire</span><span class="params">(<span class="keyword">int</span> arg)</span> </span>&#123;</span><br><span class="line">    <span class="comment">//tryAcquire首先尝试获取锁</span></span><br><span class="line">    <span class="keyword">if</span> (!tryAcquire(arg) &amp;&amp;</span><br><span class="line">        acquireQueued(addWaiter(Node.EXCLUSIVE), arg))</span><br><span class="line">        <span class="comment">//addWaiter尝试获取锁失败给当前线程创建一个节点，并将其加入等待队列</span></span><br><span class="line">        <span class="comment">//acquireQueued当前线程加入队列后继续尝试获取锁</span></span><br><span class="line">        selfInterrupt();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;AQS&quot;&gt;&lt;a href=&quot;#AQS&quot; class=&quot;headerlink&quot; title=&quot;AQS&quot;&gt;&lt;/a&gt;AQS&lt;/h1&gt;&lt;p&gt;​        抽象队列式同步器&lt;code&gt;AbstractQueuedSynchronizer&lt;/code&gt;下面简称AQS，是java并发包的下面很多类的实现基础，比如常见的ReentranLock、CyclicBarrier、Semaphore都是基于AQS实现了。&lt;/p&gt;
+&lt;p&gt;​        AQS的实现原理就是&lt;strong&gt;通过一个共享变量state来实现对线程入队阻塞和出队唤醒操作&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;​        这次具体通过对ReentranLock的源码分析来学习AQS&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="笔记" scheme="http://liuyoubin.top/categories/%E7%AC%94%E8%AE%B0/"/>
+    
+      <category term="后端" scheme="http://liuyoubin.top/categories/%E7%AC%94%E8%AE%B0/%E5%90%8E%E7%AB%AF/"/>
+    
+      <category term="Java" scheme="http://liuyoubin.top/categories/%E7%AC%94%E8%AE%B0/%E5%90%8E%E7%AB%AF/Java/"/>
+    
+    
+      <category term="Java" scheme="http://liuyoubin.top/tags/Java/"/>
+    
+      <category term="多线程" scheme="http://liuyoubin.top/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/"/>
+    
+      <category term="并发" scheme="http://liuyoubin.top/tags/%E5%B9%B6%E5%8F%91/"/>
+    
+  </entry>
   
   <entry>
     <title>秒杀系统</title>
@@ -605,35 +638,6 @@
     
     
       <category term="Http" scheme="http://liuyoubin.top/tags/Http/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>浅谈Java中的值传递与引用传递</title>
-    <link href="http://liuyoubin.top/2020/01/25/backEnd/java/%E6%B5%85%E8%B0%88Java%E4%B8%AD%E7%9A%84%E5%80%BC%E4%BC%A0%E9%80%92%E4%B8%8E%E5%BC%95%E7%94%A8%E4%BC%A0%E9%80%92/"/>
-    <id>http://liuyoubin.top/2020/01/25/backEnd/java/%E6%B5%85%E8%B0%88Java%E4%B8%AD%E7%9A%84%E5%80%BC%E4%BC%A0%E9%80%92%E4%B8%8E%E5%BC%95%E7%94%A8%E4%BC%A0%E9%80%92/</id>
-    <published>2020-01-25T13:17:36.000Z</published>
-    <updated>2020-02-25T17:36:46.227Z</updated>
-    
-    <content type="html"><![CDATA[<div class="note info">            <p>在Java中到底是值传递还是引用传递还是两者都有? </p>          </div><a id="more"></a><h4 id="Java到底是值传递与引用传递"><a href="#Java到底是值传递与引用传递" class="headerlink" title="Java到底是值传递与引用传递?"></a>Java到底是值传递与引用传递?</h4><p>​        对于这个问题，网上一直有很大的争议。有很多人认为只有值传递；也有很大一部分人认为Java既有值传递也有引用传递。认为Java既有值传递也有引用传递的人大都认为基本数据类型的传递是值传递，而引用类型的传递就是引用传递。</p><p><strong>对于这个问题我先给出结论:</strong></p><p>​     <strong>Java只有值传递没有引用传递</strong></p><hr><h4 id="值传递与引用传递"><a href="#值传递与引用传递" class="headerlink" title="值传递与引用传递"></a>值传递与引用传递</h4><p>先来看一下概念:</p><ul><li><p>值传递: 方法调用时，实参的数值被复制出另一个副本，然后传递副本</p></li><li><p>引用传递: 方法调用时,实参的地址直接传递到被调用的方法中</p></li></ul><table><thead><tr><th></th><th align="center">值传递</th><th align="center">引用传递</th></tr></thead><tbody><tr><td>本质区别</td><td align="center">方法调用时，实参复制副本进行传递</td><td align="center">方法调用时，实参地址直接进行传递</td></tr><tr><td>是否改变原来参数</td><td align="center">否</td><td align="center">是</td></tr></tbody></table><p>​      从上面可以看出值传递与引用传递的本质区别是: <code>方法调用时是传递了实参的副本还是实参的地址</code>,与实参的类型没有关系</p><hr><h4 id="验证"><a href="#验证" class="headerlink" title="验证"></a>验证</h4><h5 id="验证基本数据类型"><a href="#验证基本数据类型" class="headerlink" title="验证基本数据类型"></a>验证基本数据类型</h5><ul><li>代码</li></ul><p><img src="https://s2.ax1x.com/2020/01/25/1eqMss.png" alt="image"></p><ul><li>运行结果</li></ul><p><img src="https://s2.ax1x.com/2020/02/26/3tx2Os.png" alt="image"></p><ul><li>说明</li></ul><p><code>上面结果表明基本数据类型的传递是值传递，方法改变的是实参的副本，原来参数不会发生改变</code></p><h5 id="验证引用类型"><a href="#验证引用类型" class="headerlink" title="验证引用类型"></a>验证引用类型</h5><ul><li>代码</li></ul><p><img src="https://s2.ax1x.com/2020/01/26/1ejsnH.png" alt="image"></p><ul><li>结果</li></ul><p><img src="https://s2.ax1x.com/2020/01/26/1ejR4P.png" alt="image"></p><p>​      <strong>看到这里是不是有疑问,不是说值传递不会改变原来参数的值吗？这不就改变了吗，难道上面的结论是错的?</strong></p><p>​      其实结论并没有错，上面已经讲了值传递传递的是实参的副本，而我们在<code>传递引用类型的时候传递的并不是对象本身而是引用</code>。所以看是不是<code>值传递</code>就看这个引用到底有没有被复制。</p><p>​     看一下下面这张图就清楚了，上面的代码执行的时候发生了什么?</p><p><img src="https://s2.ax1x.com/2020/02/26/3txclQ.png" alt="image"></p><p>​        对于引用类型来说，参数传递的过程中传递的不是对象本身而是引用。引用发生了复制，传递的是副本，引用指向了同一对象。这也是为什么对象信息会发生改变但又说是值传递的原因了。</p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;div class=&quot;note info&quot;&gt;
-            &lt;p&gt;在Java中到底是值传递还是引用传递还是两者都有? &lt;/p&gt;
-          &lt;/div&gt;
-    
-    </summary>
-    
-    
-      <category term="笔记" scheme="http://liuyoubin.top/categories/%E7%AC%94%E8%AE%B0/"/>
-    
-      <category term="后端" scheme="http://liuyoubin.top/categories/%E7%AC%94%E8%AE%B0/%E5%90%8E%E7%AB%AF/"/>
-    
-      <category term="Java" scheme="http://liuyoubin.top/categories/%E7%AC%94%E8%AE%B0/%E5%90%8E%E7%AB%AF/Java/"/>
-    
-    
-      <category term="Java" scheme="http://liuyoubin.top/tags/Java/"/>
     
   </entry>
   

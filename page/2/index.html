@@ -168,7 +168,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">31</span></a>
+    <a href="/archives" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">32</span></a>
 
   </li>
         <li class="menu-item menu-item-sitemap">
@@ -223,6 +223,123 @@
             
 
   <div class="posts-expand">
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://liuyoubin.top/2020/02/29/backEnd/framework/NIO%E4%B8%8ENetty/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/xfc.jpg">
+      <meta itemprop="name" content="liuyoubin">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="何处似樽前">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/02/29/backEnd/framework/NIO%E4%B8%8ENetty/" class="post-title-link" itemprop="url">NIO与Netty</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-02-29 19:52:59" itemprop="dateCreated datePublished" datetime="2020-02-29T19:52:59+08:00">2020-02-29</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-03-20 22:38:08" itemprop="dateModified" datetime="2020-03-20T22:38:08+08:00">2020-03-20</time>
+              </span>
+			
+			<span class="post-meta-divider">|</span>
+			<span title="post.wordcount"><span class="post-meta-item-icon"><i class="fa fa-file-word-o"></i></span>字数： 2.1k</span>
+			
+			<span class="post-meta-divider">|</span>
+			<span title="post.min2read"><span class="post-meta-item-icon"><i class="fa fa-clock-o"></i></span>阅读时长≈ 8min</span>
+			
+			<span class="post-meta-divider">|</span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index">
+                    <span itemprop="name">笔记</span>
+                  </a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AC%94%E8%AE%B0/%E5%90%8E%E7%AB%AF/" itemprop="url" rel="index">
+                    <span itemprop="name">后端</span>
+                  </a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AC%94%E8%AE%B0/%E5%90%8E%E7%AB%AF/%E6%A1%86%E6%9E%B6/" itemprop="url" rel="index">
+                    <span itemprop="name">框架</span>
+                  </a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="IO模型"><a href="#IO模型" class="headerlink" title="IO模型"></a>IO模型</h1><ol>
+<li>理解</li>
+</ol>
+<p>​        IO模型就是用什么样的通道进行数据的发送和接收，很大程度上决定了程序的通信性能。</p>
+<ol start="2">
+<li><p>Java支持三种IO模型：BIO、NIO、AIO</p>
+<ul>
+<li>BIO - 同步并阻塞，服务器实现模式为一个线程一个连接，即客户端有连接请求时服务端就必须启动一个线程进行处理，如果连接不做任何事就会造成不必要的线程开销</li>
+<li>NIO - 同步非阻塞，服务器实现一个线程处理多个请求，即客户端发送的连接请求会注册的多路服务器上，多路轮询到连接有IO请求就进行处理</li>
+<li>AIO - 异步非阻塞，AIO引入异步通信通道的概念，采用了Proactor模式。简化了程序的编写，有效的请求才启动线程，它的特点是先有操作系统完成后才通知服务端程序去处理，一般用于连接数较多且连接时间较长的应用。</li>
+</ul>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/02/29/backEnd/framework/NIO%E4%B8%8ENetty/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+	
+	<div>
+      
+	</div>
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
         
   
   
@@ -689,113 +806,6 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://liuyoubin.top/2020/02/08/backEnd/java/JVM%E6%8E%A2%E7%A9%B6/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/xfc.jpg">
-      <meta itemprop="name" content="liuyoubin">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="何处似樽前">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/02/08/backEnd/java/JVM%E6%8E%A2%E7%A9%B6/" class="post-title-link" itemprop="url">JVM探究</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-02-08 17:45:26" itemprop="dateCreated datePublished" datetime="2020-02-08T17:45:26+08:00">2020-02-08</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-03-07 23:39:26" itemprop="dateModified" datetime="2020-03-07T23:39:26+08:00">2020-03-07</time>
-              </span>
-			
-			<span class="post-meta-divider">|</span>
-			<span title="post.wordcount"><span class="post-meta-item-icon"><i class="fa fa-file-word-o"></i></span>字数： 2.2k</span>
-			
-			<span class="post-meta-divider">|</span>
-			<span title="post.min2read"><span class="post-meta-item-icon"><i class="fa fa-clock-o"></i></span>阅读时长≈ 7min</span>
-			
-			<span class="post-meta-divider">|</span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index">
-                    <span itemprop="name">笔记</span>
-                  </a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AC%94%E8%AE%B0/%E5%90%8E%E7%AB%AF/" itemprop="url" rel="index">
-                    <span itemprop="name">后端</span>
-                  </a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AC%94%E8%AE%B0/%E5%90%8E%E7%AB%AF/Java/" itemprop="url" rel="index">
-                    <span itemprop="name">Java</span>
-                  </a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="JVM位置"><a href="#JVM位置" class="headerlink" title="JVM位置"></a>JVM位置</h1><p><img src="https://s2.ax1x.com/2020/02/28/3Dqzng.png" alt="image"></p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/02/08/backEnd/java/JVM%E6%8E%A2%E7%A9%B6/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-	
-	<div>
-      
-	</div>
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -868,7 +878,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives">
         
-          <span class="site-state-item-count">31</span>
+          <span class="site-state-item-count">32</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
