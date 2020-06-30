@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>http://liuyoubin.top/2020/06/30/backEnd/java/ThreadLocal%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/</loc>
+    <lastmod>2020-06-30</lastmod>
+  </url>  <url>
+    <loc>http://liuyoubin.top/2020/06/10/backEnd/bigData/Hadoop%E5%85%A5%E9%97%A8/</loc>
+    <lastmod>2020-06-30</lastmod>
+  </url>  <url>
+    <loc>http://liuyoubin.top/2020/05/02/backEnd/java/%E7%BA%BF%E7%A8%8B%E6%B1%A0%E5%8E%9F%E7%90%86/</loc>
+    <lastmod>2020-05-02</lastmod>
+  </url>  <url>
     <loc>http://liuyoubin.top/2020/04/30/backEnd/java/ReentranLock%E4%B8%8EAQS/</loc>
     <lastmod>2020-05-02</lastmod>
   </url>  <url>
@@ -10,10 +19,10 @@
     <loc>http://liuyoubin.top/2020/01/25/algorithm/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%E6%95%B4%E7%90%86/</loc>
     <lastmod>2020-04-21</lastmod>
   </url>  <url>
-    <loc>http://liuyoubin.top/2020/04/08/backEnd/framework/SpringBoot%E8%87%AA%E5%8A%A8%E9%85%8D%E7%BD%AE%E5%8E%9F%E7%90%86/</loc>
+    <loc>http://liuyoubin.top/2020/04/08/backEnd/frameWork/SpringBoot%E8%87%AA%E5%8A%A8%E9%85%8D%E7%BD%AE%E5%8E%9F%E7%90%86/</loc>
     <lastmod>2020-04-08</lastmod>
   </url>  <url>
-    <loc>http://liuyoubin.top/2020/01/24/backEnd/framework/MyBatis%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</loc>
+    <loc>http://liuyoubin.top/2020/01/24/backEnd/frameWork/MyBatis%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</loc>
     <lastmod>2020-04-07</lastmod>
   </url>  <url>
     <loc>http://liuyoubin.top/2020/02/18/backEnd/Redis%E7%AC%94%E8%AE%B0%E6%95%B4%E7%90%86/</loc>
@@ -31,10 +40,10 @@
     <loc>http://liuyoubin.top/2020/01/02/backEnd/java/Java%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E6%95%B4%E7%90%86/</loc>
     <lastmod>2020-03-26</lastmod>
   </url>  <url>
-    <loc>http://liuyoubin.top/2020/03/14/backEnd/database/MyCat%E5%85%A5%E9%97%A8/</loc>
+    <loc>http://liuyoubin.top/2020/03/14/backEnd/dataBase/MyCat%E5%85%A5%E9%97%A8/</loc>
     <lastmod>2020-03-24</lastmod>
   </url>  <url>
-    <loc>http://liuyoubin.top/2020/02/29/backEnd/framework/NIO%E4%B8%8ENetty/</loc>
+    <loc>http://liuyoubin.top/2020/02/29/backEnd/frameWork/NIO%E4%B8%8ENetty/</loc>
     <lastmod>2020-03-20</lastmod>
   </url>  <url>
     <loc>http://liuyoubin.top/2020/01/27/backEnd/java/%E6%B3%A8%E8%A7%A3%E5%92%8C%E5%8F%8D%E5%B0%84/</loc>
@@ -43,10 +52,10 @@
     <loc>http://liuyoubin.top/2020/01/29/backEnd/Nginx%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</loc>
     <lastmod>2020-03-19</lastmod>
   </url>  <url>
-    <loc>http://liuyoubin.top/2020/01/29/backEnd/framework/Spring%E6%89%A9%E5%B1%951-%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/</loc>
+    <loc>http://liuyoubin.top/2020/01/29/backEnd/frameWork/Spring%E6%89%A9%E5%B1%951-%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/</loc>
     <lastmod>2020-03-18</lastmod>
   </url>  <url>
-    <loc>http://liuyoubin.top/2020/02/10/backEnd/database/InnoDB%E4%B8%8EMYISAM/</loc>
+    <loc>http://liuyoubin.top/2020/02/10/backEnd/dataBase/InnoDB%E4%B8%8EMYISAM/</loc>
     <lastmod>2020-03-18</lastmod>
   </url>  <url>
     <loc>http://liuyoubin.top/2020/02/08/backEnd/java/JVM%E6%8E%A2%E7%A9%B6/</loc>
@@ -70,31 +79,31 @@
     <loc>http://liuyoubin.top/2020/01/31/backEnd/Docker%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</loc>
     <lastmod>2020-02-25</lastmod>
   </url>  <url>
-    <loc>http://liuyoubin.top/2020/02/07/backEnd/framework/Spring%E6%89%A9%E5%B1%952-Transaction/</loc>
+    <loc>http://liuyoubin.top/2020/02/07/backEnd/frameWork/Spring%E6%89%A9%E5%B1%952-Transaction/</loc>
     <lastmod>2020-02-09</lastmod>
   </url>  <url>
-    <loc>http://liuyoubin.top/2020/01/25/backEnd/framework/SpringBoot%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</loc>
+    <loc>http://liuyoubin.top/2020/01/25/backEnd/frameWork/SpringBoot%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</loc>
     <lastmod>2020-02-04</lastmod>
   </url>  <url>
-    <loc>http://liuyoubin.top/2020/01/24/backEnd/framework/Struts2%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</loc>
+    <loc>http://liuyoubin.top/2020/01/24/backEnd/frameWork/Struts2%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</loc>
     <lastmod>2020-02-03</lastmod>
   </url>  <url>
-    <loc>http://liuyoubin.top/2020/01/23/backEnd/framework/Spring%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</loc>
+    <loc>http://liuyoubin.top/2020/01/23/backEnd/frameWork/Spring%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</loc>
     <lastmod>2020-02-03</lastmod>
   </url>  <url>
-    <loc>http://liuyoubin.top/2020/01/23/backEnd/framework/SpringMvc%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</loc>
+    <loc>http://liuyoubin.top/2020/01/23/backEnd/frameWork/SpringMvc%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</loc>
     <lastmod>2020-02-03</lastmod>
   </url>  <url>
-    <loc>http://liuyoubin.top/2020/01/28/backEnd/framework/Spring%E4%B8%ADinitializingBean%E3%80%81init-method%E3%80%81-PostConstruct%E6%89%A7%E8%A1%8C%E9%A1%BA%E5%BA%8F/</loc>
+    <loc>http://liuyoubin.top/2020/01/28/backEnd/frameWork/Spring%E4%B8%ADinitializingBean%E3%80%81init-method%E3%80%81-PostConstruct%E6%89%A7%E8%A1%8C%E9%A1%BA%E5%BA%8F/</loc>
     <lastmod>2020-01-28</lastmod>
   </url>  <url>
-    <loc>http://liuyoubin.top/2020/01/25/backEnd/framework/SSM%E6%95%B4%E5%90%88%E9%85%8D%E7%BD%AE%E5%8F%82%E8%80%83/</loc>
+    <loc>http://liuyoubin.top/2020/01/25/backEnd/frameWork/SSM%E6%95%B4%E5%90%88%E9%85%8D%E7%BD%AE%E5%8F%82%E8%80%83/</loc>
     <lastmod>2020-01-25</lastmod>
   </url>  <url>
-    <loc>http://liuyoubin.top/2020/01/25/backEnd/framework/Spring%E6%B3%A8%E8%A7%A3%E5%BC%80%E5%8F%91/</loc>
+    <loc>http://liuyoubin.top/2020/01/25/backEnd/frameWork/Spring%E6%B3%A8%E8%A7%A3%E5%BC%80%E5%8F%91/</loc>
     <lastmod>2020-01-25</lastmod>
   </url>  <url>
-    <loc>http://liuyoubin.top/2020/01/25/backEnd/framework/Shrio%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</loc>
+    <loc>http://liuyoubin.top/2020/01/25/backEnd/frameWork/Shrio%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</loc>
     <lastmod>2020-01-25</lastmod>
   </url>
 </urlset>
