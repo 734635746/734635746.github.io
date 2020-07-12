@@ -101,11 +101,11 @@
       <category term="Java" scheme="http://liuyoubin.top/categories/%E7%AC%94%E8%AE%B0/%E5%90%8E%E7%AB%AF/Java/"/>
     
     
+      <category term="并发" scheme="http://liuyoubin.top/tags/%E5%B9%B6%E5%8F%91/"/>
+    
       <category term="Java" scheme="http://liuyoubin.top/tags/Java/"/>
     
       <category term="多线程" scheme="http://liuyoubin.top/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/"/>
-    
-      <category term="并发" scheme="http://liuyoubin.top/tags/%E5%B9%B6%E5%8F%91/"/>
     
   </entry>
   
@@ -134,11 +134,11 @@
       <category term="Java" scheme="http://liuyoubin.top/categories/%E7%AC%94%E8%AE%B0/%E5%90%8E%E7%AB%AF/Java/"/>
     
     
+      <category term="并发" scheme="http://liuyoubin.top/tags/%E5%B9%B6%E5%8F%91/"/>
+    
       <category term="Java" scheme="http://liuyoubin.top/tags/Java/"/>
     
       <category term="多线程" scheme="http://liuyoubin.top/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/"/>
-    
-      <category term="并发" scheme="http://liuyoubin.top/tags/%E5%B9%B6%E5%8F%91/"/>
     
   </entry>
   
@@ -420,11 +420,11 @@
       <category term="Java" scheme="http://liuyoubin.top/categories/%E7%AC%94%E8%AE%B0/%E5%90%8E%E7%AB%AF/Java/"/>
     
     
+      <category term="并发" scheme="http://liuyoubin.top/tags/%E5%B9%B6%E5%8F%91/"/>
+    
       <category term="Java" scheme="http://liuyoubin.top/tags/Java/"/>
     
       <category term="多线程" scheme="http://liuyoubin.top/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/"/>
-    
-      <category term="并发" scheme="http://liuyoubin.top/tags/%E5%B9%B6%E5%8F%91/"/>
     
   </entry>
   
@@ -594,9 +594,9 @@
     <link href="http://liuyoubin.top/2020/01/29/backEnd/frameWork/Spring%E6%89%A9%E5%B1%951-%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/"/>
     <id>http://liuyoubin.top/2020/01/29/backEnd/frameWork/Spring%E6%89%A9%E5%B1%951-%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/</id>
     <published>2020-01-29T07:47:29.000Z</published>
-    <updated>2020-03-18T13:33:08.203Z</updated>
+    <updated>2020-07-12T06:45:20.732Z</updated>
     
-    <content type="html"><![CDATA[<p>​        在传统的java应用中，对象的生命周期是比较简单的，程序员通过new关键字就可以实例化一个对象进行使用了，当对象不再需要使用的时候，由JVM垃圾回收器进行回收就可以了。</p><p>​        相比之下，Spring容器管理之下的bean生命周期就复杂很多了。</p><a id="more"></a><p>​        先来看一副Bean生命周期图：</p><p><img src="https://s2.ax1x.com/2020/01/29/1QuVu8.png" alt="image"></p><p>​        上面就是SpringBean生命周期的基本流程，下面对每一个流程进行简单描述：</p><ol><li><p>在所有beanDenifition加载完成后，bean实例化之前执行这个方法。如果在beanFactory加载完所有bean后想修改某个bean或者对beanFactory做一些配置可以用这个方法。</p></li><li><p>通过beanDenifition实例化一个bean</p></li><li><p>按照Spring上下文对实例化的bean进行配置，处理自动注入</p></li><li><p>如果bean实现了BeanNameAware接口，则调用setBeanName()方法，设置bean的id</p></li><li><p>如果bean实现了BeanFactoryAware接口，则调用setBeanFactory()方法，设置Spring工厂自身</p></li><li><p>如果bean实现了ApplicationContextAware接口，则调用setApplicationAware()方法，设置Spring上下文</p></li><li><p>如果这个bean关联了BeanPostProcessor接口，则调用postProcessBeforeInitialization(Object bean, String beanName)方法</p></li><li><p>如果bean实现了InitializingBean接口,，则调用afterPropertiesSet()方法</p></li><li><p>如果配置文件或者@Bean中配置了init-method，则调用指定的初始化方法</p></li><li><p>如果这个bean关联了BeanPostProcessor接口，则调用postProcessAfterInitialization(Object bean, String beanName)方法</p></li><li><p>如果bean实现了DisposableBean接口,，则调用destroy()方法</p></li><li><p>如果配置文件或者@Bean中配置了destroy-method，则调用指定的销毁方法</p><p>​                                                                                                                                    </p></li></ol>]]></content>
+    <content type="html"><![CDATA[<p>​        在传统的java应用中，对象的生命周期是比较简单的，程序员通过new关键字就可以实例化一个对象进行使用了，当对象不再需要使用的时候，由JVM垃圾回收器进行回收就可以了。</p><p>​        相比之下，Spring容器管理之下的bean生命周期就复杂很多了。</p><a id="more"></a><h1 id="SpringBean生命周期"><a href="#SpringBean生命周期" class="headerlink" title="SpringBean生命周期"></a>SpringBean生命周期</h1><p>​        先来看一副Bean生命周期图：</p><p><img src="https://s2.ax1x.com/2020/01/29/1QuVu8.png" alt="image"></p><p>​        上面就是SpringBean生命周期的基本流程，下面对每一个流程进行简单描述：</p><ol><li><p>在所有beanDenifition加载完成后，bean实例化之前执行这个方法。如果在beanFactory加载完所有bean后想修改某个bean或者对beanFactory做一些配置可以用这个方法。</p></li><li><p>通过beanDenifition实例化一个bean</p></li><li><p>按照Spring上下文对实例化的bean进行配置，处理自动注入</p></li><li><p>如果bean实现了BeanNameAware接口，则调用setBeanName()方法，设置bean的id</p></li><li><p>如果bean实现了BeanFactoryAware接口，则调用setBeanFactory()方法，设置Spring工厂自身</p></li><li><p>如果bean实现了ApplicationContextAware接口，则调用setApplicationAware()方法，设置Spring上下文</p></li><li><p>如果这个bean关联了BeanPostProcessor接口，则调用postProcessBeforeInitialization(Object bean, String beanName)方法</p></li><li><p>如果bean实现了InitializingBean接口,，则调用afterPropertiesSet()方法</p></li><li><p>如果配置文件或者@Bean中配置了init-method，则调用指定的初始化方法</p></li><li><p>如果这个bean关联了BeanPostProcessor接口，则调用postProcessAfterInitialization(Object bean, String beanName)方法</p></li><li><p>如果bean实现了DisposableBean接口,，则调用destroy()方法</p></li><li><p>如果配置文件或者@Bean中配置了destroy-method，则调用指定的销毁方法</p><p>​                                                                                                                                    </p></li></ol>]]></content>
     
     <summary type="html">
     
