@@ -425,7 +425,7 @@
   </entry>
   <entry>
     <title>SpringBoot自动配置原理</title>
-    <url>/2020/04/08/backEnd/frameWork/SpringBoot%E8%87%AA%E5%8A%A8%E9%85%8D%E7%BD%AE%E5%8E%9F%E7%90%86/</url>
+    <url>/2020/04/08/backEnd/framework/SpringBoot%E8%87%AA%E5%8A%A8%E9%85%8D%E7%BD%AE%E5%8E%9F%E7%90%86/</url>
     <content><![CDATA[<div class="note info">
             <p>通过源码了解SpringBoot的自动配置原理 </p>
           </div>
@@ -1004,7 +1004,7 @@
   </entry>
   <entry>
     <title>NIO与Netty</title>
-    <url>/2020/02/29/backEnd/frameWork/NIO%E4%B8%8ENetty/</url>
+    <url>/2020/02/29/backEnd/framework/NIO%E4%B8%8ENetty/</url>
     <content><![CDATA[<h1 id="IO模型"><a href="#IO模型" class="headerlink" title="IO模型"></a>IO模型</h1><ol>
 <li>理解</li>
 </ol>
@@ -2783,7 +2783,7 @@
   </entry>
   <entry>
     <title>Spring扩展2-Transaction</title>
-    <url>/2020/02/07/backEnd/frameWork/Spring%E6%89%A9%E5%B1%952-Transaction/</url>
+    <url>/2020/02/07/backEnd/framework/Spring%E6%89%A9%E5%B1%952-Transaction/</url>
     <content><![CDATA[<h1 id="事务-Transaction"><a href="#事务-Transaction" class="headerlink" title="事务(Transaction)"></a>事务(Transaction)</h1><h2 id="什么是事务"><a href="#什么是事务" class="headerlink" title="什么是事务"></a>什么是事务</h2><p>​        事务是一系列操作的工作单元，是数据库操作的最小工作单元，这些操作要么同时成功，要么同时失败。</p>
 <a id="more"></a>
 
@@ -3993,7 +3993,7 @@
   </entry>
   <entry>
     <title>Spring扩展1----生命周期</title>
-    <url>/2020/01/29/backEnd/frameWork/Spring%E6%89%A9%E5%B1%951-%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/</url>
+    <url>/2020/01/29/backEnd/framework/Spring%E6%89%A9%E5%B1%951-%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/</url>
     <content><![CDATA[<p>​        在传统的java应用中，对象的生命周期是比较简单的，程序员通过new关键字就可以实例化一个对象进行使用了，当对象不再需要使用的时候，由JVM垃圾回收器进行回收就可以了。</p>
 <p>​        相比之下，Spring容器管理之下的bean生命周期就复杂很多了。</p>
 <a id="more"></a>
@@ -4040,7 +4040,7 @@
   </entry>
   <entry>
     <title>Spring中initializingBean、init-method、@PostConstruct执行顺序(源码分析)</title>
-    <url>/2020/01/28/backEnd/frameWork/Spring%E4%B8%ADinitializingBean%E3%80%81init-method%E3%80%81-PostConstruct%E6%89%A7%E8%A1%8C%E9%A1%BA%E5%BA%8F/</url>
+    <url>/2020/01/28/backEnd/framework/Spring%E4%B8%ADinitializingBean%E3%80%81init-method%E3%80%81-PostConstruct%E6%89%A7%E8%A1%8C%E9%A1%BA%E5%BA%8F/</url>
     <content><![CDATA[<div class="note info">
             <p>探究initializingBean、init-method、@PostConstruct的执行顺序 </p>
           </div>
@@ -4681,7 +4681,7 @@
   </entry>
   <entry>
     <title>SpringBoot学习笔记</title>
-    <url>/2020/01/25/backEnd/frameWork/SpringBoot%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</url>
+    <url>/2020/01/25/backEnd/framework/SpringBoot%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</url>
     <content><![CDATA[<div class="note info">
             <p>SpringBoot学习笔记的整理 </p>
           </div>
@@ -5076,7 +5076,7 @@ errors：JSR303数据校验的错误都在这里
   </entry>
   <entry>
     <title>Spring注解开发</title>
-    <url>/2020/01/25/backEnd/frameWork/Spring%E6%B3%A8%E8%A7%A3%E5%BC%80%E5%8F%91/</url>
+    <url>/2020/01/25/backEnd/framework/Spring%E6%B3%A8%E8%A7%A3%E5%BC%80%E5%8F%91/</url>
     <content><![CDATA[<div class="note info">
             <p>Spring学习笔记的整理补充(基于注解方面的) </p>
           </div>
@@ -5331,7 +5331,7 @@ errors：JSR303数据校验的错误都在这里
   </entry>
   <entry>
     <title>SSM整合配置参考</title>
-    <url>/2020/01/25/backEnd/frameWork/SSM%E6%95%B4%E5%90%88%E9%85%8D%E7%BD%AE%E5%8F%82%E8%80%83/</url>
+    <url>/2020/01/25/backEnd/framework/SSM%E6%95%B4%E5%90%88%E9%85%8D%E7%BD%AE%E5%8F%82%E8%80%83/</url>
     <content><![CDATA[<div class="note info">
             <p>整理了一下SSM整合的基本配置文件 (并不是基于注解写法) </p>
           </div>
@@ -5356,7 +5356,7 @@ errors：JSR303数据校验的错误都在这里
   </entry>
   <entry>
     <title>Shrio学习笔记</title>
-    <url>/2020/01/25/backEnd/frameWork/Shrio%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</url>
+    <url>/2020/01/25/backEnd/framework/Shrio%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</url>
     <content><![CDATA[<div class="note info">
             <p>Shrio学习笔记的整理 </p>
           </div>
@@ -5474,7 +5474,7 @@ errors：JSR303数据校验的错误都在这里
   </entry>
   <entry>
     <title>struts2学习笔记</title>
-    <url>/2020/01/24/backEnd/frameWork/Struts2%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</url>
+    <url>/2020/01/24/backEnd/framework/Struts2%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</url>
     <content><![CDATA[<div class="note info">
             <p>虽然 Struts2已经不流行了 ┌(;￣◇￣)┘，但还是整理了以前学习Struts2的笔记  </p>
           </div>
@@ -5870,7 +5870,7 @@ errors：JSR303数据校验的错误都在这里
   </entry>
   <entry>
     <title>MyBatis学习笔记</title>
-    <url>/2020/01/24/backEnd/frameWork/MyBatis%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</url>
+    <url>/2020/01/24/backEnd/framework/MyBatis%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</url>
     <content><![CDATA[<div class="note info">
             <p>MyBatis学习笔记的整理 </p>
           </div>
@@ -6106,7 +6106,7 @@ errors：JSR303数据校验的错误都在这里
   </entry>
   <entry>
     <title>SpringMvc学习笔记</title>
-    <url>/2020/01/23/backEnd/frameWork/SpringMvc%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</url>
+    <url>/2020/01/23/backEnd/framework/SpringMvc%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</url>
     <content><![CDATA[<div class="note info">
             <p>SpringMvc学习笔记的整理 </p>
           </div>
@@ -6613,7 +6613,7 @@ springMvc会去src下找[i18n+对应的语言缩写.porperties]文件<figure cla
   </entry>
   <entry>
     <title>Spring学习笔记</title>
-    <url>/2020/01/23/backEnd/frameWork/Spring%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</url>
+    <url>/2020/01/23/backEnd/framework/Spring%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</url>
     <content><![CDATA[<div class="note info">
             <p>Spring学习笔记的整理 </p>
           </div>

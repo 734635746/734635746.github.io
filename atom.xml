@@ -171,8 +171,8 @@
   
   <entry>
     <title>SpringBoot自动配置原理</title>
-    <link href="http://liuyoubin.top/2020/04/08/backEnd/frameWork/SpringBoot%E8%87%AA%E5%8A%A8%E9%85%8D%E7%BD%AE%E5%8E%9F%E7%90%86/"/>
-    <id>http://liuyoubin.top/2020/04/08/backEnd/frameWork/SpringBoot%E8%87%AA%E5%8A%A8%E9%85%8D%E7%BD%AE%E5%8E%9F%E7%90%86/</id>
+    <link href="http://liuyoubin.top/2020/04/08/backEnd/framework/SpringBoot%E8%87%AA%E5%8A%A8%E9%85%8D%E7%BD%AE%E5%8E%9F%E7%90%86/"/>
+    <id>http://liuyoubin.top/2020/04/08/backEnd/framework/SpringBoot%E8%87%AA%E5%8A%A8%E9%85%8D%E7%BD%AE%E5%8E%9F%E7%90%86/</id>
     <published>2020-04-08T03:43:28.000Z</published>
     <updated>2020-04-08T07:36:58.479Z</updated>
     
@@ -261,8 +261,8 @@
   
   <entry>
     <title>NIO与Netty</title>
-    <link href="http://liuyoubin.top/2020/02/29/backEnd/frameWork/NIO%E4%B8%8ENetty/"/>
-    <id>http://liuyoubin.top/2020/02/29/backEnd/frameWork/NIO%E4%B8%8ENetty/</id>
+    <link href="http://liuyoubin.top/2020/02/29/backEnd/framework/NIO%E4%B8%8ENetty/"/>
+    <id>http://liuyoubin.top/2020/02/29/backEnd/framework/NIO%E4%B8%8ENetty/</id>
     <published>2020-02-29T11:52:59.000Z</published>
     <updated>2020-03-20T14:38:08.840Z</updated>
     
@@ -487,8 +487,8 @@
   
   <entry>
     <title>Spring扩展2-Transaction</title>
-    <link href="http://liuyoubin.top/2020/02/07/backEnd/frameWork/Spring%E6%89%A9%E5%B1%952-Transaction/"/>
-    <id>http://liuyoubin.top/2020/02/07/backEnd/frameWork/Spring%E6%89%A9%E5%B1%952-Transaction/</id>
+    <link href="http://liuyoubin.top/2020/02/07/backEnd/framework/Spring%E6%89%A9%E5%B1%952-Transaction/"/>
+    <id>http://liuyoubin.top/2020/02/07/backEnd/framework/Spring%E6%89%A9%E5%B1%952-Transaction/</id>
     <published>2020-02-07T08:43:18.000Z</published>
     <updated>2020-02-09T04:16:01.561Z</updated>
     
@@ -591,8 +591,8 @@
   
   <entry>
     <title>Spring扩展1----生命周期</title>
-    <link href="http://liuyoubin.top/2020/01/29/backEnd/frameWork/Spring%E6%89%A9%E5%B1%951-%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/"/>
-    <id>http://liuyoubin.top/2020/01/29/backEnd/frameWork/Spring%E6%89%A9%E5%B1%951-%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/</id>
+    <link href="http://liuyoubin.top/2020/01/29/backEnd/framework/Spring%E6%89%A9%E5%B1%951-%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/"/>
+    <id>http://liuyoubin.top/2020/01/29/backEnd/framework/Spring%E6%89%A9%E5%B1%951-%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/</id>
     <published>2020-01-29T07:47:29.000Z</published>
     <updated>2020-07-12T06:45:20.732Z</updated>
     
@@ -619,8 +619,8 @@
   
   <entry>
     <title>Spring中initializingBean、init-method、@PostConstruct执行顺序(源码分析)</title>
-    <link href="http://liuyoubin.top/2020/01/28/backEnd/frameWork/Spring%E4%B8%ADinitializingBean%E3%80%81init-method%E3%80%81-PostConstruct%E6%89%A7%E8%A1%8C%E9%A1%BA%E5%BA%8F/"/>
-    <id>http://liuyoubin.top/2020/01/28/backEnd/frameWork/Spring%E4%B8%ADinitializingBean%E3%80%81init-method%E3%80%81-PostConstruct%E6%89%A7%E8%A1%8C%E9%A1%BA%E5%BA%8F/</id>
+    <link href="http://liuyoubin.top/2020/01/28/backEnd/framework/Spring%E4%B8%ADinitializingBean%E3%80%81init-method%E3%80%81-PostConstruct%E6%89%A7%E8%A1%8C%E9%A1%BA%E5%BA%8F/"/>
+    <id>http://liuyoubin.top/2020/01/28/backEnd/framework/Spring%E4%B8%ADinitializingBean%E3%80%81init-method%E3%80%81-PostConstruct%E6%89%A7%E8%A1%8C%E9%A1%BA%E5%BA%8F/</id>
     <published>2020-01-28T09:29:30.000Z</published>
     <updated>2020-01-28T14:29:56.668Z</updated>
     
