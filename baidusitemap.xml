@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>http://liuyoubin.top/2020/06/10/backEnd/bigData/Hadoop%E5%85%A5%E9%97%A8/</loc>
-    <lastmod>2020-07-21</lastmod>
+    <loc>http://liuyoubin.top/2020/08/18/tools/Git%E5%91%BD%E4%BB%A4%E5%A4%A7%E5%85%A8/</loc>
+    <lastmod>2020-08-17</lastmod>
+  </url>  <url>
+    <loc>http://liuyoubin.top/2020/02/10/backEnd/bigData/Hadoop%E5%85%A5%E9%97%A8/</loc>
+    <lastmod>2020-07-22</lastmod>
   </url>  <url>
     <loc>http://liuyoubin.top/2020/01/29/backEnd/framework/Spring%E6%89%A9%E5%B1%951-%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/</loc>
     <lastmod>2020-07-12</lastmod>
