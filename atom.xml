@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://liuyoubin.top/"/>
-  <updated>2020-08-20T08:39:26.030Z</updated>
+  <updated>2020-08-20T14:06:22.366Z</updated>
   <id>http://liuyoubin.top/</id>
   
   <author>
@@ -15,6 +15,35 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>MyBatis中XML文件如何同Dao接口建立联系</title>
+    <link href="http://liuyoubin.top/2020/08/20/backEnd/framework/MyBatis%E4%B8%ADXML%E6%96%87%E4%BB%B6%E5%A6%82%E4%BD%95%E5%90%8CDao%E6%8E%A5%E5%8F%A3%E5%BB%BA%E7%AB%8B%E8%81%94%E7%B3%BB/"/>
+    <id>http://liuyoubin.top/2020/08/20/backEnd/framework/MyBatis%E4%B8%ADXML%E6%96%87%E4%BB%B6%E5%A6%82%E4%BD%95%E5%90%8CDao%E6%8E%A5%E5%8F%A3%E5%BB%BA%E7%AB%8B%E8%81%94%E7%B3%BB/</id>
+    <published>2020-08-20T08:42:27.000Z</published>
+    <updated>2020-08-20T14:06:22.366Z</updated>
+    
+    <content type="html"><![CDATA[<div class="note info">            <p>分析Dao接口是如何调用到Xml文件配置的Sql语句 </p>          </div><a id="more"></a><h1 id="解析XML文件"><a href="#解析XML文件" class="headerlink" title="解析XML文件"></a>解析XML文件</h1><p>​        我们知道Mybatis在初始化SqlSessionFactoryBuilder的时候会读取全局配置文件的信息，封装成一个Configuration对象中。</p><p>​        在这个过程中Mybatis同时会根据mapper-location路径，解析xml映射文件，这里主要要注意两个过程：</p><ol><li><p>创建SqlSource</p><p>​        Mybatis会把每个Sql标签封装成SqlSource对象，这里又根据静态sql和动态sql封装成不同的SqlSource,</p><p>静态SqlSource是一段String类型的sql语句，动态SqlSource则是一个个SqlNode组成</p></li><li><p>创建MappedStatement</p><p>​        Xml文件中每一个SQL标签对应一个MappedStatement对象，主要关注两个属性</p><ul><li>id 全限定类名+方法名 (唯一标识一个MappedStatement对象)</li><li>sqlSource</li></ul></li></ol><p>​        <strong>Mybatis创建完所有MappedStatement后，会缓存到Configuration的MappedStatements中</strong></p><h1 id="Dao接口代理和注入"><a href="#Dao接口代理和注入" class="headerlink" title="Dao接口代理和注入"></a>Dao接口代理和注入</h1><p>​        我们知道我们的接口是没有实现类的，当最终我们可以注入接口，肯定是有人帮我们创建了实现对象。这里就是Spring容器通过jdk动态代理帮我们生成了代理对象。</p><p>​        在项目中我们通常会用@MapperScan注解来扫描接口，那么这个注解主要做了什么呢?</p><p>​        这个注解主要是将指定路径下的类注册到Spring容器中并生成对应BeanDefinition，并将BeanDefinition中的beanClass设置成MapperFactoryBean。也就是我们所说的工厂bean，当我们注入Dao接口的时候，注入的对象就是这个工厂bean中getObject()方法返回的对象。</p><p>​        这个代理对象就是MapperProxy对象，当我们Dao接口的方法时，实际上调用的就是代理对象的invoke方法。</p><h1 id="执行"><a href="#执行" class="headerlink" title="执行"></a>执行</h1><p>​        上面说到调用Dao接口的方法实际上就是调用了代理对象的invoke方法。在Mybatis中负责执行sql的是SqlSession，默认使用的是实现类DefaultSqlSession</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DefaultSqlSession</span> <span class="keyword">implements</span> <span class="title">SqlSession</span> </span>&#123;</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">public</span> &lt;E&gt; <span class="function">List&lt;E&gt; <span class="title">selectList</span><span class="params">(String statement, Object parameter, RowBounds rowBounds)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            MappedStatement ms = configuration.getMappedStatement(statement);</span><br><span class="line">            <span class="keyword">return</span> executor.query(ms, </span><br><span class="line">                wrapCollection(parameter), rowBounds, Executor.NO_RESULT_HANDLER);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>​        看到上面的代码就知道，SqlSession通过全限定类型+方法名作为id到configuration中获取对应的MappedStatement对象，交给executor执行器去执行sql并返回。</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;div class=&quot;note info&quot;&gt;
+            &lt;p&gt;分析Dao接口是如何调用到Xml文件配置的Sql语句 &lt;/p&gt;
+          &lt;/div&gt;
+    
+    </summary>
+    
+    
+      <category term="笔记" scheme="http://liuyoubin.top/categories/%E7%AC%94%E8%AE%B0/"/>
+    
+      <category term="后端" scheme="http://liuyoubin.top/categories/%E7%AC%94%E8%AE%B0/%E5%90%8E%E7%AB%AF/"/>
+    
+      <category term="框架" scheme="http://liuyoubin.top/categories/%E7%AC%94%E8%AE%B0/%E5%90%8E%E7%AB%AF/%E6%A1%86%E6%9E%B6/"/>
+    
+    
+      <category term="MyBatis" scheme="http://liuyoubin.top/tags/MyBatis/"/>
+    
+  </entry>
   
   <entry>
     <title>Java线程与线程池</title>
@@ -613,34 +642,6 @@
     
     
       <category term="Nginx" scheme="http://liuyoubin.top/tags/Nginx/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Spring扩展1----生命周期</title>
-    <link href="http://liuyoubin.top/2020/01/29/backEnd/framework/Spring%E6%89%A9%E5%B1%951-%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/"/>
-    <id>http://liuyoubin.top/2020/01/29/backEnd/framework/Spring%E6%89%A9%E5%B1%951-%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/</id>
-    <published>2020-01-29T07:47:29.000Z</published>
-    <updated>2020-07-12T06:45:20.732Z</updated>
-    
-    <content type="html"><![CDATA[<p>​        在传统的java应用中，对象的生命周期是比较简单的，程序员通过new关键字就可以实例化一个对象进行使用了，当对象不再需要使用的时候，由JVM垃圾回收器进行回收就可以了。</p><p>​        相比之下，Spring容器管理之下的bean生命周期就复杂很多了。</p><a id="more"></a><h1 id="SpringBean生命周期"><a href="#SpringBean生命周期" class="headerlink" title="SpringBean生命周期"></a>SpringBean生命周期</h1><p>​        先来看一副Bean生命周期图：</p><p><img src="https://s2.ax1x.com/2020/01/29/1QuVu8.png" alt="image"></p><p>​        上面就是SpringBean生命周期的基本流程，下面对每一个流程进行简单描述：</p><ol><li><p>在所有beanDenifition加载完成后，bean实例化之前执行这个方法。如果在beanFactory加载完所有bean后想修改某个bean或者对beanFactory做一些配置可以用这个方法。</p></li><li><p>通过beanDenifition实例化一个bean</p></li><li><p>按照Spring上下文对实例化的bean进行配置，处理自动注入</p></li><li><p>如果bean实现了BeanNameAware接口，则调用setBeanName()方法，设置bean的id</p></li><li><p>如果bean实现了BeanFactoryAware接口，则调用setBeanFactory()方法，设置Spring工厂自身</p></li><li><p>如果bean实现了ApplicationContextAware接口，则调用setApplicationAware()方法，设置Spring上下文</p></li><li><p>如果这个bean关联了BeanPostProcessor接口，则调用postProcessBeforeInitialization(Object bean, String beanName)方法</p></li><li><p>如果bean实现了InitializingBean接口,，则调用afterPropertiesSet()方法</p></li><li><p>如果配置文件或者@Bean中配置了init-method，则调用指定的初始化方法</p></li><li><p>如果这个bean关联了BeanPostProcessor接口，则调用postProcessAfterInitialization(Object bean, String beanName)方法</p></li><li><p>如果bean实现了DisposableBean接口,，则调用destroy()方法</p></li><li><p>如果配置文件或者@Bean中配置了destroy-method，则调用指定的销毁方法</p><p>​                                                                                                                                    </p></li></ol>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;​        在传统的java应用中，对象的生命周期是比较简单的，程序员通过new关键字就可以实例化一个对象进行使用了，当对象不再需要使用的时候，由JVM垃圾回收器进行回收就可以了。&lt;/p&gt;
-&lt;p&gt;​        相比之下，Spring容器管理之下的bean生命周期就复杂很多了。&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="笔记" scheme="http://liuyoubin.top/categories/%E7%AC%94%E8%AE%B0/"/>
-    
-      <category term="后端" scheme="http://liuyoubin.top/categories/%E7%AC%94%E8%AE%B0/%E5%90%8E%E7%AB%AF/"/>
-    
-      <category term="框架" scheme="http://liuyoubin.top/categories/%E7%AC%94%E8%AE%B0/%E5%90%8E%E7%AB%AF/%E6%A1%86%E6%9E%B6/"/>
-    
-    
-      <category term="Spring" scheme="http://liuyoubin.top/tags/Spring/"/>
     
   </entry>
   
