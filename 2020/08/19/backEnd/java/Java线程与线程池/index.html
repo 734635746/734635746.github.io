@@ -48,12 +48,12 @@
   };
 </script>
 
-  <meta name="description" content="title: Java线程与线程池date: 2020-08-19 16:46:27tags: [Java,多线程]categories: [笔记,后端,Java]copyright: true 线程模型​        如今主流的线程模型主要分成 用户级线程(ULT)和内核级线程(KLT)  用户级线程(ULT)：由用户程序实现，不依赖操作系统核心，应用提供创建、同步、调度和管理线程的函数来控制">
+  <meta name="description" content="线程模型​        如今主流的线程模型主要分成 用户级线程(ULT)和内核级线程(KLT)  用户级线程(ULT)：由用户程序实现，不依赖操作系统核心，应用提供创建、同步、调度和管理线程的函数来控制用户线程。不需要用户态&#x2F;内核态的切换，速度快。内核对ULT无感知，线程阻塞则进程(包括他所有线程)阻塞。 内核级线程(KLT)：系统内核管理线程，内核保存线程状态和上下文信息，线程阻塞不会引起">
 <meta property="og:type" content="article">
-<meta property="og:title" content="backEnd&#x2F;java&#x2F;Java线程与线程池">
+<meta property="og:title" content="Java线程与线程池">
 <meta property="og:url" content="http://liuyoubin.top/2020/08/19/backEnd/java/Java%E7%BA%BF%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B%E6%B1%A0/index.html">
 <meta property="og:site_name" content="何处似樽前">
-<meta property="og:description" content="title: Java线程与线程池date: 2020-08-19 16:46:27tags: [Java,多线程]categories: [笔记,后端,Java]copyright: true 线程模型​        如今主流的线程模型主要分成 用户级线程(ULT)和内核级线程(KLT)  用户级线程(ULT)：由用户程序实现，不依赖操作系统核心，应用提供创建、同步、调度和管理线程的函数来控制">
+<meta property="og:description" content="线程模型​        如今主流的线程模型主要分成 用户级线程(ULT)和内核级线程(KLT)  用户级线程(ULT)：由用户程序实现，不依赖操作系统核心，应用提供创建、同步、调度和管理线程的函数来控制用户线程。不需要用户态&#x2F;内核态的切换，速度快。内核对ULT无感知，线程阻塞则进程(包括他所有线程)阻塞。 内核级线程(KLT)：系统内核管理线程，内核保存线程状态和上下文信息，线程阻塞不会引起">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://s1.ax1x.com/2020/08/19/d3uKE9.png">
 <meta property="og:image" content="https://s1.ax1x.com/2020/08/19/d3nO9P.png">
@@ -62,9 +62,11 @@
 <meta property="og:image" content="https://s1.ax1x.com/2020/08/20/dGC3jA.png">
 <meta property="og:image" content="https://s1.ax1x.com/2020/08/20/dGiW6J.png">
 <meta property="og:image" content="https://s1.ax1x.com/2020/08/20/dGAHhV.png">
-<meta property="article:published_time" content="2020-08-19T08:46:27.281Z">
-<meta property="article:modified_time" content="2020-08-20T08:19:15.576Z">
+<meta property="article:published_time" content="2020-08-19T08:46:27.000Z">
+<meta property="article:modified_time" content="2020-08-20T08:34:53.267Z">
 <meta property="article:author" content="liuyoubin">
+<meta property="article:tag" content="Java">
+<meta property="article:tag" content="多线程">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://s1.ax1x.com/2020/08/19/d3uKE9.png">
 
@@ -80,7 +82,7 @@
   };
 </script>
 
-  <title>backEnd/java/Java线程与线程池 | 何处似樽前</title>
+  <title>Java线程与线程池 | 何处似樽前</title>
   
 
 
@@ -252,7 +254,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          backEnd/java/Java线程与线程池
+          Java线程与线程池
         </h1>
 
         <div class="post-meta">
@@ -269,16 +271,39 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-08-20 16:19:15" itemprop="dateModified" datetime="2020-08-20T16:19:15+08:00">2020-08-20</time>
+                <time title="修改时间：2020-08-20 16:34:53" itemprop="dateModified" datetime="2020-08-20T16:34:53+08:00">2020-08-20</time>
               </span>
 			
 			<span class="post-meta-divider">|</span>
-			<span title="post.wordcount"><span class="post-meta-item-icon"><i class="fa fa-file-word-o"></i></span>字数： 1.9k</span>
+			<span title="post.wordcount"><span class="post-meta-item-icon"><i class="fa fa-file-word-o"></i></span>字数： 1.8k</span>
 			
 			<span class="post-meta-divider">|</span>
 			<span title="post.min2read"><span class="post-meta-item-icon"><i class="fa fa-clock-o"></i></span>阅读时长≈ 7min</span>
 			
 			<span class="post-meta-divider">|</span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index">
+                    <span itemprop="name">笔记</span>
+                  </a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AC%94%E8%AE%B0/%E5%90%8E%E7%AB%AF/" itemprop="url" rel="index">
+                    <span itemprop="name">后端</span>
+                  </a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AC%94%E8%AE%B0/%E5%90%8E%E7%AB%AF/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
+                  </a>
+                </span>
+            </span>
 
           
             <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
@@ -298,13 +323,16 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>title: Java线程与线程池<br>date: 2020-08-19 16:46:27<br>tags: [Java,多线程]<br>categories: [笔记,后端,Java]<br>copyright: true</p>
+        <a id="more"></a>
+
 <h1 id="线程模型"><a href="#线程模型" class="headerlink" title="线程模型"></a>线程模型</h1><p>​        如今主流的线程模型主要分成 <strong>用户级线程(ULT)</strong>和<strong>内核级线程(KLT)</strong></p>
 <ul>
 <li><strong>用户级线程(ULT)</strong>：由用户程序实现，不依赖操作系统核心，应用提供创建、同步、调度和管理线程的函数来控制用户线程。<strong>不需要用户态/内核态的切换，速度快</strong>。内核对ULT无感知，线程阻塞则进程(包括他所有线程)阻塞。</li>
 <li><strong>内核级线程(KLT)</strong>：系统内核管理线程，内核保存线程状态和上下文信息，线程阻塞不会引起进行阻塞。在多处理器上，多线程在多处理器上并发运行。线程的创建、调度和管理由内核完成，效率比ULT要慢，比进程快。</li>
 </ul>
 <p><img src="https://s1.ax1x.com/2020/08/19/d3uKE9.png" alt="image"></p>
+<!-- more -->
+
 <h2 id="Java线程模型"><a href="#Java线程模型" class="headerlink" title="Java线程模型"></a>Java线程模型</h2><p>​        Java线程模型是<strong>内核级线程(KLT)</strong>，依赖于内核，通过JVM调用系统库创建内核线程，<strong>内核线程和Java-Thread是1：1的映射关系</strong></p>
 <p><img src="https://s1.ax1x.com/2020/08/19/d3nO9P.png" alt="image"></p>
 <h1 id="线程池"><a href="#线程池" class="headerlink" title="线程池"></a>线程池</h1><h2 id="线程池的意义"><a href="#线程池的意义" class="headerlink" title="线程池的意义"></a>线程池的意义</h2><p>​        线程是稀缺资源，他的创建和销毁是一个相对偏重且耗资源的操作。而且Java的线程模型的KLT，依赖于内核线程。线程的创建和切换需要进行<strong>用户态/内核态的切换</strong>。为了避免资源的过度消耗，需要去重用线程执行多个任务，线程池就是这样一种池化技术，负责对线程进行统一创建、调度和监控。</p>
@@ -447,6 +475,35 @@
 	<div>
       
         
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+  
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <p><span>本文标题:</span><a href="/2020/08/19/backEnd/java/Java%E7%BA%BF%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B%E6%B1%A0/">Java线程与线程池</a></p>
+  <p><span>文章作者:</span><a href="/" title="访问 liuyoubin 的个人博客">liuyoubin</a></p>
+  <p><span>发布时间:</span>2020年08月19日 - 16:46</p>
+  <p><span>最后更新:</span>2020年08月20日 - 16:34</p>
+  <p><span>原始链接:</span><a href="/2020/08/19/backEnd/java/Java%E7%BA%BF%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B%E6%B1%A0/" title="Java线程与线程池">http://liuyoubin.top/2020/08/19/backEnd/java/Java%E7%BA%BF%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B%E6%B1%A0/</a>
+    <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://liuyoubin.top/2020/08/19/backEnd/java/Java%E7%BA%BF%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B%E6%B1%A0/"  aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
+</div>
+<script> 
+    var clipboard = new Clipboard('.fa-clipboard');
+    $(".fa-clipboard").click(function(){
+      clipboard.on('success', function(){
+        swal({   
+          title: "",   
+          text: '复制成功',
+          icon: "success", 
+          showConfirmButton: true
+          });
+    });
+    });  
+</script>
+
       
 	</div>
 	  
@@ -462,6 +519,10 @@
 	  
 
       <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Java/" rel="tag"><i class="fa fa-tag"></i> Java</a>
+              <a href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" rel="tag"><i class="fa fa-tag"></i> 多线程</a>
+          </div>
 
         
 
