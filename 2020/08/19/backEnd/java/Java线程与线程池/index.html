@@ -48,27 +48,39 @@
   };
 </script>
 
-  <meta property="og:type" content="website">
-<meta property="og:title" content="何处似樽前">
-<meta property="og:url" content="http://liuyoubin.top/index.html">
+  <meta name="description" content="title: Java线程与线程池date: 2020-08-19 16:46:27tags: [Java,多线程]categories: [笔记,后端,Java]copyright: true 线程模型​        如今主流的线程模型主要分成 用户级线程(ULT)和内核级线程(KLT)  用户级线程(ULT)：由用户程序实现，不依赖操作系统核心，应用提供创建、同步、调度和管理线程的函数来控制">
+<meta property="og:type" content="article">
+<meta property="og:title" content="backEnd&#x2F;java&#x2F;Java线程与线程池">
+<meta property="og:url" content="http://liuyoubin.top/2020/08/19/backEnd/java/Java%E7%BA%BF%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B%E6%B1%A0/index.html">
 <meta property="og:site_name" content="何处似樽前">
+<meta property="og:description" content="title: Java线程与线程池date: 2020-08-19 16:46:27tags: [Java,多线程]categories: [笔记,后端,Java]copyright: true 线程模型​        如今主流的线程模型主要分成 用户级线程(ULT)和内核级线程(KLT)  用户级线程(ULT)：由用户程序实现，不依赖操作系统核心，应用提供创建、同步、调度和管理线程的函数来控制">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s1.ax1x.com/2020/08/19/d3uKE9.png">
+<meta property="og:image" content="https://s1.ax1x.com/2020/08/19/d3nO9P.png">
+<meta property="og:image" content="https://s2.ax1x.com/2020/02/13/1O1vC9.png">
+<meta property="og:image" content="https://s2.ax1x.com/2020/02/25/3tFG6O.png">
+<meta property="og:image" content="https://s1.ax1x.com/2020/08/20/dGC3jA.png">
+<meta property="og:image" content="https://s1.ax1x.com/2020/08/20/dGiW6J.png">
+<meta property="og:image" content="https://s1.ax1x.com/2020/08/20/dGAHhV.png">
+<meta property="article:published_time" content="2020-08-19T08:46:27.281Z">
+<meta property="article:modified_time" content="2020-08-20T08:19:15.576Z">
 <meta property="article:author" content="liuyoubin">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s1.ax1x.com/2020/08/19/d3uKE9.png">
 
-<link rel="canonical" href="http://liuyoubin.top/">
+<link rel="canonical" href="http://liuyoubin.top/2020/08/19/backEnd/java/Java%E7%BA%BF%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B%E6%B1%A0/">
 
 
 <script id="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
-    isHome: true,
-    isPost: false
+    isHome: false,
+    isPost: true
   };
 </script>
 
-  <title>何处似樽前</title>
+  <title>backEnd/java/Java线程与线程池 | 何处似樽前</title>
   
 
 
@@ -223,10 +235,10 @@
             
 
   <div class="posts-expand">
-        
+      
   
   
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://liuyoubin.top/2020/08/19/backEnd/java/Java%E7%BA%BF%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B%E6%B1%A0/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -240,8 +252,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/08/19/backEnd/java/Java%E7%BA%BF%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B%E6%B1%A0/" class="post-title-link" itemprop="url">backEnd/java/Java线程与线程池</a>
+          backEnd/java/Java线程与线程池
         </h1>
 
         <div class="post-meta">
@@ -270,6 +281,13 @@
 			<span class="post-meta-divider">|</span>
 
           
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
 
         </div>
       </header>
@@ -280,7 +298,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>title: Java线程与线程池<br>date: 2020-08-19 16:46:27<br>tags: [Java,多线程]<br>categories: [笔记,后端,Java]<br>copyright: true</p>
+        <p>title: Java线程与线程池<br>date: 2020-08-19 16:46:27<br>tags: [Java,多线程]<br>categories: [笔记,后端,Java]<br>copyright: true</p>
 <h1 id="线程模型"><a href="#线程模型" class="headerlink" title="线程模型"></a>线程模型</h1><p>​        如今主流的线程模型主要分成 <strong>用户级线程(ULT)</strong>和<strong>内核级线程(KLT)</strong></p>
 <ul>
 <li><strong>用户级线程(ULT)</strong>：由用户程序实现，不依赖操作系统核心，应用提供创建、同步、调度和管理线程的函数来控制用户线程。<strong>不需要用户态/内核态的切换，速度快</strong>。内核对ULT无感知，线程阻塞则进程(包括他所有线程)阻塞。</li>
@@ -420,7 +438,6 @@
 <p>ctl高三位记录线程池状态，低29为记录线程数量。这样的好处是保证在线程池运行过程中的一致性、原子性。</p>
 <p><img src="https://s1.ax1x.com/2020/08/20/dGAHhV.png" alt="image"></p>
 
-      
     </div>
 
     
@@ -429,427 +446,42 @@
 	
 	<div>
       
+        
+      
 	</div>
+	  
+	  <div>
+		
+			<div>
+    
+        <div style="text-align:center;color: #bbb;font-size:22px;">-------------本文结束<i class="fa fa-star"></i>感谢您的阅读-------------</div>
+    
+</div>
+		
+	  </div>
+	  
+
       <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
 
         
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://liuyoubin.top/2020/08/18/tools/Git%E5%91%BD%E4%BB%A4%E5%A4%A7%E5%85%A8/">
 
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/xfc.jpg">
-      <meta itemprop="name" content="liuyoubin">
-      <meta itemprop="description" content="">
-    </span>
 
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="何处似樽前">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/08/18/tools/Git%E5%91%BD%E4%BB%A4%E5%A4%A7%E5%85%A8/" class="post-title-link" itemprop="url">Git命令大全</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2020-08-18 00:25:30 / 修改时间：00:29:15" itemprop="dateCreated datePublished" datetime="2020-08-18T00:25:30+08:00">2020-08-18</time>
-            </span>
-			
-			<span class="post-meta-divider">|</span>
-			<span title="post.wordcount"><span class="post-meta-item-icon"><i class="fa fa-file-word-o"></i></span>字数： 1.1k</span>
-			
-			<span class="post-meta-divider">|</span>
-			<span title="post.min2read"><span class="post-meta-item-icon"><i class="fa fa-clock-o"></i></span>阅读时长≈ 4min</span>
-			
-			<span class="post-meta-divider">|</span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index">
-                    <span itemprop="name">笔记</span>
-                  </a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AC%94%E8%AE%B0/%E5%B7%A5%E5%85%B7/" itemprop="url" rel="index">
-                    <span itemprop="name">工具</span>
-                  </a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <div class="note info">
-            <p>Git命令大全-方便开发时查阅 </p>
-          </div>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/08/18/tools/Git%E5%91%BD%E4%BB%A4%E5%A4%A7%E5%85%A8/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
         
-      
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/08/18/tools/Git%E5%91%BD%E4%BB%A4%E5%A4%A7%E5%85%A8/" rel="prev" title="Git命令大全">
+      <i class="fa fa-chevron-left"></i> Git命令大全
+    </a></div>
+      <div class="post-nav-item"></div>
     </div>
-
-    
-    
-    
-	
-	<div>
-      
-	</div>
-      <footer class="post-footer">
-        <div class="post-eof"></div>
       </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://liuyoubin.top/2020/06/30/backEnd/java/ThreadLocal%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/xfc.jpg">
-      <meta itemprop="name" content="liuyoubin">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="何处似樽前">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/06/30/backEnd/java/ThreadLocal%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/" class="post-title-link" itemprop="url">ThreadLocal源码分析</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2020-06-30 18:49:54 / 修改时间：22:57:47" itemprop="dateCreated datePublished" datetime="2020-06-30T18:49:54+08:00">2020-06-30</time>
-            </span>
-			
-			<span class="post-meta-divider">|</span>
-			<span title="post.wordcount"><span class="post-meta-item-icon"><i class="fa fa-file-word-o"></i></span>字数： 726</span>
-			
-			<span class="post-meta-divider">|</span>
-			<span title="post.min2read"><span class="post-meta-item-icon"><i class="fa fa-clock-o"></i></span>阅读时长≈ 3min</span>
-			
-			<span class="post-meta-divider">|</span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index">
-                    <span itemprop="name">笔记</span>
-                  </a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AC%94%E8%AE%B0/%E5%90%8E%E7%AB%AF/" itemprop="url" rel="index">
-                    <span itemprop="name">后端</span>
-                  </a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AC%94%E8%AE%B0/%E5%90%8E%E7%AB%AF/Java/" itemprop="url" rel="index">
-                    <span itemprop="name">Java</span>
-                  </a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
     
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="ThreadLocal"><a href="#ThreadLocal" class="headerlink" title="ThreadLocal"></a>ThreadLocal</h1><p>​        ThreadLocal是Java解决中解决线程安全的一种方式，ThreadLocal为每个线程提供了一个本地变量副本，这个副本是线程隔离的。</p>
-<p>​        每个线程都维护着一个ThreadLocalMap实例对象。我们知道Map结构就是Key-value结构，在这里ThreadLocal就是Key，而Value就是我们要进行维护的本地数据。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/06/30/backEnd/java/ThreadLocal%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-	
-	<div>
-      
-	</div>
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://liuyoubin.top/2020/04/30/backEnd/java/ReentranLock%E4%B8%8EAQS/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/xfc.jpg">
-      <meta itemprop="name" content="liuyoubin">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="何处似樽前">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/04/30/backEnd/java/ReentranLock%E4%B8%8EAQS/" class="post-title-link" itemprop="url">ReentranLock与AQS</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-04-30 18:49:54" itemprop="dateCreated datePublished" datetime="2020-04-30T18:49:54+08:00">2020-04-30</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-05-02 17:38:04" itemprop="dateModified" datetime="2020-05-02T17:38:04+08:00">2020-05-02</time>
-              </span>
-			
-			<span class="post-meta-divider">|</span>
-			<span title="post.wordcount"><span class="post-meta-item-icon"><i class="fa fa-file-word-o"></i></span>字数： 1.7k</span>
-			
-			<span class="post-meta-divider">|</span>
-			<span title="post.min2read"><span class="post-meta-item-icon"><i class="fa fa-clock-o"></i></span>阅读时长≈ 7min</span>
-			
-			<span class="post-meta-divider">|</span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index">
-                    <span itemprop="name">笔记</span>
-                  </a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AC%94%E8%AE%B0/%E5%90%8E%E7%AB%AF/" itemprop="url" rel="index">
-                    <span itemprop="name">后端</span>
-                  </a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AC%94%E8%AE%B0/%E5%90%8E%E7%AB%AF/Java/" itemprop="url" rel="index">
-                    <span itemprop="name">Java</span>
-                  </a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="AQS"><a href="#AQS" class="headerlink" title="AQS"></a>AQS</h1><p>​        抽象队列式同步器<code>AbstractQueuedSynchronizer</code>下面简称AQS，是java并发包的下面很多类的实现基础，比如常见的ReentranLock、CyclicBarrier、Semaphore都是基于AQS实现了。</p>
-<p>​        AQS的实现原理就是<strong>通过一个共享变量state来实现对线程入队阻塞和出队唤醒操作</strong>。</p>
-<p>​        这次具体通过对ReentranLock的源码分析来学习AQS</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/04/30/backEnd/java/ReentranLock%E4%B8%8EAQS/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-	
-	<div>
-      
-	</div>
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://liuyoubin.top/2020/04/26/backEnd/%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/xfc.jpg">
-      <meta itemprop="name" content="liuyoubin">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="何处似樽前">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/04/26/backEnd/%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F/" class="post-title-link" itemprop="url">秒杀系统</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2020-04-26 18:50:36 / 修改时间：23:46:35" itemprop="dateCreated datePublished" datetime="2020-04-26T18:50:36+08:00">2020-04-26</time>
-            </span>
-			
-			<span class="post-meta-divider">|</span>
-			<span title="post.wordcount"><span class="post-meta-item-icon"><i class="fa fa-file-word-o"></i></span>字数： 1.7k</span>
-			
-			<span class="post-meta-divider">|</span>
-			<span title="post.min2read"><span class="post-meta-item-icon"><i class="fa fa-clock-o"></i></span>阅读时长≈ 7min</span>
-			
-			<span class="post-meta-divider">|</span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index">
-                    <span itemprop="name">笔记</span>
-                  </a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AC%94%E8%AE%B0/%E5%90%8E%E7%AB%AF/" itemprop="url" rel="index">
-                    <span itemprop="name">后端</span>
-                  </a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <div class="note info">
-            <p>秒杀系统的逐步构建  </p>
-          </div>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/04/26/backEnd/%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-	
-	<div>
-      
-	</div>
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
   </article>
   
   
   
 
   </div>
-
-  
-  <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
-  </nav>
-
 
 
           </div>
@@ -900,6 +532,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#线程模型"><span class="nav-number">1.</span> <span class="nav-text">线程模型</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Java线程模型"><span class="nav-number">1.1.</span> <span class="nav-text">Java线程模型</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#线程池"><span class="nav-number">2.</span> <span class="nav-text">线程池</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#线程池的意义"><span class="nav-number">2.1.</span> <span class="nav-text">线程池的意义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Java线程池"><span class="nav-number">2.2.</span> <span class="nav-text">Java线程池</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#三大方法"><span class="nav-number">2.2.1.</span> <span class="nav-text">三大方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#七大参数"><span class="nav-number">2.2.2.</span> <span class="nav-text">七大参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#四大拒绝策略"><span class="nav-number">2.2.3.</span> <span class="nav-text">四大拒绝策略</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#小结"><span class="nav-number">2.2.4.</span> <span class="nav-text">小结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Java线程池状态"><span class="nav-number">2.3.</span> <span class="nav-text">Java线程池状态</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
