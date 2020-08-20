@@ -258,7 +258,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-08-20 16:34:53" itemprop="dateModified" datetime="2020-08-20T16:34:53+08:00">2020-08-20</time>
+                <time title="修改时间：2020-08-20 16:39:26" itemprop="dateModified" datetime="2020-08-20T16:39:26+08:00">2020-08-20</time>
               </span>
 			
 			<span class="post-meta-divider">|</span>
@@ -303,149 +303,20 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <a id="more"></a>
-
-<h1 id="线程模型"><a href="#线程模型" class="headerlink" title="线程模型"></a>线程模型</h1><p>​        如今主流的线程模型主要分成 <strong>用户级线程(ULT)</strong>和<strong>内核级线程(KLT)</strong></p>
+          <h1 id="线程模型"><a href="#线程模型" class="headerlink" title="线程模型"></a>线程模型</h1><p>​        如今主流的线程模型主要分成 <strong>用户级线程(ULT)</strong>和<strong>内核级线程(KLT)</strong></p>
 <ul>
 <li><strong>用户级线程(ULT)</strong>：由用户程序实现，不依赖操作系统核心，应用提供创建、同步、调度和管理线程的函数来控制用户线程。<strong>不需要用户态/内核态的切换，速度快</strong>。内核对ULT无感知，线程阻塞则进程(包括他所有线程)阻塞。</li>
 <li><strong>内核级线程(KLT)</strong>：系统内核管理线程，内核保存线程状态和上下文信息，线程阻塞不会引起进行阻塞。在多处理器上，多线程在多处理器上并发运行。线程的创建、调度和管理由内核完成，效率比ULT要慢，比进程快。</li>
 </ul>
 <p><img src="https://s1.ax1x.com/2020/08/19/d3uKE9.png" alt="image"></p>
-<!-- more -->
-
-<h2 id="Java线程模型"><a href="#Java线程模型" class="headerlink" title="Java线程模型"></a>Java线程模型</h2><p>​        Java线程模型是<strong>内核级线程(KLT)</strong>，依赖于内核，通过JVM调用系统库创建内核线程，<strong>内核线程和Java-Thread是1：1的映射关系</strong></p>
-<p><img src="https://s1.ax1x.com/2020/08/19/d3nO9P.png" alt="image"></p>
-<h1 id="线程池"><a href="#线程池" class="headerlink" title="线程池"></a>线程池</h1><h2 id="线程池的意义"><a href="#线程池的意义" class="headerlink" title="线程池的意义"></a>线程池的意义</h2><p>​        线程是稀缺资源，他的创建和销毁是一个相对偏重且耗资源的操作。而且Java的线程模型的KLT，依赖于内核线程。线程的创建和切换需要进行<strong>用户态/内核态的切换</strong>。为了避免资源的过度消耗，需要去重用线程执行多个任务，线程池就是这样一种池化技术，负责对线程进行统一创建、调度和监控。</p>
-<ul>
-<li>线程池的优势<ul>
-<li>重用线程，减少线程的创建，销毁的开销，提供性能</li>
-<li>提供响应速度，当任务到达时可以不去等待线程的创建，立即执行任务</li>
-<li>提高线程的可管理性，可统一分配、调度监控</li>
-</ul>
-</li>
-</ul>
-<h2 id="Java线程池"><a href="#Java线程池" class="headerlink" title="Java线程池"></a>Java线程池</h2><p>Java为我们提供了一套线程池接口以及实现</p>
-<p><img src="https://s2.ax1x.com/2020/02/13/1O1vC9.png" alt="image"></p>
-<h3 id="三大方法"><a href="#三大方法" class="headerlink" title="三大方法"></a>三大方法</h3><p>线程池工具类Executors还提供了几个定制线程池的创建方法</p>
-<ul>
-<li><p>*<em>ExecutorService   Executors.newFixedThreadPool() *</em> 创建固定大小的线程池</p>
-</li>
-<li><p>*<em>ExecutorService   Executors.newCachedThreadPool() *</em> 创建缓存线程池，大小根据需求自动更改</p>
-</li>
-<li><p>*<em>ExecutorService   Executors.newSingleThreadExecutor() *</em>创建单个线程池，只有一个线程</p>
-</li>
-</ul>
-<h3 id="七大参数"><a href="#七大参数" class="headerlink" title="七大参数"></a>七大参数</h3><p>线程池的创建主要是ThreadPoolExecutor这个构造方法，通过七个参数来设置线程池</p>
-<ul>
-<li><p>corePoolSize 核心线程数</p>
-<p>核心线程一旦创建，在线程池运行过程中就不会销毁（注意线程池一开始是没有任何线程的，只有任务到来才开始创建核心线程）</p>
-</li>
-<li><p>maximumPoolSize 最大线程数</p>
-<p>最大线程数= 核心线程数+临时线程数</p>
-<p>临时线程的创建时机是：当任务到来时，核心线程数已经达到最大数量，且所有核心线程已经有任务在执行才会创建</p>
-</li>
-<li><p>keepAliveTime 超时时间</p>
-<p>当临时线程的空闲时间超过这个设置的超时时间，临时线程就会被回收</p>
-</li>
-<li><p>unit 超时时间的时间单位</p>
-</li>
-<li><p>workQueue 任务阻塞队列</p>
-<p>任务的临时等待队列，等待线程来接收任务</p>
-</li>
-<li><p>threadFactory 线程工厂</p>
-</li>
-<li><p>handler 拒绝策略</p>
-<p>用于设置当任务阻塞队列满了之后，新任务到来时线程池采用的应对策略</p>
-</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"> <span class="function"><span class="keyword">public</span> <span class="title">ThreadPoolExecutor</span><span class="params">(<span class="keyword">int</span> corePoolSize,</span></span></span><br><span class="line"><span class="function"><span class="params">                              <span class="keyword">int</span> maximumPoolSize,</span></span></span><br><span class="line"><span class="function"><span class="params">                              <span class="keyword">long</span> keepAliveTime,</span></span></span><br><span class="line"><span class="function"><span class="params">                              TimeUnit unit,</span></span></span><br><span class="line"><span class="function"><span class="params">                              BlockingQueue&lt;Runnable&gt; workQueue)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>(corePoolSize, maximumPoolSize, keepAliveTime, unit, workQueue,</span><br><span class="line">             Executors.defaultThreadFactory(), defaultHandler);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">ThreadPoolExecutor</span><span class="params">(<span class="keyword">int</span> corePoolSize, //核心线程池大小</span></span></span><br><span class="line"><span class="function"><span class="params">                              <span class="keyword">int</span> maximumPoolSize,//最大线程池大小</span></span></span><br><span class="line"><span class="function"><span class="params">                              <span class="keyword">long</span> keepAliveTime,//超时时间，时间过了没人使用就会释放</span></span></span><br><span class="line"><span class="function"><span class="params">                              TimeUnit unit,//超时单位</span></span></span><br><span class="line"><span class="function"><span class="params">                              BlockingQueue&lt;Runnable&gt; workQueue,//阻塞队列</span></span></span><br><span class="line"><span class="function"><span class="params">                              ThreadFactory threadFactory,//线程工厂，一般不用改动</span></span></span><br><span class="line"><span class="function"><span class="params">                              RejectedExecutionHandler handler//拒绝策略)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (corePoolSize &lt; <span class="number">0</span> ||</span><br><span class="line">            maximumPoolSize &lt;= <span class="number">0</span> ||</span><br><span class="line">            maximumPoolSize &lt; corePoolSize ||</span><br><span class="line">            keepAliveTime &lt; <span class="number">0</span>)</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException();</span><br><span class="line">        <span class="keyword">if</span> (workQueue == <span class="keyword">null</span> || threadFactory == <span class="keyword">null</span> || handler == <span class="keyword">null</span>)</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> NullPointerException();</span><br><span class="line">        <span class="keyword">this</span>.acc = System.getSecurityManager() == <span class="keyword">null</span> ?</span><br><span class="line">                <span class="keyword">null</span> :</span><br><span class="line">                AccessController.getContext();</span><br><span class="line">        <span class="keyword">this</span>.corePoolSize = corePoolSize;</span><br><span class="line">        <span class="keyword">this</span>.maximumPoolSize = maximumPoolSize;</span><br><span class="line">        <span class="keyword">this</span>.workQueue = workQueue;</span><br><span class="line">        <span class="keyword">this</span>.keepAliveTime = unit.toNanos(keepAliveTime);</span><br><span class="line">        <span class="keyword">this</span>.threadFactory = threadFactory;</span><br><span class="line">        <span class="keyword">this</span>.handler = handler;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-
-<p>看完这七大参数再看一下上面三大线程池构造方式实际上调用的方法</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"> <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> ExecutorService <span class="title">newFixedThreadPool</span><span class="params">(<span class="keyword">int</span> nThreads)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> ThreadPoolExecutor(nThreads, nThreads,</span><br><span class="line">                                      <span class="number">0L</span>, TimeUnit.MILLISECONDS,</span><br><span class="line">                                      <span class="keyword">new</span> LinkedBlockingQueue&lt;Runnable&gt;());</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> ExecutorService <span class="title">newCachedThreadPool</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> ThreadPoolExecutor(<span class="number">0</span>, Integer.MAX_VALUE,</span><br><span class="line">                                      <span class="number">60L</span>, TimeUnit.SECONDS,</span><br><span class="line">                                      <span class="keyword">new</span> SynchronousQueue&lt;Runnable&gt;());</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> ExecutorService <span class="title">newSingleThreadExecutor</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> FinalizableDelegatedExecutorService</span><br><span class="line">            (<span class="keyword">new</span> ThreadPoolExecutor(<span class="number">1</span>, <span class="number">1</span>,</span><br><span class="line">                                    <span class="number">0L</span>, TimeUnit.MILLISECONDS,</span><br><span class="line">                                    <span class="keyword">new</span> LinkedBlockingQueue&lt;Runnable&gt;()));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>可以看出本质上都是实例化了ThreadPoolExecutor，只是方法参数不同</p>
-<p>而阿里巴巴开发手册有一点要求就是：</p>
-<blockquote>
-<p>【强制】线程池不允许使用 Executors 去创建，而是通过 ThreadPoolExecutor 的方式，这样 的处理方式让写的同学更加明确线程池的运行规则，规避资源耗尽的风险。 </p>
-<p>说明：Executors 返回的线程池对象的弊端如下： </p>
-<p>1）FixedThreadPool 和 SingleThreadPool: 允许的请求队列长度为 Integer.MAX_VALUE，可能会堆积大量的请求，从而导致 OOM。 </p>
-<p>2）CachedThreadPool 和 ScheduledThreadPool: 允许的创建线程数量为 Integer.MAX_VALUE，可能会创建大量的线程，从而导致 OOM。</p>
-</blockquote>
-<h3 id="四大拒绝策略"><a href="#四大拒绝策略" class="headerlink" title="四大拒绝策略"></a>四大拒绝策略</h3><p><img src="https://s2.ax1x.com/2020/02/25/3tFG6O.png" alt="image"></p>
-<ol>
-<li><p>什么时候会触发拒绝策略呢？</p>
-<p>​    当线程池达到最大承载，还有任务提交到线程池的时候。最大承载: <strong>阻塞队列大小+最大线程数</strong>    </p>
-<p>​    就像下面这段代码，自定义了一个线程池。此线程池的最大承载=<strong>阻塞队列大小+最大线程数</strong>=3+5=8，现在我提交了9个任务，线程池就会触发拒绝策略AbortPolicy，抛出异常。</p>
-</li>
-</ol>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line"></span><br><span class="line">    ThreadPoolExecutor threadPool = <span class="keyword">new</span> ThreadPoolExecutor(</span><br><span class="line">            <span class="number">2</span>,<span class="comment">//核心线程池大小</span></span><br><span class="line">            <span class="number">5</span>,<span class="comment">//最大线程池大小</span></span><br><span class="line">            <span class="number">3</span>,<span class="comment">//超时时间，时间过了没人使用就会释放</span></span><br><span class="line">            TimeUnit.SECONDS,<span class="comment">//超时单位</span></span><br><span class="line">            <span class="keyword">new</span> LinkedBlockingQueue&lt;&gt;(<span class="number">3</span>),<span class="comment">//阻塞队列</span></span><br><span class="line">            Executors.defaultThreadFactory(),<span class="comment">//线程工厂</span></span><br><span class="line">            <span class="keyword">new</span> ThreadPoolExecutor.AbortPolicy());<span class="comment">//阻塞队列满了，还有任务添加就抛异常</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=<span class="number">9</span>;i++)&#123;</span><br><span class="line">        threadPool.execute(()-&gt;&#123;</span><br><span class="line">            System.out.println(Thread.currentThread().getName()+<span class="string">" ok"</span>);</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">    threadPool.shutdown();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ol start="2">
-<li>四大拒绝策略的定义</li>
-</ol>
-<table>
-<thead>
-<tr>
-<th align="center">拒绝策略</th>
-<th align="center">执行行为</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">AbortPolicy</td>
-<td align="center">抛出异常</td>
-</tr>
-<tr>
-<td align="center">CallerRunsPolicy</td>
-<td align="center">线程池拒绝处理，由提交的线程自行处理</td>
-</tr>
-<tr>
-<td align="center">DiscardPolicy</td>
-<td align="center">丢掉任务，不会抛出异常</td>
-</tr>
-<tr>
-<td align="center">DiscardOldestPolicy</td>
-<td align="center">尝试和最早的任务竞争线程，失败则丢掉任务，不会抛出异常</td>
-</tr>
-</tbody></table>
-<h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><p><img src="https://s1.ax1x.com/2020/08/20/dGC3jA.png" alt="iamge"></p>
-<h2 id="Java线程池状态"><a href="#Java线程池状态" class="headerlink" title="Java线程池状态"></a>Java线程池状态</h2><p><strong>Java线程池有以下五种状态</strong></p>
-<table>
-<thead>
-<tr>
-<th align="center">线程池状态</th>
-<th align="center">线程池行为</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">Running</td>
-<td align="center">能接收新任务，处理已添加任务</td>
-</tr>
-<tr>
-<td align="center">Shutdown</td>
-<td align="center">不能接收新任务，但可以处理已添加任务</td>
-</tr>
-<tr>
-<td align="center">Stop</td>
-<td align="center">不能接收新任务，不处理已添加任务，并且中断正在执行的任务</td>
-</tr>
-<tr>
-<td align="center">Tidying</td>
-<td align="center">所有任务已经中止，ctl记录的线程数量为0</td>
-</tr>
-<tr>
-<td align="center">Terminated</td>
-<td align="center">线程池彻底终止</td>
-</tr>
-</tbody></table>
-<p><img src="https://s1.ax1x.com/2020/08/20/dGiW6J.png" alt="image"></p>
-<p>Java线程池通过一个整型变量<strong>ctl</strong>来记录<strong>线程池状态+线程数量</strong></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">final</span> AtomicInteger ctl = <span class="keyword">new</span> AtomicInteger(ctlOf(RUNNING, <span class="number">0</span>));</span><br><span class="line">   <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> COUNT_BITS = Integer.SIZE - <span class="number">3</span>;</span><br><span class="line">   <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> CAPACITY   = (<span class="number">1</span> &lt;&lt; COUNT_BITS) - <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">   <span class="comment">// runState is stored in the high-order bits</span></span><br><span class="line">   <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> RUNNING    = -<span class="number">1</span> &lt;&lt; COUNT_BITS;</span><br><span class="line">   <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> SHUTDOWN   =  <span class="number">0</span> &lt;&lt; COUNT_BITS;</span><br><span class="line">   <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> STOP       =  <span class="number">1</span> &lt;&lt; COUNT_BITS;</span><br><span class="line">   <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> TIDYING    =  <span class="number">2</span> &lt;&lt; COUNT_BITS;</span><br><span class="line">   <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> TERMINATED =  <span class="number">3</span> &lt;&lt; COUNT_BITS;</span><br><span class="line"></span><br><span class="line">   <span class="comment">// Packing and unpacking ctl</span></span><br><span class="line">   <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">runStateOf</span><span class="params">(<span class="keyword">int</span> c)</span>     </span>&#123; <span class="keyword">return</span> c &amp; ~CAPACITY; &#125;</span><br><span class="line">   <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">workerCountOf</span><span class="params">(<span class="keyword">int</span> c)</span>  </span>&#123; <span class="keyword">return</span> c &amp; CAPACITY; &#125;</span><br><span class="line">   <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">ctlOf</span><span class="params">(<span class="keyword">int</span> rs, <span class="keyword">int</span> wc)</span> </span>&#123; <span class="keyword">return</span> rs | wc; &#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<p>ctl高三位记录线程池状态，低29为记录线程数量。这样的好处是保证在线程池运行过程中的一致性、原子性。</p>
-<p><img src="https://s1.ax1x.com/2020/08/20/dGAHhV.png" alt="image"></p>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/08/19/backEnd/java/Java%E7%BA%BF%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B%E6%B1%A0/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
