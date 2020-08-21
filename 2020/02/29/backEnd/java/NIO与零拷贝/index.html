@@ -50,8 +50,8 @@
 
   <meta name="description" content="IO模型 理解  ​        IO模型就是用什么样的通道进行数据的发送和接收，很大程度上决定了程序的通信性能。  Java支持三种IO模型：BIO、NIO、AIO  BIO - 同步并阻塞，服务器实现模式为一个线程一个连接，即客户端有连接请求时服务端就必须启动一个线程进行处理，如果连接不做任何事就会造成不必要的线程开销 NIO - 同步非阻塞，服务器实现一个线程处理多个请求，即客户端发送的连">
 <meta property="og:type" content="article">
-<meta property="og:title" content="NIO与Netty">
-<meta property="og:url" content="http://liuyoubin.top/2020/02/29/backEnd/framework/NIO%E4%B8%8ENetty/index.html">
+<meta property="og:title" content="NIO与零拷贝">
+<meta property="og:url" content="http://liuyoubin.top/2020/02/29/backEnd/java/NIO%E4%B8%8E%E9%9B%B6%E6%8B%B7%E8%B4%9D/index.html">
 <meta property="og:site_name" content="何处似樽前">
 <meta property="og:description" content="IO模型 理解  ​        IO模型就是用什么样的通道进行数据的发送和接收，很大程度上决定了程序的通信性能。  Java支持三种IO模型：BIO、NIO、AIO  BIO - 同步并阻塞，服务器实现模式为一个线程一个连接，即客户端有连接请求时服务端就必须启动一个线程进行处理，如果连接不做任何事就会造成不必要的线程开销 NIO - 同步非阻塞，服务器实现一个线程处理多个请求，即客户端发送的连">
 <meta property="og:locale" content="zh_CN">
@@ -64,14 +64,14 @@
 <meta property="og:image" content="https://s2.ax1x.com/2020/03/01/32SjhV.png">
 <meta property="og:image" content="https://s2.ax1x.com/2020/03/01/32D3dK.png">
 <meta property="article:published_time" content="2020-02-29T11:52:59.000Z">
-<meta property="article:modified_time" content="2020-03-20T14:38:08.840Z">
+<meta property="article:modified_time" content="2020-08-21T09:25:30.955Z">
 <meta property="article:author" content="liuyoubin">
 <meta property="article:tag" content="Java">
-<meta property="article:tag" content="Netty">
+<meta property="article:tag" content="NIO">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://s2.ax1x.com/2020/02/29/3yjrOx.png">
 
-<link rel="canonical" href="http://liuyoubin.top/2020/02/29/backEnd/framework/NIO%E4%B8%8ENetty/">
+<link rel="canonical" href="http://liuyoubin.top/2020/02/29/backEnd/java/NIO%E4%B8%8E%E9%9B%B6%E6%8B%B7%E8%B4%9D/">
 
 
 <script id="page-configurations">
@@ -83,7 +83,7 @@
   };
 </script>
 
-  <title>NIO与Netty | 何处似樽前</title>
+  <title>NIO与零拷贝 | 何处似樽前</title>
   
 
 
@@ -242,7 +242,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://liuyoubin.top/2020/02/29/backEnd/framework/NIO%E4%B8%8ENetty/">
+    <link itemprop="mainEntityOfPage" href="http://liuyoubin.top/2020/02/29/backEnd/java/NIO%E4%B8%8E%E9%9B%B6%E6%8B%B7%E8%B4%9D/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/xfc.jpg">
@@ -255,7 +255,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          NIO与Netty
+          NIO与零拷贝
         </h1>
 
         <div class="post-meta">
@@ -272,7 +272,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-03-20 22:38:08" itemprop="dateModified" datetime="2020-03-20T22:38:08+08:00">2020-03-20</time>
+                <time title="修改时间：2020-08-21 17:25:30" itemprop="dateModified" datetime="2020-08-21T17:25:30+08:00">2020-08-21</time>
               </span>
 			
 			<span class="post-meta-divider">|</span>
@@ -300,8 +300,8 @@
                 </span>
                   ，
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AC%94%E8%AE%B0/%E5%90%8E%E7%AB%AF/%E6%A1%86%E6%9E%B6/" itemprop="url" rel="index">
-                    <span itemprop="name">框架</span>
+                  <a href="/categories/%E7%AC%94%E8%AE%B0/%E5%90%8E%E7%AB%AF/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
                   </a>
                 </span>
             </span>
@@ -479,9 +479,7 @@
 <p>​            零拷贝不仅减少了CPU拷贝也减少了上下文切换    </p>
 <p>​            在Java中的transferTo 和 transferFrom 方法底层就是用用到了零拷贝技术</p>
 </blockquote>
-<h1 id="Netty概述"><a href="#Netty概述" class="headerlink" title="Netty概述"></a>Netty概述</h1><p>​    <strong>Netty是一个异步的，基于事件的网络应用框架</strong></p>
-<p>​    <a href="https://netty.io/" target="_blank" rel="noopener">Netty官网</a></p>
-<h1 id="线程模型"><a href="#线程模型" class="headerlink" title="线程模型"></a>线程模型</h1><h2 id="单Reacto单线程"><a href="#单Reacto单线程" class="headerlink" title="单Reacto单线程"></a>单Reacto单线程</h2><p><img src="https://s2.ax1x.com/2020/03/01/32D3dK.png" alt="image"></p>
+<h1 id="Netty线程模型"><a href="#Netty线程模型" class="headerlink" title="Netty线程模型"></a>Netty线程模型</h1><h2 id="单Reacto单线程"><a href="#单Reacto单线程" class="headerlink" title="单Reacto单线程"></a>单Reacto单线程</h2><p><img src="https://s2.ax1x.com/2020/03/01/32D3dK.png" alt="image"></p>
 
     </div>
 
@@ -498,12 +496,12 @@
   <!-- JS库 sweetalert 可修改路径 -->
   <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-  <p><span>本文标题:</span><a href="/2020/02/29/backEnd/framework/NIO%E4%B8%8ENetty/">NIO与Netty</a></p>
+  <p><span>本文标题:</span><a href="/2020/02/29/backEnd/java/NIO%E4%B8%8E%E9%9B%B6%E6%8B%B7%E8%B4%9D/">NIO与零拷贝</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 liuyoubin 的个人博客">liuyoubin</a></p>
   <p><span>发布时间:</span>2020年02月29日 - 19:52</p>
-  <p><span>最后更新:</span>2020年03月20日 - 22:38</p>
-  <p><span>原始链接:</span><a href="/2020/02/29/backEnd/framework/NIO%E4%B8%8ENetty/" title="NIO与Netty">http://liuyoubin.top/2020/02/29/backEnd/framework/NIO%E4%B8%8ENetty/</a>
-    <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://liuyoubin.top/2020/02/29/backEnd/framework/NIO%E4%B8%8ENetty/"  aria-label="复制成功！"></i></span>
+  <p><span>最后更新:</span>2020年08月21日 - 17:25</p>
+  <p><span>原始链接:</span><a href="/2020/02/29/backEnd/java/NIO%E4%B8%8E%E9%9B%B6%E6%8B%B7%E8%B4%9D/" title="NIO与零拷贝">http://liuyoubin.top/2020/02/29/backEnd/java/NIO%E4%B8%8E%E9%9B%B6%E6%8B%B7%E8%B4%9D/</a>
+    <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://liuyoubin.top/2020/02/29/backEnd/java/NIO%E4%B8%8E%E9%9B%B6%E6%8B%B7%E8%B4%9D/"  aria-label="复制成功！"></i></span>
   </p>
   <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
 </div>
@@ -538,7 +536,7 @@
       <footer class="post-footer">
           <div class="post-tags">
               <a href="/tags/Java/" rel="tag"><i class="fa fa-tag"></i> Java</a>
-              <a href="/tags/Netty/" rel="tag"><i class="fa fa-tag"></i> Netty</a>
+              <a href="/tags/NIO/" rel="tag"><i class="fa fa-tag"></i> NIO</a>
           </div>
 
         
@@ -613,7 +611,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#IO模型"><span class="nav-number">1.</span> <span class="nav-text">IO模型</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#NIO"><span class="nav-number">2.</span> <span class="nav-text">NIO</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#NIO三大核心部分"><span class="nav-number">2.1.</span> <span class="nav-text">NIO三大核心部分</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Selector"><span class="nav-number">2.1.1.</span> <span class="nav-text">Selector</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Selector的使用"><span class="nav-number">2.1.1.1.</span> <span class="nav-text">Selector的使用</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Channel"><span class="nav-number">2.1.2.</span> <span class="nav-text">Channel</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Buffer"><span class="nav-number">2.1.3.</span> <span class="nav-text">Buffer</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NIO通信案例"><span class="nav-number">2.2.</span> <span class="nav-text">NIO通信案例</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#零拷贝"><span class="nav-number">3.</span> <span class="nav-text">零拷贝</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#传统IO"><span class="nav-number">3.1.</span> <span class="nav-text">传统IO</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MMAP优化"><span class="nav-number">3.2.</span> <span class="nav-text">MMAP优化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SendFile优化"><span class="nav-number">3.3.</span> <span class="nav-text">SendFile优化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SendFile进阶优化"><span class="nav-number">3.4.</span> <span class="nav-text">SendFile进阶优化</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Netty概述"><span class="nav-number">4.</span> <span class="nav-text">Netty概述</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#线程模型"><span class="nav-number">5.</span> <span class="nav-text">线程模型</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#单Reacto单线程"><span class="nav-number">5.1.</span> <span class="nav-text">单Reacto单线程</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#IO模型"><span class="nav-number">1.</span> <span class="nav-text">IO模型</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#NIO"><span class="nav-number">2.</span> <span class="nav-text">NIO</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#NIO三大核心部分"><span class="nav-number">2.1.</span> <span class="nav-text">NIO三大核心部分</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Selector"><span class="nav-number">2.1.1.</span> <span class="nav-text">Selector</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Selector的使用"><span class="nav-number">2.1.1.1.</span> <span class="nav-text">Selector的使用</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Channel"><span class="nav-number">2.1.2.</span> <span class="nav-text">Channel</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Buffer"><span class="nav-number">2.1.3.</span> <span class="nav-text">Buffer</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NIO通信案例"><span class="nav-number">2.2.</span> <span class="nav-text">NIO通信案例</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#零拷贝"><span class="nav-number">3.</span> <span class="nav-text">零拷贝</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#传统IO"><span class="nav-number">3.1.</span> <span class="nav-text">传统IO</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MMAP优化"><span class="nav-number">3.2.</span> <span class="nav-text">MMAP优化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SendFile优化"><span class="nav-number">3.3.</span> <span class="nav-text">SendFile优化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SendFile进阶优化"><span class="nav-number">3.4.</span> <span class="nav-text">SendFile进阶优化</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Netty线程模型"><span class="nav-number">4.</span> <span class="nav-text">Netty线程模型</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#单Reacto单线程"><span class="nav-number">4.1.</span> <span class="nav-text">单Reacto单线程</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
