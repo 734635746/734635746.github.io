@@ -2,7 +2,10 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>http://liuyoubin.top/2020/01/25/algorithm/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%E6%95%B4%E7%90%86/</loc>
-    <lastmod>2020-09-01</lastmod>
+    <lastmod>2021-09-05</lastmod>
+  </url>  <url>
+    <loc>http://liuyoubin.top/2020/04/08/backEnd/framework/SpringBoot%E8%87%AA%E5%8A%A8%E9%85%8D%E7%BD%AE%E5%8E%9F%E7%90%86/</loc>
+    <lastmod>2020-09-10</lastmod>
   </url>  <url>
     <loc>http://liuyoubin.top/2020/02/19/backEnd/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E6%95%B4%E7%90%86/</loc>
     <lastmod>2020-08-31</lastmod>
@@ -36,9 +39,6 @@
   </url>  <url>
     <loc>http://liuyoubin.top/2020/04/26/backEnd/%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F/</loc>
     <lastmod>2020-04-26</lastmod>
-  </url>  <url>
-    <loc>http://liuyoubin.top/2020/04/08/backEnd/framework/SpringBoot%E8%87%AA%E5%8A%A8%E9%85%8D%E7%BD%AE%E5%8E%9F%E7%90%86/</loc>
-    <lastmod>2020-04-08</lastmod>
   </url>  <url>
     <loc>http://liuyoubin.top/2020/01/24/backEnd/framework/MyBatis%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</loc>
     <lastmod>2020-04-07</lastmod>
